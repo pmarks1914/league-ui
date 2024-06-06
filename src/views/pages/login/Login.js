@@ -106,9 +106,9 @@ const Login = () => {
               // refresh: "",            
               // permission_list: ""
               // })
-              // setTimeout(() => {
-              //   window.location.href = "/dashboard";
-              // }, 1000)
+              setTimeout(() => {
+                window.location.href = "/dashboard";
+              }, 1000)
         }
         else if( userType === "School"){
           //
