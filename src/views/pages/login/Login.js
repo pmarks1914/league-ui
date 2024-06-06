@@ -45,7 +45,17 @@ const Login = () => {
 
   function CheckLogin(e) {
     e.preventDefault();
+
+    localStorage.setItem("userDataStore", JSON.stringify({
+      type: "userType",
+      status: "",
+      access: "aaassfgfryuio",
+      refresh: "",
+      timeLogout: new Date(new Date().getTime() + 600000),
+      counter: 600000
+    }));
     // window.location.href = "/dashboard";
+    
 
     // // console.log("fff", process.env.REACT_APP_BASE_API, passwordVar, usernameVar)
     // window.location.href = "/dashboard";
@@ -65,122 +75,26 @@ const Login = () => {
       setLoader('<div class="spinner-border "style="color: #e0922f;"></div>`')
       // console.log(" login ")
       // var qs = require('qs');
-      let qs = require('qs');
-      let data = qs.stringify({
-        "username": usernameVar,
-        "password": passwordVar,
-        'client_id': process.env.REACT_APP_client_id,
-        'client_secret': process.env.REACT_APP_client_secret,
-        'grant_type': 'password'
+      let data = JSON.stringify({
+        "email": usernameVar,
+        "password": passwordVar
 
       });
-      // let data = JSON.stringify({
-      //   "username": usernameVar,
-      //   "password": passwordVar,
-      //   'client_id': 'EjNqFG6LRmFACGCH9pLhfuF8n5FvIH9TMUPsdm8I',
-      //   'client_secret': '6YiYZ6YHy7D05Y2AmVUQCLo004PJuK1TYSNI2WFYnhHGwLeqLMlpU6R4yCQFW0v4Fr5UKaky2df3wOr5flWBKq8pc6HzMNkl5NDQcmbgv6jno0pDK0eeeMxzQvPWgKcY',
-      //   'grant_type': 'password' 
-
-      // });
 
       let config = {
         method: 'post',
-        url: process.env.REACT_APP_BASE_API + "/o/token/",
+        url: process.env.REACT_APP_BASE_API + "/login",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
         data: data
       };
-      axios(config).then(response1 => {
-        let config_user_data = {}
-        // console.log(response1.data, "auth ", response1.data.token_type + " " + response1.data.access_token);
+      axios(config).then(response => {
+        console.log(response.data, "auth ", response.data.token_type + " " + response.data.access_token);
         if(userType === "Student"){
-          // 
-          config_user_data = {
-            method: 'get',
-            url: process.env.REACT_APP_BASE_API + '/account/profile/info/',
-            headers: {
-              'Authorization': response1.data.token_type + " " + response1.data.access_token
-            },
-            data: ''
-          };
-        }
-        else if( userType === "School"){
-          // 
-          config_user_data = {
-            method: 'get',
-            url: process.env.REACT_APP_BASE_API + '/org/',
-            headers: {
-              'Authorization': response1.data.token_type + " " + response1.data.access_token
-            },
-            data: ''
-          };
-        }
-
-        axios(config_user_data)
-          .then(function (response) {
-            setLoader("<a></a>")
-            setLogin("Login")
-            // console.log((response.data));
-
-            if (response?.data?.status) {
-              console.log(userType, "user data >> ",response?.data, " data >> ", response1?.data)
               let counter = 600000; // 600000 = 10m
               let userData = {};
-
-              if(userType === "Student"){
-                userData = {
-                  type: userType,
-                  status: response?.data?.status,
-                  access: response1?.data?.access_token,
-                  refresh: response1?.data?.refresh_token,
-                  firstname: response?.data?.first_name,
-                  lastname: response?.data?.last_name,
-                  other_names: response?.data?.other_names,
-                  gender: response?.data?.gender,
-                  id: response?.data?.account_id,
-                  phone: response?.data?.phone?.replaceAll('+', ""),
-                  photo: response?.data?.photo,
-                  dob: response?.data?.dob,
-                  photo150: response?.data?.photo150x150,
-                  photo50: response?.data?.photo50x50,
-                  role: response?.data?.role,
-                  timeLogout: new Date(new Date().getTime() + counter),
-                  counter: counter,
-                  email: response?.data?.email,
-                  // permission_list: response?.data?.default_permissions_list || "",  
-                }; 
-
-              }
-              else if ( userType === "School" ){
-
-                userData = {
-                  type: userType,
-                  status: response?.data?.status,
-                  access: response1?.data?.access_token,
-                  refresh: response1?.data?.refresh_token,
-                  firstname: response?.data?.first_name || response?.data?.data[0]?.manager?.first_name || "",
-                  lastname: response?.data?.last_name || response?.data?.data[0]?.manager?.last_name || "",
-                  other_names: response?.data?.other_names || response?.data?.data[0]?.manager?.other_names || "",
-                  gender: response?.data?.gender || "",
-                  organization_id: response?.data?.data[0]?.id || "", 
-                  id: response?.data?.account_id || response?.data?.data[0]?.manager?.account_id || "",
-                  manager_personal_id: response?.data?.data[0]?.manager?.id || "",
-                  phone: response?.data?.phone?.replaceAll('+', "") || response?.data?.data[0]?.manager?.phone?.replaceAll('+', "") || "",
-                  photo: response?.data?.photo || response?.data?.data[0]?.manager?.photo || "",
-                  dob: response?.data?.dob || response?.data?.data[0]?.manager?.dob || "",
-                  photo150: response?.data?.photo150x150 || response?.data?.data[0]?.manager?.photo150x150 || "",
-                  photo50: response?.data?.photo50x50 || response?.data?.data[0]?.manager?.photo50x50 || "",
-                  role: response?.data?.role || "none" || "",
-                  timeLogout: new Date(new Date().getTime() + counter) || "",
-                  counter: counter || "",
-                  email: response?.data?.email || response?.data?.data[0]?.manager?.email || "",
-                  permission_list: response?.data?.default_permissions_list || "",
-                  schools: response?.data?.data  || ""
-  
-                }; 
-              }
-
+              userData = {...userData, ...{type: userType, counter: counter}}
               // console.log((JSON.stringify(userData)));
               localStorage.setItem("userDataStore", JSON.stringify(userData));
               // Cookie
@@ -192,44 +106,15 @@ const Login = () => {
               // refresh: "",            
               // permission_list: ""
               // })
-              setTimeout(() => {
-                window.location.href = "/dashboard";
-              }, 1000)
+              // setTimeout(() => {
+              //   window.location.href = "/dashboard";
+              // }, 1000)
+        }
+        else if( userType === "School"){
+          //
+          
+        }
 
-
-            }
-            else {
-              setLoginError("Wrong user credentials")
-            }
-          })
-          .catch(function (error) {
-
-            if (error.response) {
-              // // console.log("==>");
-
-              setLoader("<a></a>")
-              setLogin("Login data not available")
-              setLoginError("Wrong user credentials")
-              /*
-                * The request was made and the server responded with a
-                * status code that falls out of the range of 2xx
-                */
-
-            } else if (error.request) {
-
-              setLoader("<a></a>")
-              setLogin("Login data not available")
-              setLoginError("Wrong user credentials")
-              /*
-                * The request was made but no response was received, `error.request`
-                * is an instance of XMLHttpRequest in the browser and an instance
-                * of http.ClientRequest in Node.js
-                */
-
-            } else {
-              // Something happened in setting up the request and triggered an Error
-            }
-          });
 
       }).catch(function (error) {
 
