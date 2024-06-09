@@ -16,7 +16,7 @@ export function getSchData(){
             url: process.env.REACT_APP_BASE_API + "/admission/",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.access
+                'Authorization': 'Bearer ' + userData?.token
             },
             data: data
         };
@@ -27,7 +27,7 @@ export function getSchData(){
             url: process.env.REACT_APP_BASE_API + "/admission/organization/" + userData?.organization_id + "/",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.access
+                'Authorization': 'Bearer ' + userData?.token
             },
             data: data
         };
@@ -82,7 +82,7 @@ export function getApplication(){
             url: process.env.REACT_APP_BASE_API + "/admission/",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.access
+                'Authorization': 'Bearer ' + userData?.token
             },
             data: data
         };
@@ -93,7 +93,7 @@ export function getApplication(){
             url: process.env.REACT_APP_BASE_API + "/admission/organization/" + userData?.organization_id + "/",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.access
+                'Authorization': 'Bearer ' + userData?.token
             },
             data: data
         };

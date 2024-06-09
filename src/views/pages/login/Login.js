@@ -46,14 +46,6 @@ const Login = () => {
   function CheckLogin(e) {
     e.preventDefault();
 
-    localStorage.setItem("userDataStore", JSON.stringify({
-      type: "userType",
-      status: "",
-      access: "aaassfgfryuio",
-      refresh: "",
-      timeLogout: new Date(new Date().getTime() + 600000),
-      counter: 600000
-    }));
     // window.location.href = "/dashboard";
     
 
@@ -90,10 +82,10 @@ const Login = () => {
         data: data
       };
       axios(config).then(response => {
-        console.log(response.data, "auth ", response.data.token_type + " " + response.data.access_token);
+        console.log(response.data, "auth ", response.data.token_type + " " + response.data.token);
         if(userType === "Student"){
               let counter = 600000; // 600000 = 10m
-              let userData = {};
+              let userData = response.data;
               userData = {...userData, ...{type: userType, counter: counter}}
               // console.log((JSON.stringify(userData)));
               localStorage.setItem("userDataStore", JSON.stringify(userData));

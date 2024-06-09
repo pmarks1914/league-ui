@@ -38,7 +38,7 @@ const UserManagement = () => {
         //     url: process.env.REACT_APP_BASE_API + "/roles/" + currentUser?.account + "/",
         //     headers: {
         //         'Content-Type': 'application/json',
-        //         'Authorization': 'Bearer ' + currentUser?.access
+        //         'Authorization': 'Bearer ' + currentUser?.token
         //     },
         //     data: data
         // };

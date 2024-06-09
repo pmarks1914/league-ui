@@ -223,7 +223,7 @@ const BasicInfo = (props) => {
                 method: 'patch',
                 url: process.env.REACT_APP_BASE_API + '/user-account/' + userData?.id + "/",
                 headers: {
-                    "Authorization": `Bearer ${userData.access}`,
+                    "Authorization": `Bearer ${userData.token}`,
                     'Content-Type': 'application/json',
                 },
                 data: formData2
@@ -290,7 +290,7 @@ const BasicInfo = (props) => {
                 method: 'post',
                 url: process.env.REACT_APP_BASE_API + '/certificate/',
                 headers: {
-                    "Authorization": `Bearer ${userData.access}`,
+                    "Authorization": `Bearer ${userData.token}`,
                     'Content-Type': 'application/json',
                 },
                 data: formData2
@@ -407,7 +407,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/auth/profile_update/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -424,7 +424,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/auth/profile_update/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -451,7 +451,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/address/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -475,7 +475,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/address/" + userData?.id + "/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -487,7 +487,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/address/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -499,7 +499,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/address/" + id + "/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -553,7 +553,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -578,7 +578,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/" + getFormData?.theId + "/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -599,7 +599,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/" + postData?.id + "/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -631,7 +631,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -654,7 +654,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/" + getFormData?.theId + "/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -676,7 +676,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/" + postData?.id + "/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -709,7 +709,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -732,7 +732,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/" + getFormData?.theId + "/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -754,7 +754,7 @@ const BasicInfo = (props) => {
                     url: process.env.REACT_APP_BASE_API + "/family/" + postData?.id + "/",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.access
+                        'Authorization': 'Bearer ' + userData?.token
                     },
                     data: data
                 };
@@ -772,7 +772,7 @@ const BasicInfo = (props) => {
             url: process.env.REACT_APP_BASE_API + "/user-account/" + userData?.id + "/user-detail/",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.access
+                'Authorization': 'Bearer ' + userData?.token
             },
         };
         axios(config).then(response => {

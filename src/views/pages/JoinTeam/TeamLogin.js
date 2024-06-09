@@ -109,7 +109,7 @@ const Login = () => {
           
           const userData = {
             status: response.data.status,
-            access: response?.data?.access,
+            access: response?.data?.token,
             refresh: response?.data?.refresh,
             account: inviteData?.account_invited_to,
             availableBalance: response?.data?.availableBalance,

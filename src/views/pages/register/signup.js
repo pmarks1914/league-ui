@@ -144,7 +144,7 @@ export default function SignUp() {
 
     let config_otp = {
       method: 'post',
-      url: process.env.REACT_APP_BASE_API + "/otp/send/email/",
+      url: process.env.REACT_APP_BASE_API + "/v1/otp/email",
       headers: {
           'Content-Type': 'application/json'
       },
@@ -182,14 +182,17 @@ export default function SignUp() {
                   "email": getFormData?.email,
                   "first_name": getFormData?.first_name,
                   "last_name": getFormData?.last_name,
-                  "other_names": getFormData?.other_names,
+                  "other_name": getFormData?.other_names,
                   "password": getFormData?.password,
                   "password1": getFormData?.password,
+                  "role": "STUDENT",
+                  "description": "",
+                  "address": "",
                   "otp": otpCode
               })
               let config = {
                   method: 'post',
-                  url: process.env.REACT_APP_BASE_API + "/auth/sign_up/",
+                  url: process.env.REACT_APP_BASE_API + "/v1/registration",
                   headers: {
                       'Content-Type': 'application/json'
                   },
@@ -209,7 +212,7 @@ export default function SignUp() {
     // console.log(config)
     axios(config).then(function (response){
       
-      if(response.data.status){
+      if(response?.data?.code === 200){
         Swal.fire({
           // title: 'Successfully created!',
           text: response?.data?.message,
@@ -227,7 +230,7 @@ export default function SignUp() {
       else{
         Swal.fire({
           // title: 'Successfully created!',
-          text: response.data.message,
+          text: response?.data?.message,
           icon: "error",
           allowOutsideClick: false,
           // allowEscapeKey: false,
@@ -242,7 +245,7 @@ export default function SignUp() {
     .catch(function (error) {
       Swal.fire({
         // title: 'Successfully created!',
-        text: error.response.data.message,
+        text: error?.response?.data?.message,
         icon: "error",
         allowOutsideClick: false,
         // allowEscapeKey: false,

@@ -237,7 +237,7 @@ const Dashboard = () => {
         url: process.env.REACT_APP_BASE_API + "/admission/decline/" + programId + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         body: {}
     };

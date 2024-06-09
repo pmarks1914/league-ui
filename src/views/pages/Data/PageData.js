@@ -14,7 +14,7 @@ export function getTransactionData(){
         url: process.env.REACT_APP_BASE_API + "/transaction/historyByBusiness/" + userData?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -68,7 +68,7 @@ export function refundData(){
         url: process.env.REACT_APP_BASE_API + "/transactions/refunds/" + userData?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -122,7 +122,7 @@ export function apikeyData(){
         url: process.env.REACT_APP_BASE_API + "/account/apikeys/" + userData?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -178,7 +178,7 @@ export function payoutData(){
         url: process.env.REACT_APP_BASE_API + "/transactions/payouts/" + userData?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -230,7 +230,7 @@ export function getbanksandtelcos(){
         url: process.env.REACT_APP_BASE_API + "/service/list/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -283,7 +283,7 @@ export function getbanksandtelcosV2(){
         url: process.env.REACT_APP_BASE_API + "/service/list/v1/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -338,7 +338,7 @@ export function bulkPayData(){
         url: process.env.REACT_APP_BASE_API + "/batch/list/" + userData?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -395,7 +395,7 @@ export function bulkPayItemData(id){
         url: process.env.REACT_APP_BASE_API + "/batch/detail/" + id + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -456,7 +456,7 @@ export function paymentLinkData(){
         url: process.env.REACT_APP_BASE_API + "/payment/links/" + userData?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -511,7 +511,7 @@ export function userGetData(){
         url: process.env.REACT_APP_BASE_API + "/team/" + userData?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -565,7 +565,7 @@ export function ticketData(){
         url: process.env.REACT_APP_BASE_API + "/ticket/list/" + userData?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };
@@ -623,7 +623,7 @@ export function getIssuesCategoriesList(){
         url:  process.env.REACT_APP_BASE_API + "/ticket/category/list/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.access
+            'Authorization': 'Bearer ' + userData?.token
         },
         data: data
     };

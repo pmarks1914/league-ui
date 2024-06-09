@@ -58,7 +58,7 @@ const College = () => {
             url: process.env.REACT_APP_BASE_API + "/organization/",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.access
+                'Authorization': 'Bearer ' + userData?.token
             },
         };
         axios(config).then(response => {
@@ -98,7 +98,7 @@ const College = () => {
             url: process.env.REACT_APP_BASE_API + "/department/program/org/" + schoolId + "/",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.access
+                'Authorization': 'Bearer ' + userData?.token
             },
         };
         axios(config).then(response => {
@@ -137,7 +137,7 @@ const College = () => {
             url: process.env.REACT_APP_BASE_API + "/admission/apply/" + programId + "/",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.access
+                'Authorization': 'Bearer ' + userData?.token
             },
             body: {}
         };

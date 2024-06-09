@@ -40,7 +40,7 @@ class App extends Component {
     
     return (
       <BrowserRouter>
-      {/* {userData?.access} */}
+      {/* {userData?.token} */}
         <Suspense fallback={loading}>
           <Routes>
             <Route exact path="/" name="Login Page" element={<Login />} />
@@ -54,7 +54,7 @@ class App extends Component {
             <Route exact path="/change-password" name="Change Password" element={<ChangePassword />} />
             <Route exact path="/reset-password" name="Reset Password" element={<ResetPassword />} />
             {
-              userData?.access ?
+              userData?.token ?
               <Route path="*" name="Home" element={<DefaultLayout />} />
               :
               <Route exact path="*" name="Page 404" element={<Page404 />} />

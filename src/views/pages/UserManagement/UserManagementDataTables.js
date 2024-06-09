@@ -176,7 +176,7 @@ const UserManagementDataTables = (props) => {
         url: process.env.REACT_APP_BASE_API + "/roles/" + currentUser?.account + "/",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + currentUser?.access
+            'Authorization': 'Bearer ' + currentUser?.token
         },
         data: data
     };
@@ -557,7 +557,7 @@ const UserManagementDataTables = (props) => {
       url: process.env.REACT_APP_BASE_API + "/team/member/invite/",
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + currentUser?.access
+        'Authorization': 'Bearer ' + currentUser?.token
       },
       data: data
     };
@@ -575,7 +575,7 @@ const UserManagementDataTables = (props) => {
       url: process.env.REACT_APP_BASE_API + "/team/role/create/" + currentUser?.account + "/",
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + currentUser?.access
+        'Authorization': 'Bearer ' + currentUser?.token
       },
       data: data
     };
@@ -676,7 +676,7 @@ const UserManagementDataTables = (props) => {
       url: process.env.REACT_APP_BASE_API + "/teams/member/role_update/" + editFormData.id + "/",
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + currentUser?.access
+        'Authorization': 'Bearer ' + currentUser?.token
       },
       data: data
     };
@@ -762,7 +762,7 @@ const UserManagementDataTables = (props) => {
       url: process.env.REACT_APP_BASE_API + "/teams/member/remove/" + memberData.id + "/",
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + currentUser?.access
+        'Authorization': 'Bearer ' + currentUser?.token
       },
       data: data
     };
