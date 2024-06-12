@@ -60,8 +60,7 @@ export default function SignUp() {
       // console.log(payload)
         let config = {
           method: 'post',
-          url: process.env.REACT_APP_BASE_API + '/auth/validate_email/',
-         
+          url: process.env.REACT_APP_BASE_API + '/v1/otp/email',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -69,7 +68,7 @@ export default function SignUp() {
         };
         axios(config).then(function (response){
           // console.log(response["data"])
-          if (response["data"]["message"] === "Otp has been sent successfully." && response["data"]["status"] === true){
+          if (response["data"]["code"] === 200){
             localStorage.setItem("signupInfo", payload)
             navigate('/otp')
           }

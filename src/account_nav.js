@@ -58,18 +58,18 @@ const account_nav = [
   },
   {
     component: CNavGroup,
-    name: 'Payments',
+    name: 'P',
     items: [
       {
         component: CNavItem,
-        name: 'Transaction',
-        to: '/payment/transaction',
+        name: 'Application',
+        to: '/application',
         icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
       },
       {
         component: CNavItem,
-        name: 'Customers',
-        to: '/payment/customers',
+        name: 'Profile',
+        to: '/profile',
         icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
       },
       // {

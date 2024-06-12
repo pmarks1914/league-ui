@@ -102,7 +102,7 @@ export default function SignUp() {
 
     let config_otp = {
       method: 'post',
-      url: process.env.REACT_APP_BASE_API + "/otp/send/email/",
+      url: process.env.REACT_APP_BASE_API + "/v1/otp/email",
       headers: {
           'Content-Type': 'application/json'
       },
