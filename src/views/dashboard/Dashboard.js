@@ -376,14 +376,6 @@ const Dashboard = () => {
                                     })}
                                   />
                                 </div>
-                            { item?.status === "Started" ? <strong>25%</strong> : "" }
-                            { item?.status === "Completed" ? <strong>50%</strong> : "" }
-                            { item?.status === "Processing" ? <strong>75%</strong> : "" }
-                            { item?.status === "Approved" ? <strong>100%</strong> : "" }
-                            { item?.status === "Rejected" ? <strong>0%</strong> : "" }
-                              </div>
-                              <div className="float-end">
-                                <small className="text-medium-emphasis">{item?.status}</small>
                               </div>
                             </div>
                             {
