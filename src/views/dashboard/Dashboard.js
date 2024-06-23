@@ -64,7 +64,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios"
 import Swal from 'sweetalert2'
 import { getApplication } from './DashboardData';
-
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 let salaryGetAll = getApplication();
 const userData = JSON.parse(localStorage.getItem("userDataStore"));
@@ -355,12 +356,26 @@ const Dashboard = () => {
                             </div>
                           </CTableDataCell>
                           <CTableDataCell className="text-center">
-                            {item?.description}
+                            {item?.description} 
                             {/* <CIcon size="xl" icon={item.country.flag} title={item.country.name} /> */}
                           </CTableDataCell>
                           <CTableDataCell>
                             <div className="clearfix">
                               <div className="float-start ">
+                              <div style={{ width: 50, height: 50 }}>
+                                  <CircularProgressbar
+                                    value={66}
+                                    text={`${66}%`}
+                                    background
+                                    backgroundPadding={6}
+                                    styles={buildStyles({
+                                      backgroundColor: "#303c54",
+                                      textColor: "#fff",
+                                      pathColor: "#fff",
+                                      trailColor: "transparent"
+                                    })}
+                                  />
+                                </div>
                             { item?.status === "Started" ? <strong>25%</strong> : "" }
                             { item?.status === "Completed" ? <strong>50%</strong> : "" }
                             { item?.status === "Processing" ? <strong>75%</strong> : "" }
