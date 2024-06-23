@@ -378,35 +378,10 @@ const Dashboard = () => {
                                 </div>
                               </div>
                             </div>
-                            {
-                              item?.status === "Started" ? 
-                              <CProgress thin color={"secondary"} value={25} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Completed" ? 
-                              <CProgress thin color={"info"} value={50} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Processing" ? 
-                              <CProgress thin color={"warning"} value={75} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Approved" ? 
-                              <CProgress thin color={"success"} value={100} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Rejected" ? 
-                              <CProgress thin color={"danger"} value={0} />
-                              : ""
-                            }
                           </CTableDataCell>
                           <CTableDataCell>
                             <div className="small text-medium-emphasis"></div>
-                            <Badge color='primary' onClick={(e)=>{ declineConfirm( item?.id, "Decline Application : "+ item?.program?.department ) } } > Decline </Badge> 
+                            <Badge color='primary' onClick={(e)=>{ declineConfirm( item?.id, "Decline Application : "+ item?.description ) } } > Decline </Badge> 
                           </CTableDataCell>
                         </CTableRow>
                       ))}
