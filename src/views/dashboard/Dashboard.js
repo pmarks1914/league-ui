@@ -338,21 +338,24 @@ const Dashboard = () => {
                         <CTableHeaderCell>Action</CTableHeaderCell>
                       </CTableRow>
                     </CTableHead>
+                    {
+                      console.log(" schDetails >>", schDetails )
+                    }
                     <CTableBody>
-                      {schDetails?.map((item, index) => (
+                      {schDetails?.data?.map((item, index) => (
                         <CTableRow v-for="item in tableItems" key={index}>
                           <CTableDataCell className="text-center">
                             <CAvatar size="md" src={process.env.REACT_APP_BASE_API + userData?.photo} status={"success"} />
                           </CTableDataCell>
                           <CTableDataCell>
-                            <div>{item?.program?.organization}</div>
+                            <div>{item?.student?.user?.first_name}</div>
                             <div className="small text-medium-emphasis">
                               <span>{'New '}</span> | Applied:{' '}  
                               {moment(item?.updated_at).format("YYYY-MM-DD")}
                             </div>
                           </CTableDataCell>
                           <CTableDataCell className="text-center">
-                            {item?.program?.department}
+                            {item?.description}
                             {/* <CIcon size="xl" icon={item.country.flag} title={item.country.name} /> */}
                           </CTableDataCell>
                           <CTableDataCell>

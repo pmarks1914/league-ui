@@ -13,7 +13,7 @@ export function getSchData(){
     if(userData?.type === "Student"){
         config_sch = {
             method: 'get',
-            url: process.env.REACT_APP_BASE_API + "/admission/",
+            url: process.env.REACT_APP_BASE_API + "/application-by-student/" + userData?.user?.student_id,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
@@ -79,7 +79,7 @@ export function getApplication(){
     if(userData?.type === "Student"){
         config_sch = {
             method: 'get',
-            url: process.env.REACT_APP_BASE_API + "/admission/",
+            url: process.env.REACT_APP_BASE_API + "/application-by-student/" + userData?.user?.student_id,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
