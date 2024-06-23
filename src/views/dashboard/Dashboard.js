@@ -61,6 +61,8 @@ import { getSessionTimeout } from '../../Utils/Utils';
 import { Badge } from 'reactstrap'
 
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from "axios"
 import Swal from 'sweetalert2'
 import { getApplication } from './DashboardData';
@@ -78,6 +80,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // 
+    
     let schData = getSchData();
     schData?.sch?.then(value => { setSchDetails(value) });
     trackActivity();
@@ -210,7 +213,6 @@ const Dashboard = () => {
       activity: 'Last week',
     },
   ]
-
   function declineConfirm(programId, action){
     
     Swal.fire({
@@ -233,9 +235,8 @@ const Dashboard = () => {
 
     // console.log(programId)
     let config = {
-        method: "delete",
-        maxBodyLength: "Infinity",
-        url: process.env.REACT_APP_BASE_API + "/admission/decline/" + programId + "/",
+        method: "DELETE",
+        url: process.env.REACT_APP_BASE_API + "/application/" + programId,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + userData?.token
@@ -243,10 +244,11 @@ const Dashboard = () => {
         body: {}
     };
     axios(config).then(response => {
-        // console.log(response?.data);
+        console.log(">>>>>>>", response?.data);
         setApplicationAction(applicationAction+1)
-        toast.success(response?.data.message, {
-            position: toast.POSITION.TOP_CENTER
+        console.log("<<<<<<<<<2 ", response?.data);
+        toast.success(response?.data?.message, {
+            position: toast?.POSITION?.TOP_CENTER
         });
         // setSchoolInformation(response?.data)
     }).catch(function (error) {
