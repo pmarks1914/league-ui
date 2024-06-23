@@ -244,9 +244,7 @@ const Dashboard = () => {
         body: {}
     };
     axios(config).then(response => {
-        console.log(">>>>>>>", response?.data);
         setApplicationAction(applicationAction+1)
-        console.log("<<<<<<<<<2 ", response?.data);
         toast.success(response?.data?.message, {
             position: toast?.POSITION?.TOP_CENTER
         });
@@ -383,7 +381,7 @@ const Dashboard = () => {
                           </CTableDataCell>
                           <CTableDataCell>
                             <div className="small text-medium-emphasis"></div>
-                            <Badge color='primary' onClick={(e)=>{ declineConfirm( item?.id, "Decline Application : "+ item?.description ) } } > Decline </Badge> 
+                            <Badge color='primary' onClick={(e)=>{ declineConfirm( item?.id, "Decline Application : "+ item?.description ) } } > Delete </Badge> 
                           </CTableDataCell>
                         </CTableRow>
                       ))}
