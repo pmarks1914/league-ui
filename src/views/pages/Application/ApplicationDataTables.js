@@ -123,7 +123,7 @@ const ApplicationDataTables = () => {
           keyField='id'
           data={products}
           columns={columns}
-          // filter={filterFactory()}
+          filter={filterFactory()}
           pagination={paginationFactory(options)}
         />
       </div>
