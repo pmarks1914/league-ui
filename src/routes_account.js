@@ -111,6 +111,7 @@ const routes = [
   { path: '/settings/user-management', name: 'User Management', element: UserManagement },
 
   { path: '/apply', name: 'Apply', element: General },
+  { path: '/application', name: 'Applications', element: Application },
   { path: '/applications/:id', name: 'Applications', element: Application },
   { path: '/application-detail/:id', name: 'Application Detail View', element: ApplicationDetail },
 
