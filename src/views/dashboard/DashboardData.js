@@ -103,21 +103,20 @@ export function getApplication(){
     //   console.log("data getApplication ==", response);
         <a dangerouslySetInnerHTML={{ __html: loader }}></a>
         if (response.status === 200) {
-              console.log("data source sch ==", response.data);
+            //   console.log("data source sch ====", response.data);
             if(response?.data){loader = "<a></>";}
                 
             <a dangerouslySetInnerHTML={{ __html: loader }}></a>;
 
             let tableData = response?.data?.data;
             let transformData = Object.keys(tableData).map((post, id) => {
+                // console.log("data >>==", tableData[id]?.description);
                 return {
                   "ID": id+1,
-                  "account_id": tableData[id]?.account?.id,
-                  "account_dob": tableData[id]?.account?.dob,
-                  "account_photo": tableData[id]?.account?.photo,
-                  "applicant_first_name": tableData[id]?.account?.user?.first_name,
+                  "applicant_full_name": tableData[id]?.description,
+                  "account_dob": tableData[id]?.description,
+                  "account_photo": tableData[id]?.description,
                   "applicant_last_name": tableData[id]?.account?.user?.last_name,
-                  "applicant_full_name": tableData[id]?.account?.user?.first_name + " " + tableData[id]?.account?.user?.last_name,
                   "applicant_phone": tableData[id]?.account?.user?.phone,
                   "applicant_email": tableData[id]?.account?.user?.email,
                   "applicant_program_description": tableData[id]?.program?.description,

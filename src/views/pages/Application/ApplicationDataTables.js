@@ -34,23 +34,23 @@ const ApplicationDataTables = () => {
     {
       dataField: 'applicant_full_name',
       text: 'Name',
-      filter: textFilter()
+      // filter: textFilter()
     },
     {
       dataField: 'applicant_program_name',
       text: 'Programme',
-      filter: textFilter()
+      // filter: textFilter()
     },
     {
       dataField: 'applicant_email',
       text: 'Email',
-      filter: textFilter(),
+      // filter: textFilter(),
       sort: true
     },
     {
       dataField: 'applicant_program_end_date',
       text: 'Closing date',
-      filter: textFilter(),
+      // filter: textFilter(),
       // sort: true
     },
     {
@@ -124,7 +124,7 @@ const ApplicationDataTables = () => {
           data={products}
           columns={columns}
           filter={filterFactory()}
-          pagination={paginationFactory(options)}
+          // pagination={paginationFactory(options)}
         />
       </div>
     </div>
