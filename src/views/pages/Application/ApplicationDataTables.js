@@ -42,14 +42,14 @@ const ApplicationDataTables = () => {
       // filter: textFilter()
     },
     {
-      dataField: 'applicant_email',
-      text: 'Email',
+      dataField: 'applicant_program_description',
+      text: 'Description',
       // filter: textFilter(),
       sort: true
     },
     {
       dataField: 'applicant_program_end_date',
-      text: 'Closing date',
+      text: 'Created date',
       // filter: textFilter(),
       // sort: true
     },
@@ -98,11 +98,11 @@ const ApplicationDataTables = () => {
   };
 
   function funE(e, column, columnIndex, rowIndexData) {
-    console.log("rowIndexData ", rowIndexData)
+    // console.log("rowIndexData ", rowIndexData)
     localStorage.setItem("applicantData", JSON.stringify(rowIndexData));
 
     // setTimeout(()=>{
-      window.location.href = '/application-detail/' + userData?.organization_id + "/"
+      window.location.href = '/application-detail/' + rowIndexData?.applicant_program_id + "/"
     // }, 1000)
 
     // console.log("<<<<   >>>>", '/payroll/salary/'+rowIndexData?.payrollID?.toString()  )

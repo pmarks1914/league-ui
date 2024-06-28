@@ -158,7 +158,7 @@ const ApplicationDetail = () => {
                                 <Col sm="4"></Col>
                                 <Col sm="4">
                                     <a >
-                                        {userData?.schools[0]?.name  || "N/A"}
+                                        {userData?.schools?.name  || "N/A"}
                                     
                                     </a>
                                 </Col>
@@ -178,7 +178,7 @@ const ApplicationDetail = () => {
                                 <Col sm="4"></Col>
                                 <Col sm="4">
                                     <a >
-                                        {userData?.schools[0]?.status  || "N/A"}
+                                        {userData?.schools?.status  || "N/A"}
                                     
                                     </a>
                                 </Col>
