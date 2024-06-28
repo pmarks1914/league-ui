@@ -121,7 +121,7 @@ const ApplicationDataTables = () => {
           striped
           hover
           keyField='id'
-          data={products}
+          data={products || []}
           columns={columns}
           filter={filterFactory()}
           // pagination={paginationFactory(options)}
