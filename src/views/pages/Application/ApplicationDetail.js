@@ -45,7 +45,7 @@ const ApplicationDetail = () => {
             <Box style={{ width: '70%', margin: '0px 0px' }} >
                 {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}> */}
                 <CCard className='mt-5'>
-                    <p className='d-flex justify-content-center mt-4 mb-2 '> <h4>{("Details").toUpperCase()}</h4> </p>
+                    <p className='d-flex justify-content-center mt-4 mb-2 '> <h4>Details: {applicantData?.applicant_full_name} </h4> </p>
                     <CListGroup flush>
 
                         <CListGroupItem>
@@ -59,7 +59,11 @@ const ApplicationDetail = () => {
                                 <Col sm="4"></Col>
                                 <Col sm="4">
                                     <a >
-                                        {applicantData?.applicant_full_name}
+                                        {applicantData?.data?.student?.user?.last_name} {" "}
+                                        {applicantData?.data?.student?.user?.first_name} {" "}
+                                        {applicantData?.data?.student?.user?.other_name}
+                                        <br /> 
+                                        {applicantData?.data?.student?.user?.email}
                                     </a>
                                 </Col>
 
@@ -91,41 +95,23 @@ const ApplicationDetail = () => {
                             <Row className='mb-0 d-flex'>
                                 <Col sm="4" xm="4" md="4" lg="4" xl="4">
                                     <a >
-                                        <p className="fs-6 fst-italic"> Email</p>
+                                        <p className="fs-6 fst-italic"> School</p>
                                     </a>
                                 </Col>
                                 <Col sm="4"></Col>
                                 <Col sm="4">
                                     <a >
-                                        {applicantData?.applicant_email || "N/A"}
+                                        {applicantData?.data?.programme?.school?.name || "N/A"}
                                     </a>
+                                    <p>
+                                        {applicantData?.data?.programme?.school?.description || "N/A"}
+                                    </p>
                                 </Col>
 
                             </Row>
 
                         </CListGroupItem>
-
-                        <CListGroupItem>
-
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Phone number </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a >
-                                        {applicantData?.applicant_phone || "N/A"}
-                                    </a>
-                                </Col>
-
-                            </Row>
-
-                        </CListGroupItem>
-
-                        <CListGroupItem>
-
+                        {/* <CListGroupItem>
                             <Row className='mb-0 d-flex'>
                                 <Col sm="4" xm="4" md="4" lg="4" xl="4">
                                     <a >
@@ -142,30 +128,9 @@ const ApplicationDetail = () => {
                                         {applicantData?.applicant_program_end_date || "N/A"}
                                     </a>
                                 </Col>
-
                             </Row>
-
-                        </CListGroupItem>
-
-                        <CListGroupItem>
-
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Name of school </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a >
-                                        {userData?.schools?.name  || "N/A"}
-                                    
-                                    </a>
-                                </Col>
-
-                            </Row>
-
-                        </CListGroupItem>
+                        </CListGroupItem> */}
+                        
 
                         <CListGroupItem>
 

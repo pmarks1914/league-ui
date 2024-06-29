@@ -103,7 +103,7 @@ export function getApplication(){
     //   console.log("data getApplication ==", response);
         <a dangerouslySetInnerHTML={{ __html: loader }}></a>
         if (response.status === 200) {
-            //   console.log("data source sch ====", response.data);
+              console.log("data source sch ====", response.data);
             if(response?.data){loader = "<a></>";}
                 
             <a dangerouslySetInnerHTML={{ __html: loader }}></a>;
@@ -127,6 +127,7 @@ export function getApplication(){
                   "account": tableData[id]?.account,
                   "status": tableData[id]?.status,
                   "action": "View",
+                  "data": (tableData[id])
                   
                 //   "action": `<a href= ${'/payroll/salary/'}${tableData[id]?.payrollID} > View </a> ` 
                 }
