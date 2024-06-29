@@ -57,21 +57,33 @@ const account_nav = [
     // },
   },
   {
-    component: CNavGroup,
-    name: 'P',
-    items: [
-      {
-        component: CNavItem,
-        name: 'Application',
-        to: '/application',
-        icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
-      },
-      {
-        component: CNavItem,
-        name: 'Profile',
-        to: '/profile',
-        icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
-      },
+    component: CNavItem,
+    name: 'Application',
+    to: '/application',
+    icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Profile',
+    to: '/apply',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+  }
+  // {
+  //   component: CNavGroup,
+  //   name: 'P',
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: 'Application',
+  //       to: '/application',
+  //       icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'Profile',
+  //       to: '/profile',
+  //       icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+  //     },
       // {
       //   component: CNavItem,
       //   name: 'Refunds',
@@ -108,8 +120,8 @@ const account_nav = [
       //   to: '/payment-link',
       //   icon: <CIcon icon={cilDataTransferDown} customClassName="nav-icon" />,
       // },
-    ],
-  },
+  //   ],
+  // },
   // {
   //   component: CNavGroup,
   //   name: 'Transfers',

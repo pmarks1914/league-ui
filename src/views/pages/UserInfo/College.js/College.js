@@ -54,16 +54,15 @@ const College = () => {
     function getSchoolInfo() {
         let config = {
             method: "get",
-            maxBodyLength: "Infinity",
-            url: process.env.REACT_APP_BASE_API + "/organization/",
+            url: process.env.REACT_APP_BASE_API + "/schools",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
             },
         };
         axios(config).then(response => {
-            // console.log(response?.data);
-            setCollegeInformation(response?.data)
+            console.log(response?.data);
+            setCollegeInformation(response?.data?.data)
         }).catch(function (error) {
 
             if (error.response) {
@@ -179,7 +178,7 @@ const College = () => {
             <CAccordion activeItemKey={1} className="mt-0">
 
             {
-                collegeInformation ?
+                collegeInformation?.length ?
                     collegeInformation?.map((post, id) => 
                         (
                             <CAccordionItem key={id+1} itemKey={post.id} >
