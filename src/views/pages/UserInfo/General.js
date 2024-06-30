@@ -189,11 +189,11 @@ const General = () => {
                       Education Information
                     </NavLink>
                   </NavItem>
-                  <NavItem className='w-100' onClick={()=> setManageProfileSwitch("family")} >
+                  {/* <NavItem className='w-100' onClick={()=> setManageProfileSwitch("family")} >
                     <NavLink className='border border-top-primary'>
                       Family Information
                     </NavLink>
-                  </NavItem>
+                  </NavItem> */}
                 </Nav>
               </Col>
               <Col sm="8" xs="8" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>

@@ -98,10 +98,10 @@ const optionsFinMonth = [
     { value: "December", label: "December", key: 12 },
 ];
 
-let family_Data = [{"id": 1, "first_name": "first", "last_name": "last", "other_name": "oth", "relation_type": "Parent" }, {"id": 2, "first_name": "first", "last_name": "last", "other_names": "oth", "relation_type": "Sibling" }, {"id": 3, "first_name": "first", "last_name": "last", "other_names": "oth", "relation_type": "Spouce" } ]
+let family_Data = [{"id": 1, "first_name": "first", "last_name": "last", "other_name": "oth", "relation_type": "Parent" }, {"id": 2, "first_name": "first", "last_name": "last", "other_name": "oth", "relation_type": "Sibling" }, {"id": 3, "first_name": "first", "last_name": "last", "other_name": "oth", "relation_type": "Spouce" } ]
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
-// console.log(userData)
+console.log(userData)
 const BasicInfo = (props) => {
     const [activeTab, setActiveTab] = useState('1');
     const [month, setMonth] = useState(null);
@@ -111,22 +111,28 @@ const BasicInfo = (props) => {
     const [getFormDataError, setGetFormDataError] = React.useState({
         "first_name": false,
         "last_name": false,
-        "other_names": false,
+        "other_name": false,
         "email": false,
-        "phoneNumber": false,
+        "phone": false,
         "photo": false,
         "dateOfBirth": false,
         "certificateDate": false,
         "certificate_name": false
     })
     const [getFormData, setGetFormData] = React.useState({
-        "first_name": userData?.firstname,
-        "last_name": userData?.lastname,
-        "other_names": userData?.other_names,
-        "email": userData?.email,
-        "phoneNumber": userData?.phone,
-        "photo": userData?.photo,
-        "dateOfBirth": userData?.dob,
+        "first_name": userData?.user?.first_name,
+        "last_name": userData?.user?.last_name,
+        "other_name": userData?.user?.other_name,
+        "email": userData?.user?.email,
+        "phone": userData?.user?.phone,
+        "photo": userData?.user?.photo,
+        "lon": userData?.user?.lon,
+        "lat": userData?.user?.lat,
+        "country": userData?.user?.country,
+        "town": userData?.user?.town,
+        "city": userData?.user?.city,
+        "address": userData?.user?.address,
+        "dateOfBirth": userData?.user?.dob,
         "certificate_name": "",
         "certificateDate": ""
     })
@@ -235,7 +241,7 @@ const BasicInfo = (props) => {
                     // console.log(response?.data, photo)
                     if (response.status === 200) {
                         toast.success(response?.data.message, {
-                            position: toast.POSITION.TOP_CENTER
+                            position: toast?.POSITION?.TOP_CENTER
                         });
                         setNewPhoto(photo);
                         let currentUser_new = JSON.parse(localStorage.getItem('userDataStore'));
@@ -250,7 +256,7 @@ const BasicInfo = (props) => {
                     }
                     if (response.status != 200) {
                         toast.error(response?.data.message, {
-                            position: toast.POSITION.TOP_CENTER
+                            position: toast?.POSITION?.TOP_CENTER
                         });
                     }
 
@@ -258,7 +264,7 @@ const BasicInfo = (props) => {
                     .catch(function (error) {
 
                         toast.error(error?.response?.data.message, {
-                            position: toast.POSITION.TOP_CENTER
+                            position: toast?.POSITION?.TOP_CENTER
                         });
 
                         // console.log(error);
@@ -267,7 +273,7 @@ const BasicInfo = (props) => {
             else {
                 //
                 toast.error('Unsupported file type for photo.', {
-                    position: toast.POSITION.TOP_CENTER
+                    position: toast?.POSITION?.TOP_CENTER
                 });
             }
         });
@@ -302,7 +308,7 @@ const BasicInfo = (props) => {
                     // console.log(response.status)
                     if (response.status === 201) {
                         toast.success(response?.data.message || "Successful", {
-                            position: toast.POSITION.TOP_CENTER
+                            position: toast?.POSITION?.TOP_CENTER
                         });
                         setNewCert(cert);
                         let currentUser_new = JSON.parse(localStorage.getItem('userDataStore'));
@@ -317,7 +323,7 @@ const BasicInfo = (props) => {
                     }
                     else{
                         toast.error(response?.data.message || "Failed", {
-                            position: toast.POSITION.TOP_CENTER
+                            position: toast?.POSITION?.TOP_CENTER
                         });
                     }
 
@@ -325,7 +331,7 @@ const BasicInfo = (props) => {
                     .catch(function (error) {
 
                         toast.error(error?.response?.data.message, {
-                            position: toast.POSITION.TOP_CENTER
+                            position: toast?.POSITION?.TOP_CENTER
                         });
 
                         // console.log(error);
@@ -334,7 +340,7 @@ const BasicInfo = (props) => {
             else {
                 //
                 toast.error('Unsupported file type for pdf.', {
-                    position: toast.POSITION.TOP_CENTER
+                    position: toast?.POSITION?.TOP_CENTER
                 });
             }
         });
@@ -348,11 +354,11 @@ const BasicInfo = (props) => {
             console.log(response.data);
 
             toast.success(response?.data?.message, {
-                position: toast.POSITION.TOP_CENTER
+                position: toast?.POSITION?.TOP_CENTER
             });
             // if (response?.data?.status === true) {
                 // if(section === "address"){
-                  setGetFormData({...getFormData, ...{ "address": "", "street_name": "", "town": "", "city": "", "country": "", "code": "", "longitude": "", "latitude": "", "primary_first_name": "", "primary_other_name": "", "primary_last_name": "", "spouce_first_name": "", "spouce_last_name": "", "spouce_other_name": "", "sibling_first_name": "", "sibling_last_name": "" }})
+                //   setGetFormData({...getFormData, ...{ "address": "", "street_name": "", "town": "", "city": "", "country": "", "code": "", "lon": "", "lat": "", "primary_first_name": "", "primary_other_name": "", "primary_last_name": "", "spouce_first_name": "", "spouce_last_name": "", "spouce_other_name": "", "sibling_first_name": "", "sibling_last_name": "" }})
                 // }
 
             // }
@@ -364,7 +370,7 @@ const BasicInfo = (props) => {
                 // // console.log("==>");
 
                 toast.error(error.response?.data?.message, {
-                    position: toast.POSITION.TOP_CENTER
+                    position: toast?.POSITION?.TOP_CENTER
                 });
                 /*
                     * The request was made and the server responded with a
@@ -395,16 +401,12 @@ const BasicInfo = (props) => {
                 data = {
                     "first_name": getFormData?.first_name,
                     "last_name": getFormData?.last_name,
-                    "other_names": getFormData?.other_names,
-                    // "phone": "0208556743",
-                    // "email": "",
-                    "date_of_birth": moment(getFormData?.dateOfBirth).format('YYYY-MM-DD'),
-                    "dob": moment(getFormData?.dateOfBirth).format('YYYY-MM-DD'),
-                    // "photo": ""
+                    "other_name": getFormData?.other_name,
+                    "dob": moment(getFormData?.dateOfBirth || userData?.user?.dob).format('YYYY-MM-DD'),
                 }
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/auth/profile_update/",
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -416,12 +418,12 @@ const BasicInfo = (props) => {
         else if(section === "contact"){
             if (method === "patch") {
                 data = {
-                    "phone": getFormData?.phoneNumber,
+                    "phone": getFormData?.phone,
                     "email": getFormData?.email                    
                 }
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/auth/profile_update/",
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -432,59 +434,19 @@ const BasicInfo = (props) => {
         }
         else if(section === "address"){
             // console.log(getFormData)
-            if (method === "post" && getFormData?.address) {
+            if (method === "patch") {
                 data = {
                     "address": getFormData?.address,
-                    "street_name": getFormData?.street_name,
+                    // "street_name": getFormData?.street_name,
                     "town": getFormData?.town,
                     "city": getFormData?.city,
                     "country": getFormData?.country,
-                    "post_code": getFormData?.code?.replace("+", ""),
-                    "plus_code": getFormData?.code,
-                    "lon": getFormData?.longitude,
-                    "lat": getFormData?.latitude,
-                    "account": userData?.id
-                                      
+                    "lon": getFormData?.lon,
+                    "lat": getFormData?.lat                                      
                 }
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/address/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-            }
-            if (method === "patch" && getFormData?.address) {
-                data = {
-                    "address": getFormData?.address,
-                    "street_name": getFormData?.street_name,
-                    "town": getFormData?.town,
-                    "city": getFormData?.city,
-                    "country": getFormData?.country,
-                    "post_code": getFormData?.code?.replace("+", ""),
-                    "plus_code": getFormData?.code,
-                    "lon": getFormData?.longitude,
-                    "lat": getFormData?.latitude,
-                    "account": userData?.id
-                                      
-                }
-                config = {
-                    method: method,
-                    url: process.env.REACT_APP_BASE_API + "/address/" + userData?.id + "/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-            }
-            if (method === "get"){
-                // 
-                config = {
-                    method: method,
-                    url: process.env.REACT_APP_BASE_API + "/address/",
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -506,7 +468,7 @@ const BasicInfo = (props) => {
             }
             else{
                 // toast.error("Address details required ", {
-                //     position: toast.POSITION.TOP_CENTER
+                //     position: toast?.POSITION?.TOP_CENTER
                 // });
             }
         }
@@ -517,7 +479,7 @@ const BasicInfo = (props) => {
         // console.log(" ", e.code.replace("+", ""))
         // toast.loading('Waiting...');
         toast.success("test ", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast?.POSITION?.TOP_CENTER
         });
     }
     function setAddressConntryInfo(e){
@@ -769,28 +731,31 @@ const BasicInfo = (props) => {
         let config = {
             method: "get",
             maxBodyLength: "Infinity",
-            url: process.env.REACT_APP_BASE_API + "/user-account/" + userData?.id + "/user-detail/",
+            url: process.env.REACT_APP_BASE_API + "/user",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
             },
         };
         axios(config).then(response => {
-            // console.log(response.data);
+            console.log(response.data);
             if(response.status === 200){
-                setFamilyData(response?.data?.family)
-                setAddress(response?.data?.address)
+                // setFamilyData(response?.data?.family)
                 setGetFormData({
                     "first_name": response?.data?.user?.first_name,
                     "last_name": response?.data?.user?.last_name,
-                    "other_names": response?.data?.user?.other_names,
+                    "other_name": response?.data?.user?.other_name,
                     "email": response?.data?.user?.email,
-                    "phoneNumber": response?.data?.user?.phone,
+                    "phone": response?.data?.user?.phone,
                     "photo": response?.data?.photo,
                     "dateOfBirth": response?.data?.dob,
                     "certificate_name": "",
                     "certificateDate": ""
                 })
+
+              let user_new = {...userData, ...response.data}
+            //   console.log(user_new, userData);
+              localStorage.setItem("userDataStore", JSON.stringify(user_new));
             }
 
         }).catch(function (error) {
@@ -867,8 +832,8 @@ const BasicInfo = (props) => {
 
                                             <InputLabel shrink htmlFor="oname"> </InputLabel>
                                             <TextField
-                                                error={getFormDataError?.other_names}
-                                                value={getFormData?.other_names}
+                                                error={getFormDataError?.other_name}
+                                                value={getFormData?.other_name}
                                                 id="oname"
                                                 name="oname"
                                                 placeholder="Other name"
@@ -877,7 +842,7 @@ const BasicInfo = (props) => {
                                                 type="text"
                                                 fullWidth
                                                 required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "other_names": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "other_names": false } }))}
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "other_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "other_name": false } }))}
                                             />
                                             <Row className='mt-4 mb-4'>
                                                 {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left'> :</Col> */}
@@ -978,21 +943,20 @@ const BasicInfo = (props) => {
                                                 required
                                                 onChange={(e) => (setGetFormData({ ...getFormData, ...{ "email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "email": false } }))}
                                             />
-
-                                            <InputLabel shrink htmlFor="phoneNumber"> </InputLabel>
+                                            <InputLabel shrink htmlFor="phone"> </InputLabel>
                                             <TextField
-                                                error={getFormDataError?.phoneNumber}
-                                                value={getFormData?.phoneNumber}
+                                                error={getFormDataError?.phone}
+                                                value={getFormData?.phone}
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 type="text"
                                                 placeholder="Phone number"
-                                                name="phoneNumber"
+                                                name="phone"
                                                 autoFocus
                                                 variant="outlined"
                                                 className='mt-3 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "phoneNumber": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "phoneNumber": false } }))}
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "phone": false } }))}
                                             />
                                         </Box>
                                     </div>
@@ -1013,29 +977,12 @@ const BasicInfo = (props) => {
                             <CAccordionHeader>Address</CAccordionHeader>
                             <CAccordionBody>
 
-                            {
-                                    address?.map((post, id) => {
-                                        return (
-                                            <Row key={post.id} >
-                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.country} </Col>
-                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.town} </Col>
-                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.address} </Col>
-                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > 
-                                                <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"addressAction": "patch", "theId": post?.id, "city": post?.city, "town": post?.town, "address": post?.address, "longitude": post?.lon, "latitude": post?.lat, "country": post?.country, "code": post?.code }}) } style={{"marginRight": "4px"}}>Edit</Badge> 
-                                             
-                                                <Badge color='primary' onClick={(e)=>{ passConfiguration("add", "delete", "address", post?.id ) } } >Delete</Badge> 
-                                                </Col>
-                                            </Row>
-                                        )
-                                    }
-
-                                    )
-                                }
                                 <Row>
                                     <Col xs="6" sm="6" md={4} lg={4} >
                                         <Label for="country" className="label-dc"> </Label>
                                         <Select
                                             placeholder={"Select country"}
+                                            defaultInputValue={getFormData?.country}
                                             options={transformCountriesData}
                                             id="country"
                                             className='other-input-select d-filters wp-cursor-pointer'
@@ -1122,19 +1069,19 @@ const BasicInfo = (props) => {
                                                 noValidate
                                                 autoComplete="on"
                                             >
-                                                <InputLabel shrink htmlFor="latitude"> </InputLabel>
+                                                <InputLabel shrink htmlFor="lat"> </InputLabel>
                                                 <TextField
-                                                    error={getFormDataError?.latitude}
-                                                    value={getFormData?.latitude}
-                                                    id="latitude"
-                                                    name="latitude"
-                                                    placeholder="Latitude"
+                                                    error={getFormDataError?.lat}
+                                                    value={getFormData?.lat}
+                                                    id="lat"
+                                                    name="lat"
+                                                    placeholder="latitude"
                                                     variant="outlined"
                                                     margin="normal"
-                                                    type="latitude"
+                                                    type="lat"
                                                     fullWidth
                                                     required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "latitude": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "latitude": false } }))}
+                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "lat": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "lat": false } }))}
                                                 />
                                             </Box>
                                         </div>
@@ -1146,19 +1093,19 @@ const BasicInfo = (props) => {
                                                 noValidate
                                                 autoComplete="on"
                                             >
-                                                <InputLabel shrink htmlFor="longitude"> </InputLabel>
+                                                <InputLabel shrink htmlFor="lon"> </InputLabel>
                                                 <TextField
-                                                    error={getFormDataError?.longitude}
-                                                    value={getFormData?.longitude}
-                                                    id="longitude"
-                                                    name="longitude"
-                                                    placeholder="Longitude"
+                                                    error={getFormDataError?.lon}
+                                                    value={getFormData?.lon}
+                                                    id="lon"
+                                                    name="lon"
+                                                    placeholder="longitude"
                                                     variant="outlined"
                                                     margin="normal"
-                                                    type="longitude"
+                                                    type="lon"
                                                     fullWidth
                                                     required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "longitude": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "longitude": false } }))}
+                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "lon": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "lon": false } }))}
                                                 />
                                             </Box>
                                         </div>
@@ -1170,7 +1117,8 @@ const BasicInfo = (props) => {
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
-                                    onClick={(e) => (getFormData?.address && getFormData?.city) ? passConfiguration("", (getFormData?.addressAction ? (getFormData?.addressAction === "patch" ? "patch" : "delete" ) : "post" ), "address", 419) : ""}
+                                    onClick={(e) => passConfiguration("add", "patch", "address", 419)}
+                                    // onClick={(e) => (getFormData?.address && getFormData?.city) ? passConfiguration("", (getFormData?.addressAction ? (getFormData?.addressAction === "patch" ? "patch" : "delete" ) : "post" ), "address", 419) : ""}
                                 >
                                     {/* passConfiguration("add", "patch", "address", 419) */}
                                 
@@ -1292,7 +1240,7 @@ const BasicInfo = (props) => {
                                                 <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.last_name} </Col>
                                                 <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > </Col>
                                                 <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > 
-                                                <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_names, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge> 
+                                                <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge> 
                                              
                                                 <Badge color='primary' onClick={(e)=>{ handleFamilySubmit(e, "Delete", post, "Parent") } } >Delete</Badge> 
                                                 </Col>
@@ -1408,7 +1356,7 @@ const BasicInfo = (props) => {
                                                             <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.last_name} </Col>
                                                             <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > </Col>
                                                             <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > 
-                                                            <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"spouce": "Patch", "theId": post?.id, "spouce_first_name": post?.first_name, "spouce_other_name": post?.other_names, "spouce_last_name": post?.last_name }}) } style={{"marginRight": "4px"}} >Edit</Badge> 
+                                                            <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"spouce": "Patch", "theId": post?.id, "spouce_first_name": post?.first_name, "spouce_other_name": post?.other_name, "spouce_last_name": post?.last_name }}) } style={{"marginRight": "4px"}} >Edit</Badge> 
                                                          
                                                             <Badge color='primary' onClick={(e)=>{ handleFamilySubmit(e, "Delete", post, "Spouce") } } >Delete</Badge> 
                                                             </Col>
@@ -1516,7 +1464,7 @@ const BasicInfo = (props) => {
                                                             <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.last_name} </Col>
                                                             <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > </Col>
                                                             <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > 
-                                                            <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"sibling": "Patch", "theId": post?.id, "sibling_first_name": post?.first_name, "sibling_other_name": post?.other_names, "sibling_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge> 
+                                                            <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"sibling": "Patch", "theId": post?.id, "sibling_first_name": post?.first_name, "sibling_other_name": post?.other_name, "sibling_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge> 
                                                          
                                                             <Badge color='primary' onClick={(e)=>{ handleFamilySubmit(e, "Delete", post, "Sibling") } } >Delete</Badge> 
                                                             </Col>
@@ -1564,30 +1512,6 @@ const BasicInfo = (props) => {
                                                     required
                                                     onChange={(e) => (setGetFormData({ ...getFormData, ...{ "sibling_last_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "sibling_last_name": false } }))}
                                                 />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                {/* <InputLabel shrink htmlFor="sibling_other_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.sibling_other_name}
-                                                    value={getFormData?.sibling_other_name}
-                                                    id="sibling_other_name"
-                                                    name="sibling_other_name"
-                                                    placeholder="other name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="sibling_other_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "sibling_other_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "sibling_other_name": false } }))}
-                                                /> */}
                                             </Box>
                                         </div>
                                     </Col>
@@ -1639,14 +1563,6 @@ BasicInfo.propTypes = {
 
 
 
-
-
-
-
-const optionsStatus = [
-    // {value: "", label: "Se", icon: "", isDisabled: true },
-    { value: "test", label: "Test Key" },
-]
 
 
 const countries = [
@@ -5864,12 +5780,18 @@ const countries = [
     }
 ]
 
+
+const optionsStatus = [
+    // {value: "", label: "Se", icon: "", isDisabled: true },
+    { value: "test", label: "Test Key" },
+]
+
 let transformCountriesData = Object.keys(countries || []).map((post, id) => {
 
     return {
         "id": id + 1,
         "value": countries[id]?.name,
-        "label": <div><img src={countries[id]?.flag} height="30px" width="30px" /> {countries[id]?.name} </div>,
+        "label": <div> {countries[id]?.name} </div>,
         "code": countries[id]?.dialling_code
         // "icon": ,
         // "image": countries[id]?.flag
