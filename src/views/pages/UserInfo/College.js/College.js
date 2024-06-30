@@ -32,16 +32,12 @@ const College = () => {
         getSchoolInfo()
     }, [])
     let transformProgramData = Object.keys(schoolInformation || []).map((post, id) => {
-
         return {
             "id": id + 1,
             "programId": schoolInformation[id]?.id,
             "value": schoolInformation[id]?.name,
             "label": schoolInformation[id]?.name,
             "description": schoolInformation[id]?.description,
-            "startDate": schoolInformation[id]?.start_date,
-            "endDate": schoolInformation[id]?.end_date,
-            "department": schoolInformation[id]?.department?.name,
             // "icon": ,
             // "image": schoolInformation[id]?.flag
         }
@@ -89,41 +85,41 @@ const College = () => {
 
     function getProgramInfo(schoolId, schoolInfo) {
         setGetFormData({...getFormData, ...{ "programName": "", "department": "", "programId": "", "description": "" }})
-        
+        setSchoolInformation(schoolInfo?.programme)
         // console.log(schoolInfo)
-        let config = {
-            method: "get",
-            maxBodyLength: "Infinity",
-            url: process.env.REACT_APP_BASE_API + "/department/program/org/" + schoolId + "/",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.token
-            },
-        };
-        axios(config).then(response => {
-            // console.log(response?.data);
-            setSchoolInformation(response?.data)
-        }).catch(function (error) {
+        // let config = {
+        //     method: "get",
+        //     maxBodyLength: "Infinity",
+        //     url: process.env.REACT_APP_BASE_API + "/department/program/org/" + schoolId + "/",
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': 'Bearer ' + userData?.token
+        //     },
+        // };
+        // axios(config).then(response => {
+        //     // console.log(response?.data);
+        //     setSchoolInformation(response?.data)
+        // }).catch(function (error) {
 
-            if (error.response) {
-                // // console.log("==>");
-                /*
-                    * The request was made and the server responded with a
-                    * status code that falls out of the range of 2xx
-                    */
+        //     if (error.response) {
+        //         // // console.log("==>");
+        //         /*
+        //             * The request was made and the server responded with a
+        //             * status code that falls out of the range of 2xx
+        //             */
 
-            } else if (error.request) {
-                /*
-                    * The request was made but no response was received, `error.request`
-                    * is an instance of XMLHttpRequest in the browser and an instance
-                    * of http.ClientRequest in Node.js
-                    */
+        //     } else if (error.request) {
+        //         /*
+        //             * The request was made but no response was received, `error.request`
+        //             * is an instance of XMLHttpRequest in the browser and an instance
+        //             * of http.ClientRequest in Node.js
+        //             */
 
-            } else {
-                // Something happened in setting up the request and triggered an Error
-            }
-        }
-        );
+        //     } else {
+        //         // Something happened in setting up the request and triggered an Error
+        //     }
+        // }
+        // );
 
     } 
 
