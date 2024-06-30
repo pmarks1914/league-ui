@@ -59,7 +59,7 @@ const account_nav = [
   {
     component: CNavItem,
     name: 'Application',
-    to: '/application',
+    to: '/application-detail',
     icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
   },
   {

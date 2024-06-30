@@ -16,7 +16,9 @@ import {
 } from '@coreui/react';
 import Button from '@mui/material/Button';
 import Select, { components } from 'react-select';
+
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios"
 
 
@@ -90,28 +92,29 @@ const College = () => {
 
     function applyProgram(programmeData) {
 
-        console.log("school-programme", programmeData)
+        // console.log("school-programme", programmeData)
         let config = {
             method: "post",
-            maxBodyLength: "Infinity",
-            url: process.env.REACT_APP_BASE_API + "/programme",
+            url: process.env.REACT_APP_BASE_API + "/application",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
             },
             data: {
                 "description": programmeData?.description,
-                "name": programmeData?.programName,
-                "school_id": programmeData?.schoolId
+                "programme_id": programmeData?.programId
             }
         };
         axios(config).then(response => {
-            // console.log(response?.data);
+            console.log(response?.data);
 
-            toast.success(response?.data.message, {
-                position: toast.POSITION.TOP_CENTER
+            toast.success(response?.data?.message, {
+                position: toast?.POSITION?.TOP_CENTER
             });
-            setGetFormData({...getFormData, ...{ "programName": "", "department": "", "programId": "" }})
+            // toast.success(response?.data?.message, {
+            //     position: toast?.POSITION?.TOP_CENTER
+            // });
+            setGetFormData({...getFormData, ...{ "programName": "", "school_id": "", "description": "", "programId": "" }})
             // setSchoolInformation(response?.data)
         }).catch(function (error) {
 
