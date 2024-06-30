@@ -45,7 +45,7 @@ const College = () => {
     // console.log("schoolInformation ", getFormData)
 
     function setProgramInfo(e){
-        setGetFormData({...getFormData, ...{ "programName": e.value, "programId": e.programId, "startDate": e.startDate, "endDate": e.endDate, "department": e.department, "description": e.description }})
+        setGetFormData({...getFormData, ...{ "programName": e.value, "programId": e.programId, "department": e.department, "description": e.description }})
     }
     function getSchoolInfo() {
         let config = {
@@ -84,57 +84,26 @@ const College = () => {
     }
 
     function getProgramInfo(schoolId, schoolInfo) {
-        setGetFormData({...getFormData, ...{ "programName": "", "department": "", "programId": "", "description": "" }})
+        setGetFormData({...getFormData, ...{ "schoolId": schoolId }})
         setSchoolInformation(schoolInfo?.programme)
-        // console.log(schoolInfo)
-        // let config = {
-        //     method: "get",
-        //     maxBodyLength: "Infinity",
-        //     url: process.env.REACT_APP_BASE_API + "/department/program/org/" + schoolId + "/",
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': 'Bearer ' + userData?.token
-        //     },
-        // };
-        // axios(config).then(response => {
-        //     // console.log(response?.data);
-        //     setSchoolInformation(response?.data)
-        // }).catch(function (error) {
-
-        //     if (error.response) {
-        //         // // console.log("==>");
-        //         /*
-        //             * The request was made and the server responded with a
-        //             * status code that falls out of the range of 2xx
-        //             */
-
-        //     } else if (error.request) {
-        //         /*
-        //             * The request was made but no response was received, `error.request`
-        //             * is an instance of XMLHttpRequest in the browser and an instance
-        //             * of http.ClientRequest in Node.js
-        //             */
-
-        //     } else {
-        //         // Something happened in setting up the request and triggered an Error
-        //     }
-        // }
-        // );
-
     } 
 
-    function applyProgram(programId) {
+    function applyProgram(programmeData) {
 
-        // console.log(programId)
+        console.log("school-programme", programmeData)
         let config = {
             method: "post",
             maxBodyLength: "Infinity",
-            url: process.env.REACT_APP_BASE_API + "/admission/apply/" + programId + "/",
+            url: process.env.REACT_APP_BASE_API + "/programme",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
             },
-            body: {}
+            data: {
+                "description": programmeData?.description,
+                "name": programmeData?.programName,
+                "school_id": programmeData?.schoolId
+            }
         };
         axios(config).then(response => {
             // console.log(response?.data);
@@ -187,7 +156,7 @@ const College = () => {
                                             {/*  */}
                                             <bold className="text-uppercase fs-6" >School Bio </bold>
                                             <p>
-                                                {post?.bio}
+                                                {post?.description}
                                             </p>
                                             <p>
                                                 {getFormData?.description ? <bold className="text-uppercase fs-6" >Program description </bold> : "" } 
@@ -235,7 +204,7 @@ const College = () => {
                                                 sx={{ mt: 3, mb: 2 }}
                                                 // style={{ color: "#fff" }}
                                                 // className="bg-text-com-wp"
-                                                onClick={(e) => applyProgram(getFormData?.programId)}
+                                                onClick={(e) => applyProgram(getFormData)}
                                                 >
                                                 Apply
                                             </Button>
