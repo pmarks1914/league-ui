@@ -284,20 +284,21 @@ const BasicInfo = (props) => {
     const handleCertificateUpload = () => {
         // console.log(userData,getFormData, moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'))
         const formData2 = new FormData();
-        formData2.append('account', userData?.id);
+        // formData2.append('name', getFormData.certificate_name);
         formData2.append('name', getFormData.certificate_name);
         formData2.append('issued_date', moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'));
 
         certificateList.forEach((cert) => {
-            formData2.append('file_attachment', cert);
+            formData2.append('cert', cert);
             // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", getFormData, formData2)
 
             let config = {
                 method: 'post',
-                url: process.env.REACT_APP_BASE_API + '/certificate/',
+                url: process.env.REACT_APP_BASE_API + '/upload',
                 headers: {
                     "Authorization": `Bearer ${userData.token}`,
                     'Content-Type': 'application/json',
+                    
                 },
                 data: formData2
             };
@@ -306,7 +307,7 @@ const BasicInfo = (props) => {
                 axios(config).then(function (response) {
 
                     // console.log(response.status)
-                    if (response.status === 201) {
+                    if (response.status === 200) {
                         toast.success(response?.data.message || "Successful", {
                             position: toast?.POSITION?.TOP_CENTER
                         });
@@ -474,13 +475,6 @@ const BasicInfo = (props) => {
         }
 
         genericApiCall(config, section)
-    }
-    function testF(e) {
-        // console.log(" ", e.code.replace("+", ""))
-        // toast.loading('Waiting...');
-        toast.success("test ", {
-            position: toast?.POSITION?.TOP_CENTER
-        });
     }
     function setAddressConntryInfo(e){
         setGetFormData({...getFormData, ...{ "country": e.value, "code": e.code }})
