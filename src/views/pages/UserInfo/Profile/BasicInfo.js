@@ -98,7 +98,6 @@ const optionsFinMonth = [
     { value: "December", label: "December", key: 12 },
 ];
 
-let family_Data = [{"id": 1, "first_name": "first", "last_name": "last", "other_name": "oth", "relation_type": "Parent" }, {"id": 2, "first_name": "first", "last_name": "last", "other_name": "oth", "relation_type": "Sibling" }, {"id": 3, "first_name": "first", "last_name": "last", "other_name": "oth", "relation_type": "Spouce" } ]
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
 console.log(userData)
@@ -154,7 +153,9 @@ const BasicInfo = (props) => {
     // console.log(props?.profileManage)
     // certificate    
     const [profileCertificate, setProfileCertificate] = useState(userData.certificate)
+
     const [certificateList, setCertificateList] = useState([]);
+    const [certificate, setCertificate] = useState([]);
     // profile Certificate loading
     const [uploading2, setUploading2] = useState(false);
     const [newCertificate, setNewCertificate] = useState(null)
@@ -313,15 +314,7 @@ const BasicInfo = (props) => {
                         toast.success(response?.data.message || "Successful", {
                             position: toast?.POSITION?.TOP_CENTER
                         });
-                        setNewCert(cert);
-                        let currentUser_new = JSON.parse(localStorage.getItem('userDataStore'));
-
-                        currentUser_new["cert"] = response?.data?.cert;
-
-                        localStorage.setItem("userDataStore", JSON.stringify(currentUser_new));
-                        setTimeout(() => {
-                            // window.location.reload()
-                        }, 1000)
+                        getDataInfo()
 
                     }
                     else{
@@ -462,6 +455,26 @@ const BasicInfo = (props) => {
                 config = {
                     method: method,
                     url: process.env.REACT_APP_BASE_API + "/address/" + id + "/",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + userData?.token
+                    },
+                    data: data
+                };
+            }
+            else{
+                // toast.error("Address details required ", {
+                //     position: toast?.POSITION?.TOP_CENTER
+                // });
+            }
+        }
+        else if(section === "certificate"){
+            // console.log(getFormData)
+            if (method === "delete"){
+                // 
+                config = {
+                    method: method,
+                    url: process.env.REACT_APP_BASE_API + "/file/delete/" + id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -750,6 +763,7 @@ const BasicInfo = (props) => {
                 })
 
               let user_new = {...userData, ...response.data}
+              setCertificate(user_new?.user?.file)
             //   console.log(user_new, userData);
               localStorage.setItem("userDataStore", JSON.stringify(user_new));
             }
@@ -777,8 +791,17 @@ const BasicInfo = (props) => {
         );
         
     }
+    function trackActivity() {
+      // e.preventDefault(); 
+      getSessionTimeout();
+      const currentUser_new = JSON.parse(localStorage.getItem("userDataStore"));
+      if (currentUser_new) {
+        currentUser_new["timeLogout"] = new Date().getTime() + currentUser_new?.counter;
+        localStorage.setItem('userDataStore', JSON.stringify(currentUser_new))
+      }
+    }
     return (
-        <div className="">
+        <div className="" onClick={()=>trackActivity()}>
             <ToastContainer />
             {
                 props?.profileManage === "basic" ?
@@ -1214,19 +1237,19 @@ const BasicInfo = (props) => {
                                 >
                                     Save
                                 </Button>
+                                
                                 <p className='mt-5 mb-1'>
 
                                     <strong >Your educational document(s)</strong>
                                     {
-                                        userData?.user?.file?.map((post, id) => {
+                                        certificate?.map((post, id) => {
                                             return (
                                                 <Row key={post.id} >
-                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > {post.name} </Col>
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
                                                     
                                                     <Col xs="4" sm="4" md={4} lg={4} className="mt-2" > 
-                                                    <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge> 
-                                                 
-                                                    <Badge color='primary' onClick={(e)=>{ handleFamilySubmit(e, "Delete", post, "Parent") } } >Delete</Badge> 
+                                                    {/* <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge>  */}
+                                                    <Badge color='primary' className='wp-cursor-pointer' onClick={(e)=>{ passConfiguration(e, "delete", "certificate", post?.id) } } >Delete</Badge> 
                                                     </Col>
                                                 </Row>
                                             )

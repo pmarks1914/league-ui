@@ -51,46 +51,30 @@ const optionsFinMonth = [
   { value: "December", label: "December", key: 12 },
 ];
 
-// const { Option } = components;
-// const IconOption = props => (
-//   <Option {...props} >
-{/* <img 
-          src={props?.data?.icon} 
-          style={{ height: 36 }}
-          alt={props.data.label}
-      /> */}
-
-//       { props.data.icon }
-//       { props.data.label }
-//   </Option>
-// );
-// const paymentOption = props => (
-//   <Option {...props} >
-//       <img 
-//           src={props?.data?.icon}
-//           style={{ height: 36, padding: "0px 10px" }}
-//           // alt={props.data.label}
-//       />
-//       { props.data.label }
-//   </Option>
-// );
-
 const General = () => {
   const [activeTab, setActiveTab] = useState('1');
   const [month, setMonth] = useState(null);
   const [year, setYear] = useState(null);
+
+
+  const [getCount, setGetCount] = useState(1)
 
   // manage profile switches for items - tab 2
   // basic info, education info, family info
   const [manageProfileSwitch, setManageProfileSwitch] = useState("basic")
 
   useEffect(() => {
-
     getSessionTimeout();
+  }, [])
+
+  useEffect(() => {
+    // setGetCount(2);
   }, [])
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
+
+    setGetCount(2);
     if (tab === '1' || tab === '14' || "212") {
       // document.getElementById("fin-month-id").style.display = "block";
     }
@@ -171,7 +155,7 @@ const General = () => {
 
         {activeTab === "1" ?
           <TabPane tabId="1">
-            <College />
+            <College getCount={getCount} />
           </TabPane>
           : ""}
         {activeTab === "2" ?

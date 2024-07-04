@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col, Label, ButtonGroup, Badge } from 'reactstrap'
 import {
     CCard,
@@ -24,14 +25,16 @@ import axios from "axios"
 
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
-const College = () => {
+const College = (props) => {
     const [collegeInformation, setCollegeInformation] = useState(null)
     const [schoolInformation, setSchoolInformation] = useState(null)    
     const [getFormData, setGetFormData] = useState(null)
 
     useEffect(() => {
         // 
-        getSchoolInfo()
+        // if( props?.getCount === 1 ){
+            getSchoolInfo()
+        // }
     }, [])
     let transformProgramData = Object.keys(schoolInformation || []).map((post, id) => {
         return {
@@ -228,3 +231,6 @@ export default College;
 
 
 
+College.propTypes = {
+    getCount: PropTypes.string,
+};
