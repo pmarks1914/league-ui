@@ -1131,7 +1131,7 @@ const BasicInfo = (props) => {
                     <CAccordion activeItemKey={1} className="mt-5">
                         <h6>Education Information</h6>
                         <CAccordionItem itemKey={1}>
-                            <CAccordionHeader>Certificate</CAccordionHeader>
+                            <CAccordionHeader>Educational document(s)</CAccordionHeader>
                             <CAccordionBody>
 
                                     <div className='mui-control-form' >
@@ -1185,7 +1185,7 @@ const BasicInfo = (props) => {
 
                                     </div>
 
-                                <strong>Upload your certificate</strong>
+                                <strong>Upload your educational document(s)</strong>
                                 <p className='mt-2 mb-1'>Your file size must be less than 1.22 MB</p>
                                 <Upload {...props2} onChange={(e) => { setProfileCertificate(e?.target?.value || null) }} value={profileCertificate} maxCount={1} >
                                     <ButtonGroup variant='outline' spacing='6'>
@@ -1214,9 +1214,24 @@ const BasicInfo = (props) => {
                                 >
                                     Save
                                 </Button>
-                                <p>
+                                <p className='mt-5 mb-1'>
+
+                                    <strong >Your educational document(s)</strong>
                                     {
-                                        console.log("g>>>", userData?.user?.file )
+                                        userData?.user?.file?.map((post, id) => {
+                                            return (
+                                                <Row key={post.id} >
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > {post.name} </Col>
+                                                    
+                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" > 
+                                                    <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge> 
+                                                 
+                                                    <Badge color='primary' onClick={(e)=>{ handleFamilySubmit(e, "Delete", post, "Parent") } } >Delete</Badge> 
+                                                    </Col>
+                                                </Row>
+                                            )
+
+                                        })
                                     }
                                 </p>
                             </CAccordionBody>
