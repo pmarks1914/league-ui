@@ -284,20 +284,22 @@ const BasicInfo = (props) => {
     const handleCertificateUpload = () => {
         // console.log(userData,getFormData, moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'))
         const formData2 = new FormData();
-        // formData2.append('name', getFormData.certificate_name);
+        formData2.append('type', 1);
         formData2.append('name', getFormData.certificate_name);
         formData2.append('issued_date', moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'));
 
         certificateList.forEach((cert) => {
+
+            console.log(cert)
             formData2.append('cert', cert);
             // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", getFormData, formData2)
 
             let config = {
-                method: 'post',
+                method: 'POST',
                 url: process.env.REACT_APP_BASE_API + '/upload',
-                headers: {
+                headers: { 
                     "Authorization": `Bearer ${userData.token}`,
-                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/json',
                     
                 },
                 data: formData2
@@ -1212,6 +1214,11 @@ const BasicInfo = (props) => {
                                 >
                                     Save
                                 </Button>
+                                <p>
+                                    {
+                                        console.log("g>>>", userData?.user?.file )
+                                    }
+                                </p>
                             </CAccordionBody>
                         </CAccordionItem>
                     </CAccordion>
