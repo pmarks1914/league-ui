@@ -50,15 +50,15 @@ const AppHeaderDropdown = (userData) => {
         <CDropdownHeader className="bg-light fw-semibold py-2">User Profile</CDropdownHeader>
 
         {
-          // // console.log("userData ", process.env.REACT_APP_MAIN_BASE + userData?.userData?.photo50, userData?.userData)
+          console.log("userData ", process.env.REACT_APP_MAIN_BASE + userData?.userData?.photo50, userData?.userData)
         }
         <CDropdownItem>
           <CIcon icon={cilUser} className="me-2" />
-          {userData?.userData?.firstname?.toUpperCase() + " " + userData?.userData?.lastname?.toUpperCase()}  
+          {userData?.userData?.user?.first_name?.toUpperCase()}  
         </CDropdownItem>
         <CDropdownItem>
           <CIcon icon={cilCreditCard} className="me-2" />        
-          {userData?.userData?.email}
+          {userData?.userData?.user?.email}
         </CDropdownItem>
         {/* <CDropdownItem>
           <CIcon icon={cilTask} className="me-2" />

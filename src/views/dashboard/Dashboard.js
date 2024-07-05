@@ -339,9 +339,7 @@ const Dashboard = () => {
                         <CTableHeaderCell>Action</CTableHeaderCell>
                       </CTableRow>
                     </CTableHead>
-                    {
-                      console.log(" schDetails >>", schDetails )
-                    }
+                    { console.log(" schDetails >>", schDetails ) }
                     <CTableBody>
                       {schDetails?.data?.map((item, index) => (
                         <CTableRow v-for="item in tableItems" key={index}>
@@ -364,8 +362,8 @@ const Dashboard = () => {
                               <div className="float-start ">
                               <div style={{ width: 50, height: 50 }}>
                                   <CircularProgressbar
-                                    value={66}
-                                    text={`${66}%`}
+                                    value={item?.progress || 25}
+                                    text={`${item?.progress || 25}%`}
                                     background
                                     backgroundPadding={6}
                                     styles={buildStyles({

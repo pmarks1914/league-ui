@@ -48,6 +48,12 @@ const ApplicationDataTables = () => {
       sort: true
     },
     {
+      dataField: 'progress',
+      text: 'Progress',
+      // filter: textFilter(),
+      sort: true
+    },
+    {
       dataField: 'applicant_program_end_date',
       text: 'Created date',
       // filter: textFilter(),
@@ -124,7 +130,7 @@ const ApplicationDataTables = () => {
           data={products || []}
           columns={columns}
           filter={filterFactory()}
-          // pagination={paginationFactory(options)}
+          pagination={paginationFactory(options)}
         />
       </div>
     </div>

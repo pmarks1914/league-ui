@@ -1,10 +1,10 @@
 import React from 'react';
-import ApplicationDataTables from './ApplicationDataTables';
+import Dtable from './Dtable';
 
 const Application = () => {
     return (
         <div>
-            <ApplicationDataTables />
+            <Dtable />
         </div>
     );
 };

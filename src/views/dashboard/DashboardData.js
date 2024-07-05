@@ -116,6 +116,7 @@ export function getApplication(){
                   "applicant_full_name": tableData[id]?.description, 
                   "account_dob": tableData[id]?.description,
                   "account_photo": tableData[id]?.description,
+                  "progress": (tableData[id]?.progress?.String() || "25") + "%",
                   "applicant_last_name": tableData[id]?.account?.user?.last_name,
                   "applicant_phone": tableData[id]?.account?.user?.phone,
                   "applicant_email": tableData[id]?.account?.user?.email,
