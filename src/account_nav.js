@@ -58,14 +58,20 @@ const account_nav = [
   },
   {
     component: CNavItem,
-    name: 'Application',
+    name: 'My application',
     to: '/application-detail',
     icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Profile',
+    name: 'Colleges',
     to: '/apply',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Profile',
+    to: '/apply-profile',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   }
   // {

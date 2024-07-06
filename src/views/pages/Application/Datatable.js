@@ -11,13 +11,11 @@ import "datatables.net-buttons/js/buttons.print.js";
 import '../../datatable/table.css';
 import { getApplication } from '../../dashboard/DashboardData';
 import { Badge } from 'reactstrap';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 const userData = JSON.parse(localStorage.getItem("userDataStore"));
 let userGetInfoData = getApplication();
 let userGetInfo = []
 userGetInfoData?.list?.then(value => { (userGetInfo = value) });
-console.log("outside compo userGetInfo", userGetInfoData)
 
 const Dtable = () => {
     const [loader, setLoader] = useState('<div class="spinner-border dashboard-loader" style="color: #e0922f;"></div>')
@@ -26,6 +24,18 @@ const Dtable = () => {
     const [monitorState, setMonitorState] = useState(1);
     const [dropValue, setDropValue] = useState(0);
   
+    // date time
+    const [dateTo, setDateTo] = useState(new Date('2014-08-18T21:11:54'));
+    const [dateFrom, setDateFrom] = useState(new Date('2014-08-18T21:11:54')); 
+    const [value, setValue] = useState([null, null]);
+  
+    // modals
+    // filer transaction
+    const [modal1, setModal1] = useState(false)
+    // view single transaction 
+    const [modal2, setModal2] = useState(false)
+  
+    const [viewData, setViewData] = useState({})
     const [openDateRange, setOpenDateRange] = useState(true);
     const [dateRange, setDateRange] = useState({});
     // startDate: Date.parse("2022-01-13"), endDate: Date.now()
@@ -42,7 +52,7 @@ const Dtable = () => {
     const toggle = () => setOpenDateRange(!openDateRange);
   
     useEffect(() => {
-      // console.log("props ", userGetInfo?.length)
+      // console.log("props ", transaction.length)
       // reset user
       if(dateRange?.length > 0 && monitorState === 1){
         setMonitorState(2)
@@ -51,20 +61,19 @@ const Dtable = () => {
   
         setLoader('<a></a>')
       }
-      else if(userGetInfo?.length === 0){
+      else if(transaction.length === 0){
         let xxx = null;
         xxx = setInterval(function() {
-        //   userGetInfo = userGetInfo
-          if(userGetInfo?.length > 0){
-              console.log("inside timer userGetInfo", userGetInfo)
-            // datatablaScript(userGetInfo)
+          transaction = transaction
+          if(transaction.length > 0){
+            // datatablaScript(transaction)
             setLoader('<a></a>')
             clearInterval(xxx)
           }
           else{
             setTimeout(()=>{
               setLoader('<a></a>')
-              if(userGetInfo?.length < 1){
+              if(transaction?.length < 1){
                 setNoData('No Data')
               }
             }, 7000)
@@ -73,9 +82,9 @@ const Dtable = () => {
         1000)
         
       }
-      else if (userGetInfo?.length > 0 && monitorState === 1) {
+      else if (transaction?.length > 0 && monitorState === 1) {
         // setMonitorState(2)
-        datatablaScript(userGetInfo);
+        datatablaScript(transaction);
   
         setLoader('<a></a>')
       }
@@ -85,6 +94,7 @@ const Dtable = () => {
         // setMonitorState(3)
       }
       else{
+  
         setLoader('<a></a>')
         setTimeout(()=>{
           setNoData("No data")
@@ -96,9 +106,9 @@ const Dtable = () => {
       // }
   
       
-      // console.log("props ", dateRange, "userGetInfo, transactionStatus, monitorState")
+      // console.log("props ", dateRange, "transaction, transactionStatus, monitorState")
       
-    }, [ dateRange, noData, userGetInfo])
+    }, [ dateRange, noData, transaction])
   
   
     // perform filter 
@@ -106,12 +116,12 @@ const Dtable = () => {
       let printCounter = 0;
   
       setTableData(tdata);
-    //   $('#myTable').DataTable().destroy();
+      $('#myTable').DataTable().destroy();
       setTimeout(() => {   
          
         $('#myTable').DataTable(
           {
-            // data: userGetInfo,
+            // data: transaction,
             columnDefs: [
               { "width": "10%", "targets": 2 }
             ],
@@ -119,9 +129,9 @@ const Dtable = () => {
             deferLoading: true,
             keys: true,
             // dom: 'Blfrtip',
-            dom: '<"top"Bfrt>rt<"bottom"lip>',
+            // dom: '<"top"Bfrt>rt<"bottom"lip>',
             page: true,
-            // dom: '<"top">rt<"bottom"ilp><"clear">',
+            dom: '<"top">rt<"bottom"ilp><"clear">',
             buttons: [
               {
                 extend: 'copy',
@@ -179,6 +189,12 @@ const Dtable = () => {
                   $('row:first c', sheet).attr('s', '7');
                 }
               },
+              {
+                text: 'Filter',
+                action: function (e, dt, node, config) {
+                  setModal1(true)
+                }
+              }
             ],
             // scrollY: 600,
             deferRender: false,
@@ -191,73 +207,6 @@ const Dtable = () => {
   
     }
 
-    function performFilter(type, status){
-
-        // // console.log("by status ", transactionStatus, "type", type )
-        // perform filter by date range
-        if(type === "filterByDate"){
-          // 
-          // let dataFilter = userGetInfo?.filter((post, id) => {return ( moment(new Date(post?.created_at)).format('DD/MM/YYYY') >= moment(dateRange[0]).format('DD/MM/YYYY') && moment(new Date(post?.created_at)).format('DD/MM/YYYY') <= moment(dateRange[1]).format('DD/MM/YYYY') ) });
-          
-          let dataFilter = userGetInfo?.filter((post, id) => {return ( (new Date(post?.created_at).getTime()) >= (dateRange[0])?.getTime() && (new Date(post?.created_at).getTime()) <= (dateRange[1])?.getTime() ) });
-    
-          // console.log( "data filtered ", dataFilter )
-    
-          datatablaScript( dataFilter );
-    
-          setDateFilterData( dataFilter );
-        }
-        else if(type === "filterByStatus"){
-          // 
-          // console.log("by status ", status, monitorState )
-          if(status === "All Transaction" && monitorState === 1){
-            datatablaScript(userGetInfo);
-          }
-          else if((status === "Successful" || status === "Pending" || status === "Failed") && monitorState === 1){
-            datatablaScript( userGetInfo?.filter((post, id) => {return ( post?.status_code === status.toUpperCase() )}) );
-          }
-          else if((status === "Successful" || status === "Pending" || status === "Failed") && monitorState === 2){
-            datatablaScript( dateFilterData?.filter((post, id) => {return ( post?.status_code === status.toUpperCase() )}) );
-            
-          }
-        }
-        else if(type === "filterByOptions"){
-          // 
-          let dataFilter = [];
-          if(amountEqual !== 0 || amountGreat !== 0 || amountLess !== 0){
-            // 
-            if( amountGreat != 0 && amountLess !=0){
-              dataFilter = userGetInfo?.filter((post, id) => {
-                return ( (post?.amount <= amountLess && post?.amount >= amountGreat) && ( post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase()) ) )
-              });
-            } 
-            else if( amountGreat != 0 ){
-              dataFilter = userGetInfo?.filter((post, id) => {
-                return ( ((post?.amount >= amountGreat) || ( post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) || post?.id?.toLowerCase().includes(transactionId.toLowerCase())) 
-                && 
-                ( post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase()) ) ))
-              });
-            }
-            else if( amountLess != 0 ){
-              dataFilter = userGetInfo?.filter((post, id) => {
-                return ( ((post?.amount <= amountLess) || ( post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) || post?.id?.toLowerCase().includes(transactionId.toLowerCase()) ) ) 
-                && (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase())) )
-              });
-            }
-            else if( amountEqual != 0 ){
-              dataFilter = userGetInfo?.filter((post, id) => {
-                return ( ((post?.amount === amountEqual) || ( post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) || post?.id?.toLowerCase().includes(transactionId.toLowerCase()) )) && ( post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase()) ) )
-              });
-            }
-          }
-          else{
-            // console.log("hhhh")
-            dataFilter = userGetInfo?.filter((post, id) => {return ( post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase()) )});
-          }
-          datatablaScript( dataFilter );
-          // 98ca3328-2e84-4b52-8942-e04ac1b2df71
-        }
-      }
   // Close the dropdown if the user clicks outside of it
   window.onclick = function (event) {
     // event.preventDefault()
@@ -315,7 +264,7 @@ const Dtable = () => {
             <th>Description</th>
             <th>Progress</th>
             <th>Created at</th>
-            <th>Action</th>
+            <th>Description</th>
           </tr>
         </thead>
         <tbody>
@@ -331,26 +280,7 @@ const Dtable = () => {
                     <td>{ post?.applicant_full_name }</td>
                     <td>{post?.applicant_program_name}</td>
                     <td>{post?.applicant_program_description }</td> 
-                    <td>
-                    <div className="clearfix">
-                              <div className="float-start ">
-                              <div style={{ width: 50, height: 50 }}>
-                                  <CircularProgressbar
-                                    value={post?.progress || 25}
-                                    text={`${post?.progress || 25}%`}
-                                    background
-                                    backgroundPadding={6}
-                                    styles={buildStyles({
-                                      backgroundColor: "#303c54",
-                                      textColor: "#fff",
-                                      pathColor: "#fff",
-                                      trailColor: "transparent"
-                                    })}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                    </td> 
+                    <td>{post?.progress }</td> 
                     <td>{post?.applicant_program_end_date } </td> 
                     <td onClick={()=>funE(post)}> <Badge color='primary' className='pointer'> View </Badge></td> 
                 </tr>

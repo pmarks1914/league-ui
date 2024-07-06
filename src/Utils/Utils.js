@@ -15,7 +15,7 @@ export function getSessionTimeout(){
             let now = new Date().getTime();
             let distance = new Date(currentUser_new?.timeLogout).getTime() - now;
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            // console.log( " <> ", currentUser_new?.counter);
+            console.log( " <> ", currentUser_new?.counter);
             // console.log(distance " <> ", seconds);
 
             if(distance < 5742 ){

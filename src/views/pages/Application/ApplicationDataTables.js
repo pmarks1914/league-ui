@@ -25,6 +25,10 @@ const ApplicationDataTables = () => {
   const [products, setProducts] = useState([]);
   const [salaryGetAllInfo, setSalaryGetAllInfo] = useState()
 
+  useEffect(() => {
+    salaryGetAll.list.then(value => setProducts( value ) )
+  }, []);
+
   const columns = [
     {
       dataField: 'ID',
@@ -74,15 +78,7 @@ const ApplicationDataTables = () => {
     },
   ];
 
-  useEffect(() => {
-    // setTimeout(() => {
-    //   setProducts(salaryGetAllInfo || [])
-    //   console.log(" >> ", salaryGetAllInfo)
-    // }, 1000);
 
-    // let salaryGetAllInfo = []
-    salaryGetAll.list.then(value => setProducts( value ) )
-  }, []);
 
   // manage paging
   const options = {
@@ -111,16 +107,10 @@ const ApplicationDataTables = () => {
       window.location.href = '/application-detail/' + rowIndexData?.applicant_program_id + "/"
     // }, 1000)
 
-    // console.log("<<<<   >>>>", '/payroll/salary/'+rowIndexData?.payrollID?.toString()  )
 
   }
   return (
     <div className="container table-container">
-      {/* <div className="row hdr">
-        <div className="col-sm-12 btn btn-info">
-          React Bootstrap Table with Searching and Custom Pagination
-        </div>
-      </div> */}
       
       <div className="container" style={{ marginTop: 50 }}>
         <BootstrapTable
@@ -131,6 +121,8 @@ const ApplicationDataTables = () => {
           columns={columns}
           filter={filterFactory()}
           pagination={paginationFactory(options)}
+
+          condensed
         />
       </div>
     </div>

@@ -17,6 +17,7 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CWidgetStatsB,
 } from '@coreui/react'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
@@ -53,7 +54,7 @@ import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
 
-// import WidgetsBrand from '../widgets/WidgetsBrand'
+import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 // import Datatable from '../datatable/DatatableMain'
 import { getSchData } from './DashboardData'
@@ -71,7 +72,7 @@ import 'react-circular-progressbar/dist/styles.css';
 
 let salaryGetAll = getApplication();
 const userData = JSON.parse(localStorage.getItem("userDataStore"));
-
+// console.log(" >>><<<", userData)
 const Dashboard = () => {
   const [schDetails, setSchDetails] = useState(null)
   const [applicationAction, setApplicationAction] = useState(1)
@@ -82,11 +83,11 @@ const Dashboard = () => {
     // 
     
     let schData = getSchData();
-    schData?.sch?.then(value => { setSchDetails(value) });
+    schData?.list?.then(value => { setSchDetails(value) });
     trackActivity();
 
   }, [applicationAction])
-  console.log("summarry products", products)
+  // console.log("summarry products", products)
   useEffect(() => {
     salaryGetAll.list.then(value => setProducts( value ) )
   }, []);
@@ -316,6 +317,48 @@ const Dashboard = () => {
         </CRow>
         : ""
       }
+      <br />
+      
+      {/* stats */}
+      <CRow className='m-3'>
+        <CCol xs={12} sm={6} lg={3}>
+          <CWidgetStatsB
+            className="mb-4"
+            progress={{ color: 'success', value: 100 }}
+            text="All school count"
+            title="School"
+            value={userData?.user?.count_stats?.school || 0}
+          />
+        </CCol>
+        <CCol xs={12} sm={6} lg={3}>
+          <CWidgetStatsB
+            className="mb-4"
+            progress={{ color: 'danger', value: 100 }}
+            text="All programme count"
+            title="Programmes"
+            value={userData?.user?.count_stats?.programme || 0}
+          />
+        </CCol>
+        <CCol xs={12} sm={6} lg={3}>
+          <CWidgetStatsB
+            className="mb-4"
+            progress={{ color: 'warning', value: 100 }}
+            text="My application count"
+            title="Application"
+            value={userData?.user?.count_stats?.application || "0"}
+          />
+        </CCol>
+        <CCol xs={12} sm={6} lg={3}>
+          <CWidgetStatsB
+            className="mb-4"
+            progress={{ color: 'info', value: 100 }}
+            text="My files uploaded"
+            title="File"
+            value={userData?.user?.count_stats?.file || "0"}
+          />
+        </CCol>
+      </CRow>
+
       {/* table for student */}
       {
         userData?.type === 'Student' ?
@@ -339,7 +382,7 @@ const Dashboard = () => {
                         <CTableHeaderCell>Action</CTableHeaderCell>
                       </CTableRow>
                     </CTableHead>
-                    { console.log(" schDetails >>", schDetails ) }
+                    {/* { console.log(" schDetails >>", schDetails ) } */}
                     <CTableBody>
                       {schDetails?.data?.map((item, index) => (
                         <CTableRow v-for="item in tableItems" key={index}>
@@ -350,7 +393,7 @@ const Dashboard = () => {
                             <div>{item?.student?.user?.first_name}</div>
                             <div className="small text-medium-emphasis">
                               <span>{'New '}</span> | Applied:{' '}  
-                              {moment(item?.updated_at).format("YYYY-MM-DD")}
+                              {moment(item?.created_on).format("YYYY-MM-DD")}
                             </div>
                           </CTableDataCell>
                           <CTableDataCell className="text-center">
