@@ -543,10 +543,9 @@ const Dashboard = () => {
 
 
       <CRow className='m-3' style={{ width: "100%" }}>
-        <CCol xs={4}></CCol>
         <CCol xs={4}>
           <CCard className="mb-4">
-            <CCardHeader></CCardHeader>
+            <CCardHeader>Your analytics</CCardHeader>
             <CCardBody>
               <CChartPie
                 data={{
@@ -554,8 +553,8 @@ const Dashboard = () => {
                   datasets: [
                     {
                       data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file],
-                      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#000'],
-                      hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#000'],
+                      backgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
+                      hoverBackgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
                     },
                   ],
                 }}
