@@ -165,7 +165,7 @@ const College = (props) => {
                                                 {post?.description}
                                             </p>
                                             <p>
-                                                {getFormData?.description ? <bold className="text-uppercase fs-6" >Program description </bold> : "" } 
+                                                {getFormData?.description ? <bold className="text-uppercase fs-6" >Programme description </bold> : "" } 
                                                 { getFormData?.description?.length > 1 ? <br /> : ""}
                                                 { getFormData?.description?.length > 1 ? getFormData?.description : ""}
                                                 
@@ -185,7 +185,7 @@ const College = (props) => {
                                             {post?.website ? <a href={post?.website} target="_blank" rel="noreferrer" >  {post?.website} </a> : "" } { post?.website?.length > 1 ? <br /> : ""}
                                             <p className='mb-3'></p>
                                             {getFormData?.department ? `Department name: ${getFormData?.department}` : "" } { getFormData?.department?.length > 1 ? <br /> : ""}
-                                            {getFormData?.programName ? `Program name: ${getFormData?.programName}` : "" } { getFormData?.programName?.length > 1 ? <br /> : ""}
+                                            {getFormData?.programName ? `Programme name: ${getFormData?.programName}` : "" } { getFormData?.programName?.length > 1 ? <br /> : ""}
                                             
                                         </CCol>
                                     </CRow>
@@ -195,11 +195,11 @@ const College = (props) => {
                                         </CCol>
                                         <CCol xs="4" sm="4" md={4} lg={4} className="mt-1" >
 
-                                            <Label for="program" className="label-dc"> </Label>
+                                            <Label for="programme" className="label-dc"> </Label>
                                             <Select
-                                                placeholder={"Select program"}
+                                                placeholder={"Select programme"}
                                                 options={transformProgramData}
-                                                id="program"
+                                                id="programme"
                                                 className='other-input-select d-filters wp-cursor-pointer'
                                                 onChange={(e) => setProgramInfo(e)}
                                             />

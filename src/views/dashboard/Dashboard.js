@@ -325,7 +325,7 @@ const Dashboard = () => {
           <CWidgetStatsB
             className="mb-4"
             progress={{ color: 'success', value: 100 }}
-            text="All school count"
+            text="All school"
             title="School"
             value={userData?.user?.count_stats?.school || 0}
           />
@@ -334,7 +334,7 @@ const Dashboard = () => {
           <CWidgetStatsB
             className="mb-4"
             progress={{ color: 'danger', value: 100 }}
-            text="All programme count"
+            text="All programme"
             title="Programmes"
             value={userData?.user?.count_stats?.programme || 0}
           />
@@ -343,7 +343,7 @@ const Dashboard = () => {
           <CWidgetStatsB
             className="mb-4"
             progress={{ color: 'warning', value: 100 }}
-            text="My application count"
+            text="My application"
             title="Application"
             value={userData?.user?.count_stats?.application || "0"}
           />
