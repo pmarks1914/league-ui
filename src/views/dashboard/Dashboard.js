@@ -541,9 +541,7 @@ const Dashboard = () => {
         : ""
       }
 
-
-      <CRow className='m-3' style={{ width: "100%" }}>
-        <CCol xs={4}></CCol>
+      <CRow className='m-3' >
         <CCol xs={4}>
           <CCard className="mb-4">
             <CCardHeader>Your analytics</CCardHeader>
@@ -563,7 +561,6 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-        <CCol xs={4}></CCol>
       </CRow>
 
 

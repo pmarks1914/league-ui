@@ -29,6 +29,7 @@ const College = (props) => {
     const [collegeInformation, setCollegeInformation] = useState([])
     const [schoolInformation, setSchoolInformation] = useState(null)    
     const [getFormData, setGetFormData] = useState(null)
+    const [noData, setNoData] = useState("")
 
     useEffect(() => {
         // 
@@ -62,7 +63,8 @@ const College = (props) => {
             },
         };
         axios(config).then(response => {
-            console.log(response?.data);
+            if(response?.data?.data?.length > 0){}
+            else{ setNoData("No Colleges Available for") }
             setCollegeInformation(response?.data?.data)
         }).catch(function (error) {
 
@@ -220,7 +222,7 @@ const College = (props) => {
                             </CAccordionItem>
                         )
                     )
-                    : <p>No Colleges Available for </p>
+                    : <p> {noData} </p>
             }
             </CAccordion>
         </div>
