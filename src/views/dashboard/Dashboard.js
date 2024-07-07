@@ -546,20 +546,6 @@ const Dashboard = () => {
         <CCol xs={4}>
           <CCard className="mb-4">
             <CCardHeader>Your analytics</CCardHeader>
-            <CCardBody>
-              <CChartPie
-                data={{
-                  labels: ['School', 'Application', 'Programme', 'File'],
-                  datasets: [
-                    {
-                      data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file],
-                      backgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
-                      hoverBackgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
-                    },
-                  ],
-                }}
-              />
-            </CCardBody>
           </CCard>
         </CCol>
         <CCol xs={4}></CCol>
