@@ -434,7 +434,7 @@ const Dashboard = () => {
               </CCard>
             </CCol>
 
-            <CCol >
+            <CCol xs={12} sm={4} lg={4}>
               <CCard className="mb-4">
                 <CCardHeader>Your analytics</CCardHeader>
                 <CCardBody>
