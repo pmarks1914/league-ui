@@ -43,6 +43,8 @@ import {
   cilPeople,
   cilUser,
   cilUserFemale,
+  cil4k,
+  cilAlbum,
 } from '@coreui/icons'
 
 import moment from 'moment';
@@ -374,7 +376,7 @@ const Dashboard = () => {
                     <CTableHead color="light">
                       <CTableRow>
                         <CTableHeaderCell className="text-center">
-                          <CIcon icon={cilPeople} />
+                          <CIcon icon={cilAlbum} />
                         </CTableHeaderCell>
                         <CTableHeaderCell>Name</CTableHeaderCell>
                         <CTableHeaderCell className="text-center">Programme</CTableHeaderCell>
