@@ -366,7 +366,7 @@ const Dashboard = () => {
         userData?.type === 'Student' ?
           <CRow className='m-3' style={{width: "100%"}}>
 
-            <CCol  >
+            <CCol xs={12} sm={8} lg={8} >
               
               <CCard className="mb-4">            
                 <CCardHeader> Application Overview </CCardHeader>
