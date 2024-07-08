@@ -366,7 +366,7 @@ const Dashboard = () => {
         userData?.type === 'Student' ?
           <CRow className='m-3' style={{width: "100%"}}>
 
-            <CCol xs className='mt-2'>
+            <CCol  >
               
               <CCard className="mb-4">            
                 <CCardHeader> Application Overview </CCardHeader>
@@ -434,6 +434,25 @@ const Dashboard = () => {
               </CCard>
             </CCol>
 
+            <CCol >
+              <CCard className="mb-4">
+                <CCardHeader>Your analytics</CCardHeader>
+                <CCardBody>
+                  <CChartPie
+                    data={{
+                      labels: ['School', 'Application', 'Programme', 'File'],
+                      datasets: [
+                        {
+                          data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file],
+                          backgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
+                          hoverBackgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
+                        },
+                      ],
+                    }}
+                  />
+                </CCardBody>
+              </CCard>
+            </CCol>
           </CRow> 
         : ""
       }
@@ -442,7 +461,7 @@ const Dashboard = () => {
         userData?.type === 'School' ?
           <CRow className='m-3' style={{width: "100%"}}>
 
-            <CCol xs className='mt-2'>
+            <CCol xs={12} sm={8} lg={8} className='mt-2'>
               
               <CCard className="mb-4">            
                 <CCardHeader> Application Overview </CCardHeader>
@@ -538,32 +557,9 @@ const Dashboard = () => {
                 </CCardBody>
               </CCard>
             </CCol>
-
           </CRow> 
         : ""
       }
-
-      <CRow className='m-3' >
-        <CCol xs={4}>
-          <CCard className="mb-4">
-            <CCardHeader>Your analytics</CCardHeader>
-            <CCardBody>
-              <CChartPie
-                data={{
-                  labels: ['School', 'Application', 'Programme', 'File'],
-                  datasets: [
-                    {
-                      data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file],
-                      backgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
-                      hoverBackgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
-                    },
-                  ],
-                }}
-              />
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
 
 
 
