@@ -68,18 +68,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import axios from "axios"
 import Swal from 'sweetalert2'
-import { getApplication } from './DashboardData';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-let salaryGetAll = getApplication();
-const userData = JSON.parse(localStorage.getItem("userDataStore"));
 // console.log(" >>><<<", userData)
 const Dashboard = () => {
+  const userData = JSON.parse(localStorage.getItem("userDataStore"));
+
   const [schDetails, setSchDetails] = useState(null)
   const [applicationAction, setApplicationAction] = useState(1)
-
-  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     // 
@@ -90,9 +87,6 @@ const Dashboard = () => {
 
   }, [applicationAction])
   // console.log("summarry products", products)
-  useEffect(() => {
-    salaryGetAll.list.then(value => setProducts( value ) )
-  }, []);
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
@@ -329,7 +323,7 @@ const Dashboard = () => {
             progress={{ color: 'success', value: 100 }}
             text="All school"
             title="School"
-            value={userData?.user?.count_stats?.school || 0}
+            value={schDetails?.count_stats?.school || userData?.user?.count_stats?.school || "0"}
           />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
@@ -338,7 +332,7 @@ const Dashboard = () => {
             progress={{ color: 'danger', value: 100 }}
             text="All programme"
             title="Programmes"
-            value={userData?.user?.count_stats?.programme || 0}
+            value={schDetails?.count_stats?.programme || schDetails?.user?.count_stats?.programme || "0"}
           />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
@@ -347,7 +341,7 @@ const Dashboard = () => {
             progress={{ color: 'warning', value: 100 }}
             text="My application"
             title="Application"
-            value={userData?.user?.count_stats?.application || "0"}
+            value={schDetails?.count_stats?.application || userData?.user?.count_stats?.application || "0"}
           />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
@@ -356,7 +350,7 @@ const Dashboard = () => {
             progress={{ color: 'info', value: 100 }}
             text="My files uploaded"
             title="File"
-            value={userData?.user?.count_stats?.file || "0"}
+            value={schDetails?.count_stats?.file || userData?.user?.count_stats?.file || "0"}
           />
         </CCol>
       </CRow>
@@ -456,122 +450,7 @@ const Dashboard = () => {
           </CRow> 
         : ""
       }
-      {/* table for student */}
-      {
-        userData?.type === 'School' ?
-          <CRow className='m-3' style={{width: "100%"}}>
 
-            <CCol xs={12} sm={8} lg={8} className='mt-2'>
-              
-              <CCard className="mb-4">            
-                <CCardHeader> Application Overview </CCardHeader>
-                <CCardBody>
-
-                  <CTable align="middle" className="mb-0 border" hover responsive>
-                    <CTableHead color="light">
-                      <CTableRow>
-                        <CTableHeaderCell className="text-center">
-                          <CIcon icon={cilPeople} />
-                        </CTableHeaderCell>
-                        <CTableHeaderCell>Name</CTableHeaderCell>
-                        <CTableHeaderCell>Email</CTableHeaderCell>
-                        <CTableHeaderCell className="">Programme</CTableHeaderCell>
-                        <CTableHeaderCell>Status</CTableHeaderCell>
-                        <CTableHeaderCell>Action</CTableHeaderCell>
-                      </CTableRow>
-                    </CTableHead>
-                    <CTableBody>
-                      {products?.map((item, index) => (
-                        <CTableRow v-for="item in tableItems" key={index}>
-                          <CTableDataCell className="text-center">
-                            <CAvatar size="md" src={process.env.REACT_APP_BASE_API + userData?.photo} status={"success"} />
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <div>{item?.account?.user?.first_name + " " + item?.account?.user?.last_name}</div>
-                            <div className="small text-medium-emphasis">
-                              <span>{'New '}</span> | Applied:{' '}  
-                              {moment(item?.updated_at).format("YYYY-MM-DD")}
-                            </div>
-                          </CTableDataCell>
-                          <CTableDataCell className="">
-                            {item?.applicant_email}
-                            {/* <CIcon size="xl" icon={item.country.flag} title={item.country.name} /> */}
-                          </CTableDataCell>
-                          <CTableDataCell className="">
-                            {item?.applicant_program_name}
-                            {/* <CIcon size="xl" icon={item.country.flag} title={item.country.name} /> */}
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <div className="clearfix">
-                              <div className="float-start ">
-                            { item?.status === "Pending" ? <strong>1%</strong> : "" }
-                            { item?.status === "Started" ? <strong>25%</strong> : "" }
-                            { item?.status === "Completed" ? <strong>50%</strong> : "" }
-                            { item?.status === "Processing" ? <strong>75%</strong> : "" }
-                            { item?.status === "Approved" ? <strong>100%</strong> : "" }
-                            { item?.status === "Rejected" ? <strong>0%</strong> : "" }
-                              </div>
-                              <div className="float-end">
-                                <small className="text-medium-emphasis">{item?.status}</small>
-                              </div>
-                            </div>
-                            {
-                              item?.status === "Pending" ? 
-                              <CProgress thin color={"secondary"} value={1} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Started" ? 
-                              <CProgress thin color={"secondary"} value={25} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Completed" ? 
-                              <CProgress thin color={"info"} value={50} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Processing" ? 
-                              <CProgress thin color={"warning"} value={75} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Approved" ? 
-                              <CProgress thin color={"success"} value={100} />
-                              : ""
-                            }
-                            {
-                              item?.status === "Rejected" ? 
-                              <CProgress thin color={"danger"} value={0} />
-                              : ""
-                            }
-                          </CTableDataCell>
-                          <CTableDataCell>
-                            <div className="small text-medium-emphasis"></div>
-                            <Badge color='primary' onClick={(e)=>{ funE( item ) } } > View </Badge> 
-                          </CTableDataCell>
-                        </CTableRow>
-                      ))}
-                    </CTableBody>
-                  </CTable>
-                </CCardBody>
-              </CCard>
-            </CCol>
-          </CRow> 
-        : ""
-      }
-
-
-
-{
-        userData?.type === 'School' ?
-        <CRow className='m-3' >
-          <CCol sm="12" md="12" lg="12" xl="12">
-            <a href={`/applications/${userData?.organization_id}`} className='justify-content-between align-items-center text-white bg-dark rounded-1 p-2' > Load More </a>
-          </CCol>
-        </CRow>
-        : ""
-      }
     </>
   )
 }

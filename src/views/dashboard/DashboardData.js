@@ -102,17 +102,6 @@ export function getApplication(){
             data: data
         };
     }
-    else if(userData?.type === "School"){
-        config_sch = {
-            method: 'get',
-            url: process.env.REACT_APP_BASE_API + "/admission/organization/" + userData?.organization_id + "/",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + userData?.token
-            },
-            data: data
-        };
-    }
 
     let dataSource = axios(config_sch).then(response => {
     //   console.log("data getApplication data api ==", response);
