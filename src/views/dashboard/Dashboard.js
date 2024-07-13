@@ -332,7 +332,7 @@ const Dashboard = () => {
             progress={{ color: 'danger', value: 100 }}
             text="All programme"
             title="Programmes"
-            value={schDetails?.count_stats?.programme || schDetails?.user?.count_stats?.programme || "0"}
+            value={schDetails?.count_stats?.programme || "0"}
           />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
@@ -341,7 +341,7 @@ const Dashboard = () => {
             progress={{ color: 'warning', value: 100 }}
             text="My application"
             title="Application"
-            value={schDetails?.count_stats?.application || userData?.user?.count_stats?.application || "0"}
+            value={schDetails?.count_stats?.application || "0"}
           />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
@@ -350,7 +350,7 @@ const Dashboard = () => {
             progress={{ color: 'info', value: 100 }}
             text="My files uploaded"
             title="File"
-            value={schDetails?.count_stats?.file || userData?.user?.count_stats?.file || "0"}
+            value={schDetails?.count_stats?.file || "0"}
           />
         </CCol>
       </CRow>

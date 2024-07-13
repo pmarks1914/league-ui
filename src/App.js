@@ -62,8 +62,6 @@ class App extends Component {
             }              
             <Route path="*" name="Home" element={<DefaultLayout />} />
 
-            <Route exact path="/dash" name="Compliance" element={<Dashboard />} />
-
           </Routes>
         </Suspense>
       </BrowserRouter>

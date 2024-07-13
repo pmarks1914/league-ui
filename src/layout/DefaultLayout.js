@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
 
@@ -8,8 +9,45 @@ const currentUser = JSON.parse(localStorage.getItem("userDataStore"));
 class DefaultLayout extends Component {
   render() {
     if(!currentUser){
-      window.location.href = "/login"
+      getSchoolInfo()
     } 
+    function getSchoolInfo() {
+      let config = {
+          method: "get",
+          url: process.env.REACT_APP_BASE_API + "/token/status",
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + currentUser?.token
+          },
+      };
+      axios(config).then(response => {
+        if( response?.data?.status){
+          // console.log("No token")
+           window.location.href = "/login"
+        }
+      }).catch(function (error) {
+
+          if (error.response) {
+              // // console.log("==>");
+              /*
+                  * The request was made and the server responded with a
+                  * status code that falls out of the range of 2xx
+                  */
+
+          } else if (error.request) {
+              /*
+                  * The request was made but no response was received, `error.request`
+                  * is an instance of XMLHttpRequest in the browser and an instance
+                  * of http.ClientRequest in Node.js
+                  */
+
+          } else {
+              // Something happened in setting up the request and triggered an Error
+          }
+      }
+      );
+
+  }
     
     // // console.log("path ", window.location.pathname)
 
