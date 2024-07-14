@@ -145,7 +145,7 @@ const College = (props) => {
             );
         }
         else{
-            toast.success(response?.data?.message, {
+            toast.error("No programme selected", {
                 position: toast?.POSITION?.TOP_CENTER
             });
         }
