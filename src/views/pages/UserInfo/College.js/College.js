@@ -97,10 +97,10 @@ const College = (props) => {
 
     function applyProgram(programmeData) {
 
-        // console.log("school-programme", programmeData)
+        console.log("school-programme", programmeData)
         let config = {
             method: "post",
-            url: process.env.REACT_APP_BASE_API + "/application",
+            // url: process.env.REACT_APP_BASE_API + "/application",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
@@ -110,39 +110,45 @@ const College = (props) => {
                 "programme_id": programmeData?.programId
             }
         };
-        axios(config).then(response => {
-            console.log(response?.data);
+        if (programmeData?.programId) {
+            axios(config).then(response => {
+                // console.log(response?.data);
 
+                toast.success(response?.data?.message, {
+                    position: toast?.POSITION?.TOP_CENTER
+                });
+                // toast.success(response?.data?.message, {
+                //     position: toast?.POSITION?.TOP_CENTER
+                // });
+                setGetFormData({ ...getFormData, ...{ "programName": "", "school_id": "", "description": "", "programId": "" } })
+                // setSchoolInformation(response?.data)
+            }).catch(function (error) {
+
+                if (error.response) {
+                    // // console.log("==>");
+                    /*
+                        * The request was made and the server responded with a
+                        * status code that falls out of the range of 2xx
+                        */
+
+                } else if (error.request) {
+                    /*
+                        * The request was made but no response was received, `error.request`
+                        * is an instance of XMLHttpRequest in the browser and an instance
+                        * of http.ClientRequest in Node.js
+                        */
+
+                } else {
+                    // Something happened in setting up the request and triggered an Error
+                }
+            }
+            );
+        }
+        else{
             toast.success(response?.data?.message, {
                 position: toast?.POSITION?.TOP_CENTER
             });
-            // toast.success(response?.data?.message, {
-            //     position: toast?.POSITION?.TOP_CENTER
-            // });
-            setGetFormData({...getFormData, ...{ "programName": "", "school_id": "", "description": "", "programId": "" }})
-            // setSchoolInformation(response?.data)
-        }).catch(function (error) {
-
-            if (error.response) {
-                // // console.log("==>");
-                /*
-                    * The request was made and the server responded with a
-                    * status code that falls out of the range of 2xx
-                    */
-
-            } else if (error.request) {
-                /*
-                    * The request was made but no response was received, `error.request`
-                    * is an instance of XMLHttpRequest in the browser and an instance
-                    * of http.ClientRequest in Node.js
-                    */
-
-            } else {
-                // Something happened in setting up the request and triggered an Error
-            }
         }
-        );
-
     }
 
     return (
