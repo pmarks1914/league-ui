@@ -91,7 +91,9 @@ const College = (props) => {
     }
 
     function getProgramInfo(schoolId, schoolInfo) {
-        setGetFormData({...getFormData, ...{ "schoolId": schoolId }})
+        // console.log(schoolId,schoolInfo, getFormData )
+        // setGetFormData({...getFormData, ...{ "schoolId": schoolId }})
+        setGetFormData({ "schoolId": schoolId })
         setSchoolInformation(schoolInfo?.programme)
     } 
 
@@ -100,7 +102,7 @@ const College = (props) => {
         // console.log("school-programme", programmeData)
         let config = {
             method: "post",
-            // url: process.env.REACT_APP_BASE_API + "/application",
+            url: process.env.REACT_APP_BASE_API + "/application/k",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
@@ -110,6 +112,7 @@ const College = (props) => {
                 "programme_id": programmeData?.programId
             }
         };
+
         if (programmeData?.programId) {
             axios(config).then(response => {
                 // console.log(response?.data);
@@ -211,17 +214,21 @@ const College = (props) => {
                                                 className='other-input-select d-filters wp-cursor-pointer'
                                                 onChange={(e) => setProgramInfo(e)}
                                             />
-                                            <Button
-                                                type="submit"
-                                                fullWidth
-                                                variant="contained"
-                                                sx={{ mt: 3, mb: 2 }}
-                                                // style={{ color: "#fff" }}
-                                                // className="bg-text-com-wp"
-                                                onClick={(e) => applyProgram(getFormData)}
-                                                >
-                                                Apply
-                                            </Button>
+                                            {
+                                                transformProgramData?.length > 0 ?
+                                                <Button
+                                                    type="submit"
+                                                    fullWidth
+                                                    variant="contained"
+                                                    sx={{ mt: 3, mb: 2 }}
+                                                    // style={{ color: "#fff" }}
+                                                    // className="bg-text-com-wp"
+                                                    onClick={(e) => applyProgram(getFormData)}
+                                                    >
+                                                    Apply
+                                                </Button>
+                                                : ""
+                                            }
                                         </CCol>
                                     </CRow>
                                 </CAccordionBody>
