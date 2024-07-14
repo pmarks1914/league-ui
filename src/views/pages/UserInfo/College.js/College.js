@@ -97,7 +97,7 @@ const College = (props) => {
 
     function applyProgram(programmeData) {
 
-        console.log("school-programme", programmeData)
+        // console.log("school-programme", programmeData)
         let config = {
             method: "post",
             // url: process.env.REACT_APP_BASE_API + "/application",
