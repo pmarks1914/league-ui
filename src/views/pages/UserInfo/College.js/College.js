@@ -102,7 +102,7 @@ const College = (props) => {
         // console.log("school-programme", programmeData)
         let config = {
             method: "post",
-            url: process.env.REACT_APP_BASE_API + "/application/k",
+            url: process.env.REACT_APP_BASE_API + "/application",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
