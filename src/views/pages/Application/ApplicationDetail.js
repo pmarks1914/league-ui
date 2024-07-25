@@ -137,13 +137,13 @@ const ApplicationDetail = () => {
                             <Row className='mb-0 d-flex'>
                                 <Col sm="4" xm="4" md="4" lg="4" xl="4">
                                     <a >
-                                        <p className="fs-6 fst-italic"> Application status  </p>
+                                        <p className="fs-6 fst-italic"> Application progress  </p>
                                     </a>
                                 </Col>
                                 <Col sm="4"></Col>
                                 <Col sm="4">
                                     <a >
-                                        {userData?.schools?.status  || "N/A"}
+                                        {applicantData?.progress || 0}{"%"}
                                     
                                     </a>
                                 </Col>
