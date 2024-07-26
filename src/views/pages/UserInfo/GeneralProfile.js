@@ -79,6 +79,14 @@ const General = () => {
             <h6>Education Information</h6>
           </NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '1' })}
+            onClick={() => { toggle('1'); }}
+          >
+            <h6>Profile</h6>
+          </NavLink>
+        </NavItem>
         <br /><br />
       </Nav>
       <TabContent activeTab={activeTab}>
