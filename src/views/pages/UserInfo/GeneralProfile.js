@@ -79,21 +79,19 @@ const General = () => {
             <h6>Education Information</h6>
           </NavLink>
         </NavItem>
-        <br /><br />
       </Nav>
       <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
             <Row>
+              <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-3 mr-0'> </Col>
               <Col sm="8" xs="8" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
                 <BasicInfo profileManage={"basic"} />
-              </Col>
-              <Col sm="0" xs="0" md="2" lg="2" xl="2" className='ml-0'>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
-              <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-5 mr-0'> </Col>
+              <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-3 mr-0'> </Col>
               <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
                 <BasicInfo profileManage={"education"} />
               </Col>
