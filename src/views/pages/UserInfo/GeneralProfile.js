@@ -84,47 +84,18 @@ const General = () => {
       <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
             <Row>
-              <Col sm="4" xs="4" md="2" lg="2" xl="2" className='mt-5 mr-0 bg-white'>
-                <Nav className="mt-4">
-                  <NavItem className='w-100' onClick={()=> setManageProfileSwitch("basic")} >
-                    <NavLink className='border border-top-primary'>
-                      Basic Information .
-                    </NavLink>
-                  </NavItem>
-                  <NavItem className='w-100' onClick={()=> setManageProfileSwitch("education")} >
-                    <NavLink className='border border-top-primary'>
-                      Education Information
-                    </NavLink>
-                  </NavItem>
-                </Nav>
-              </Col>
               <Col sm="8" xs="8" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
-                <BasicInfo profileManage={manageProfileSwitch} />
+                <BasicInfo profileManage={"basic"} />
               </Col>
               <Col sm="0" xs="0" md="2" lg="2" xl="2" className='ml-0'>
               </Col>
             </Row>
           </TabPane>
-          <TabPane tabId="1">
+          <TabPane tabId="2">
             <Row>
-              <Col sm="4" xs="4" md="2" lg="2" xl="2" className='mt-5 mr-0 bg-white'>
-                <Nav className="mt-4">
-                  <NavItem className='w-100' onClick={()=> setManageProfileSwitch("basic")} >
-                    <NavLink className='border border-top-primary'>
-                      Basic Information .
-                    </NavLink>
-                  </NavItem>
-                  <NavItem className='w-100' onClick={()=> setManageProfileSwitch("education")} >
-                    <NavLink className='border border-top-primary'>
-                      Education Information
-                    </NavLink>
-                  </NavItem>
-                </Nav>
-              </Col>
-              <Col sm="8" xs="8" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
+              <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-5 mr-0'> </Col>
+              <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
                 <BasicInfo profileManage={"education"} />
-              </Col>
-              <Col sm="0" xs="0" md="2" lg="2" xl="2" className='ml-0'>
               </Col>
             </Row>
           </TabPane>
