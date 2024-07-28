@@ -23,8 +23,8 @@ body, .dash-info-des-0{
     background-color: #f8f8f8 !important;
 }
 .sidebar{
-    background-color: #0a4098 !important;
-    color: #080808 !important;
+    /* background-color: #0a4098 !important;
+    color: #080808 !important; */
 }
 .header{
     border-bottom: var(--cui-header-border-width, 1px) solid var(--cui-header-border-color, #1152bd);

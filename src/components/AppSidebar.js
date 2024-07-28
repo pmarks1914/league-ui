@@ -15,12 +15,7 @@ import 'simplebar/dist/simplebar.min.css'
 // sidebar nav config
 // import navigation from '../_nav'
 import navigation from '../account_nav'
-
-
-
 import logo from '../assets/brand/logo.svg'
-// import SwitchAccount from './SwitchAccount'
-import { cilSearch } from '@coreui/icons'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
@@ -32,6 +27,7 @@ const AppSidebar = () => {
       position="fixed"
       unfoldable={unfoldable}
       visible={sidebarShow}
+      className=" text-dark" 
       onVisibleChange={(visible) => {
         dispatch({ type: 'set', sidebarShow: visible })
       }}
@@ -42,7 +38,6 @@ const AppSidebar = () => {
         {/* <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
       </CSidebarBrand>
       <CSidebarBrand className="d-flex rounded-0" to="/">
-        {/* <SwitchAccount  />                  */}
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
@@ -50,7 +45,7 @@ const AppSidebar = () => {
         </SimpleBar>
       </CSidebarNav>
       <CSidebarToggler
-        className="d-none d-lg-flex"
+        className="d-none d-lg-flex bg-white"
         onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
       />
     </CSidebar>
