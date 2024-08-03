@@ -117,7 +117,8 @@ const BasicInfo = (props) => {
         "photo": false,
         "dateOfBirth": false,
         "certificateDate": false,
-        "certificate_name": false
+        "certificate_name": false,
+        "transcript_name": false
     })
     const [getFormData, setGetFormData] = React.useState({
         "first_name": userData?.user?.first_name,
@@ -134,6 +135,7 @@ const BasicInfo = (props) => {
         "address": userData?.user?.address,
         "dateOfBirth": userData?.user?.dob,
         "certificate_name": "",
+        "transcript_name": "",
         "certificateDate": ""
     })
     const [selectedValue, setSelectedValue] = React.useState('a');
@@ -287,7 +289,13 @@ const BasicInfo = (props) => {
         // console.log(userData,getFormData, moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'))
         const formData2 = new FormData();
         formData2.append('type', fileType);
-        formData2.append('name', getFormData.certificate_name);
+        if(fileType = 1){
+            formData2.append('name', getFormData.certificate_name);
+        }
+        if(fileType = 1){
+            // "transcript_name": "",
+            formData2.append('name', getFormData.transcript_name);
+        }
         formData2.append('issued_date', moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'));
 
         certificateList.forEach((cert) => {
@@ -1155,6 +1163,7 @@ const BasicInfo = (props) => {
                 props?.profileManage === "education" ?
                     <p>
                         <CAccordion activeItemKey={1} className="mt-5">
+                            <h6>Educational Information</h6>
                             <CAccordionItem itemKey={1}>
                                 <CAccordionHeader>Certificate Information</CAccordionHeader>
                                 <CAccordionBody>

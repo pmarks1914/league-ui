@@ -76,7 +76,7 @@ const General = () => {
             className={classnames({ active: activeTab === '2' })}
             onClick={() => { toggle('2'); setManageProfileSwitch("education") }}
           >
-            <h6>Education Information</h6>
+            <h6>Educational Information</h6>
           </NavLink>
         </NavItem>
       </Nav>
