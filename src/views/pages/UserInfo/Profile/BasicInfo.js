@@ -1244,7 +1244,7 @@ const BasicInfo = (props) => {
 
                                         <strong >Your educational document(s)</strong>
                                         {
-                                            certificate?.map((post, id) => {
+                                            certificate?.filter((post_type) => { return (post_type?.type) === "Certificate" })?.map((post, id) => {
                                                 return (
                                                     <Row key={post.id} >
                                                         <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
@@ -1338,7 +1338,7 @@ const BasicInfo = (props) => {
 
                                         <strong >Your educational document(s)</strong>
                                         {
-                                            certificate?.map((post, id) => {
+                                            certificate?.filter((post_type) => { return (post_type?.type) === "Transcript" })?.map((post, id) => {
                                                 return (
                                                     <Row key={post.id} >
                                                         <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
