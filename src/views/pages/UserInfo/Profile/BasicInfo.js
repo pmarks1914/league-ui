@@ -283,10 +283,10 @@ const BasicInfo = (props) => {
         setUploading3(false); // You can use any AJAX library you like
     };
     // certificate 
-    const handleCertificateUpload = (type) => {
+    const handleCertificateUpload = (fileType) => {
         // console.log(userData,getFormData, moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'))
         const formData2 = new FormData();
-        formData2.append('type', type);
+        formData2.append('type', fileType);
         formData2.append('name', getFormData.certificate_name);
         formData2.append('issued_date', moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'));
 
@@ -1155,9 +1155,8 @@ const BasicInfo = (props) => {
                 props?.profileManage === "education" ?
                     <p>
                         <CAccordion activeItemKey={1} className="mt-5">
-                            <h6>Certificate Information</h6>
                             <CAccordionItem itemKey={1}>
-                                <CAccordionHeader>Educational document(s)</CAccordionHeader>
+                                <CAccordionHeader>Certificate Information</CAccordionHeader>
                                 <CAccordionBody>
 
                                     <div className='mui-control-form' >
@@ -1211,7 +1210,7 @@ const BasicInfo = (props) => {
 
                                     </div>
 
-                                    <strong>Upload your educational document(s)</strong>
+                                    <strong>Upload your educational document(s) - Certificate </strong>
                                     <p className='mt-2 mb-1'>Your file size must be less than 1.22 MB</p>
                                     <Upload {...props2} onChange={(e) => { setProfileCertificate(e?.target?.value || null) }} value={profileCertificate} maxCount={1} >
                                         <ButtonGroup variant='outline' spacing='6'>
@@ -1236,7 +1235,7 @@ const BasicInfo = (props) => {
                                         fullWidth
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => handleCertificateUpload(type=1)}
+                                        onClick={(e) => handleCertificateUpload(1)}
                                     >
                                         Save
                                     </Button>
@@ -1262,11 +1261,8 @@ const BasicInfo = (props) => {
                                     </p>
                                 </CAccordionBody>
                             </CAccordionItem>
-                        </CAccordion>
-                        <CAccordion activeItemKey={1} className="mt-5">
-                            <h6>Transcript Information</h6>
-                            <CAccordionItem itemKey={1}>
-                                <CAccordionHeader>Educational document(s)</CAccordionHeader>
+                            <CAccordionItem itemKey={2}>
+                                <CAccordionHeader>Transcript Information</CAccordionHeader>
                                 <CAccordionBody>
 
                                     <div className='mui-control-form' >
@@ -1320,11 +1316,11 @@ const BasicInfo = (props) => {
 
                                     </div>
 
-                                    <strong>Upload your educational document(s)</strong>
+                                    <strong>Upload your educational document(s) - Transcript</strong>
                                     <p className='mt-2 mb-1'>Your file size must be less than 1.22 MB</p>
                                     <Upload {...props2} onChange={(e) => { setProfileCertificate(e?.target?.value || null) }} value={profileCertificate} maxCount={1} >
                                         <ButtonGroup variant='outline' spacing='6'>
-                                            <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select a certificate </Button>
+                                            <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select a transcript </Button>
                                         </ButtonGroup>
                                     </Upload>
 
@@ -1333,7 +1329,7 @@ const BasicInfo = (props) => {
                                         fullWidth
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => handleCertificateUpload(type=2)}
+                                        onClick={(e) => handleCertificateUpload(2)}
                                     >
                                         Save
                                     </Button>
