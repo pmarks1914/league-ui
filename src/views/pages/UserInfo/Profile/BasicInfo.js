@@ -287,16 +287,19 @@ const BasicInfo = (props) => {
     // certificate 
     const handleCertificateUpload = (fileType) => {
         // console.log(userData,getFormData, moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'))
+        // console.log("<>", getFormData)
         const formData2 = new FormData();
         formData2.append('type', fileType);
+        formData2.append('issued_date', moment(getFormData.certificateDate).format('YYYY-MM-DD'));
+
+        // formData2.append('slug', getFormData.certificate_name);
+
         if(fileType = 1){
-            formData2.append('name', getFormData.certificate_name);
+            formData2.append('slug', getFormData.certificate_name);
         }
-        if(fileType = 1){
-            // "transcript_name": "",
-            formData2.append('name', getFormData.transcript_name);
+        if(fileType = 2){
+            formData2.append('slug', getFormData.transcript_name);
         }
-        formData2.append('issued_date', moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'));
 
         certificateList.forEach((cert) => {
 
@@ -769,6 +772,7 @@ const BasicInfo = (props) => {
                     "photo": response?.data?.photo,
                     "dateOfBirth": response?.data?.dob,
                     "certificate_name": "",
+                    "transcript_name": "",
                     "certificateDate": ""
                 })
 
@@ -815,7 +819,7 @@ const BasicInfo = (props) => {
             <ToastContainer />
             {
                 props?.profileManage === "basic" ?
-                    <CAccordion activeItemKey={1} className="mt-5">
+                    <CAccordion activeItemKey={1} className="mt-3">
                         <h6>Basic Information</h6>
                         <CAccordionItem itemKey={1}>
                             <CAccordionHeader>Personal Information</CAccordionHeader>
@@ -1162,7 +1166,7 @@ const BasicInfo = (props) => {
             {
                 props?.profileManage === "education" ?
                     <p>
-                        <CAccordion activeItemKey={1} className="mt-5">
+                        <CAccordion activeItemKey={1} className="mt-3">
                             <h6>Educational Information</h6>
                             <CAccordionItem itemKey={1}>
                                 <CAccordionHeader>Certificate Information</CAccordionHeader>
@@ -1170,15 +1174,27 @@ const BasicInfo = (props) => {
 
                                     <div className='mui-control-form' >
 
+                                        <Label for="certname" className="label-dc"> </Label>
+                                        <Select
+                                            placeholder={"Type of Certificate "}
+                                            defaultInputValue={getFormData?.certificate_name}
+                                            options={optionsStateDoc}
+                                            id="certname"
+                                            className='other-input-select d-filters wp-cursor-pointer'
+                                            // components={{ Option: paymentOption }}
+                                            // onChange={(e) => setAddressConntryInfo(e)}
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                        />
+
                                         <Box
                                             component="form"
                                             noValidate
                                             autoComplete="on"
                                         >
                                             <Row className='ml-4 mt-4 mb-5'>
-                                                <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'>
-                                                    <InputLabel shrink htmlFor="certname"> </InputLabel>
-                                                    <TextField
+                                                {/* <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'> */}
+                                                    {/* <InputLabel shrink htmlFor="certname"> </InputLabel> */}
+                                                    {/* <TextField
                                                         error={getFormDataError?.certificate_name}
                                                         value={getFormData?.certificate_name}
                                                         id="certname"
@@ -1190,10 +1206,11 @@ const BasicInfo = (props) => {
                                                         fullWidth
                                                         required
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
-                                                    />
-                                                </Col>
+                                                    /> */}
+
+                                                {/* </Col> */}
                                                 <Col sm="2" xs="2" md="2" lg="2" xl="2" className=''></Col>
-                                                <Col sm="4" xs="4" md="4" lg="4" xl="4" className=''>
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
                                                     <TextField
                                                         error={getFormDataError?.certificateDate}
@@ -1204,14 +1221,14 @@ const BasicInfo = (props) => {
                                                         type="date"
                                                         max={"2000-01-01"}
                                                         defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
-                                                        placeholder="Date of issued"
+                                                        placeholder="Date issued"
                                                         name="certificateDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mb-1 '
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date of issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
                                                 {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
                                             </Row>
@@ -1249,7 +1266,7 @@ const BasicInfo = (props) => {
                                         Save
                                     </Button>
 
-                                    <p className='mt-5 mb-1'>
+                                    <p className='mt-3 mb-1'>
 
                                         <strong >Your educational document(s)</strong>
                                         {
@@ -1276,6 +1293,16 @@ const BasicInfo = (props) => {
 
                                     <div className='mui-control-form' >
 
+                                        <Label for="transcriptname" className="label-dc"> </Label>
+                                        <Select
+                                            placeholder={"Type of Transcript "}
+                                            defaultInputValue={getFormData?.transcript_name}
+                                            options={optionsStateDoc}
+                                            id="transcriptname"
+                                            className='other-input-select d-filters wp-cursor-pointer'
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "transcript_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "transcript_name": false } }))}
+                                        />
+
                                         <Box
                                             component="form"
                                             noValidate
@@ -1283,23 +1310,22 @@ const BasicInfo = (props) => {
                                         >
                                             <Row className='ml-4 mt-4 mb-5'>
                                                 <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'>
-                                                    <InputLabel shrink htmlFor="certname"> </InputLabel>
+                                                    {/* <InputLabel shrink htmlFor="certname"> </InputLabel>
                                                     <TextField
-                                                        error={getFormDataError?.certificate_name}
-                                                        value={getFormData?.certificate_name}
+                                                        error={getFormDataError?.transcript_name}
+                                                        value={getFormData?.transcript_name}
                                                         id="certname"
                                                         name="certname"
-                                                        placeholder="Certificate name"
+                                                        placeholder="transcript name"
                                                         variant="outlined"
                                                         margin="normal"
                                                         type="text"
                                                         fullWidth
                                                         required
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
-                                                    />
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "transcript_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "transcript_name": false } }))}
+                                                    /> */}
                                                 </Col>
-                                                <Col sm="2" xs="2" md="2" lg="2" xl="2" className=''></Col>
-                                                <Col sm="4" xs="4" md="4" lg="4" xl="4" className=''>
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
                                                     <TextField
                                                         error={getFormDataError?.certificateDate}
@@ -1310,14 +1336,14 @@ const BasicInfo = (props) => {
                                                         type="date"
                                                         max={"2000-01-01"}
                                                         defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
-                                                        placeholder="Date of issued"
+                                                        placeholder="Date issued"
                                                         name="certificateDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mb-1 '
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date of issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
                                                 {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
                                             </Row>
@@ -1343,11 +1369,397 @@ const BasicInfo = (props) => {
                                         Save
                                     </Button>
 
-                                    <p className='mt-5 mb-1'>
+                                    <p className='mt-3 mb-1'>
 
                                         <strong >Your educational document(s)</strong>
                                         {
                                             certificate?.filter((post_type) => { return (post_type?.type) === "Transcript" })?.map((post, id) => {
+                                                return (
+                                                    <Row key={post.id} >
+                                                        <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
+
+                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                            {/* <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge>  */}
+                                                            <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
+                                                        </Col>
+                                                    </Row>
+                                                )
+                                            })
+                                        }
+                                    </p>
+                                </CAccordionBody>
+                            </CAccordionItem>
+                            <CAccordionItem itemKey={3}>
+                                <CAccordionHeader>Educational Background </CAccordionHeader>
+                                <CAccordionBody>
+
+                                    <div className='mui-control-form' >  
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <Row className='ml-4 mt-4 mb-5'>
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
+                                                    <InputLabel shrink htmlFor="degree_obtained"> </InputLabel>
+                                                    <TextField
+                                                        // error={getFormDataError?.certificate_name}
+                                                        // value={getFormData?.certificate_name}
+                                                        id="degree_obtained"
+                                                        name="degree_obtained"
+                                                        placeholder="Degree(s) Obtained"
+                                                        variant="outlined"
+                                                        margin="normal"
+                                                        type="text"
+                                                        fullWidth
+                                                        required
+                                                        // onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                                    />
+                                                </Col>
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
+                                                    <InputLabel shrink htmlFor="major_study"> </InputLabel>
+                                                    <TextField
+                                                        // error={getFormDataError?.certificate_name}
+                                                        // value={getFormData?.certificate_name}
+                                                        id="major_study"
+                                                        name="major_study"
+                                                        placeholder="Major/Field of Study"
+                                                        variant="outlined"
+                                                        margin="normal"
+                                                        type="text"
+                                                        fullWidth
+                                                        required
+                                                        // onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                                    />
+                                                </Col>
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
+                                                    <InputLabel shrink htmlFor="gpa"> </InputLabel>
+                                                    <TextField
+                                                        error={getFormDataError?.gpa}
+                                                        value={getFormData?.gpa}
+                                                        id="gpa"
+                                                        name="gpa"
+                                                        placeholder="GPA"
+                                                        variant="outlined"
+                                                        margin="normal"
+                                                        type="number"
+                                                        inputProps={{ min: 0, max: 5 }}
+                                                        fullWidth
+                                                        required
+                                                        // // onChange={(e) => (setGetFormData({ ...getFormData, ...{ "gpa": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "gpa": false } }))}
+                                                    />
+                                                </Col>
+                                                
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className='mb-5'>
+                                                    <TextField
+                                                        error={getFormDataError?.school_year_from}
+                                                        value={moment(getFormData?.school_year_from).format("LLLL")}
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        type="date"
+                                                        max={"2000-01-01"}
+                                                        defaultValue={moment(getFormData?.school_year_from).format("YYYY-MM-DD")}
+                                                        placeholder="Date from"
+                                                        name="school_year_from"
+                                                        autoFocus
+                                                        variant="outlined"
+                                                        // className='mb-5 '
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "school_year_from": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "school_year_from": false } }))}
+                                                    />
+                                                    <InputLabel shrink htmlFor="school_year_from"> Date from </InputLabel>
+                                                </Col>
+                                                
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
+                                                    <TextField
+                                                        error={getFormDataError?.school_year_to}
+                                                        value={moment(getFormData?.school_year_to).format("LLLL")}
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        type="date"
+                                                        max={"2000-01-01"}
+                                                        defaultValue={moment(getFormData?.school_year_to).format("YYYY-MM-DD")}
+                                                        placeholder="Date to"
+                                                        name="school_year_to"
+                                                        autoFocus
+                                                        variant="outlined"
+                                                        className='mb-1 '
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "school_year_to": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "school_year_to": false } }))}
+                                                    />
+                                                    <InputLabel shrink htmlFor="school_year_to"> Date to </InputLabel>
+                                                </Col>
+                                            </Row>
+                                        </Box>
+
+                                    </div>
+
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2 }}
+                                        onClick={(e) => handleCertificateUpload(1)}
+                                    >
+                                        Save
+                                    </Button>
+                                </CAccordionBody>
+                            </CAccordionItem>
+                        </CAccordion>
+                    </p>
+                    : ""
+            }
+            {
+                props?.profileManage === "additional" ?
+                    <p>
+                        <CAccordion activeItemKey={1} className="mt-3">
+                            <h6>Additional Documents</h6>
+                            <CAccordionItem itemKey={1}>
+                                <CAccordionHeader>Identification Documents (Passport, ID Card) </CAccordionHeader>
+                                <CAccordionBody>
+
+                                    <div className='mui-control-form' >
+
+                                        <Label for="certname" className="label-dc"> </Label>
+                                        <Select
+                                            placeholder={"Type of Identification Documents "}
+                                            defaultInputValue={getFormData?.certificate_name}
+                                            options={optionsIdDoc}
+                                            id="certname"
+                                            className='other-input-select d-filters wp-cursor-pointer'
+                                            // components={{ Option: paymentOption }}
+                                            // onChange={(e) => setAddressConntryInfo(e)}
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                        />
+
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <Row className='ml-4 mt-4 mb-5'>
+                                                {/* <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'> */}
+                                                    {/* <InputLabel shrink htmlFor="certname"> </InputLabel> */}
+                                                    {/* <TextField
+                                                        error={getFormDataError?.certificate_name}
+                                                        value={getFormData?.certificate_name}
+                                                        id="certname"
+                                                        name="certname"
+                                                        placeholder="Certificate name"
+                                                        variant="outlined"
+                                                        margin="normal"
+                                                        type="text"
+                                                        fullWidth
+                                                        required
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                                    /> */}
+
+                                                {/* </Col> */}
+                                                <Col sm="2" xs="2" md="2" lg="2" xl="2" className=''></Col>
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
+
+                                                    <TextField
+                                                        error={getFormDataError?.certificateDate}
+                                                        // value={moment(getFormData?.dob).format("LLLL")}
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        type="date"
+                                                        max={"2000-01-01"}
+                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        placeholder="Date issued"
+                                                        name="certificateDate"
+                                                        autoFocus
+                                                        variant="outlined"
+                                                        className='mb-1 '
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                    />
+                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                </Col>
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
+                                            </Row>
+                                        </Box>
+
+                                    </div>
+
+                                    <strong>Upload your document(s) </strong>
+                                    <p className='mt-2 mb-1'>Your file size must be less than 1.22 MB</p>
+                                    <Upload {...props2} onChange={(e) => { setProfileCertificate(e?.target?.value || null) }} value={profileCertificate} maxCount={1} >
+                                        <ButtonGroup variant='outline' spacing='6'>
+                                            <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select a document </Button>
+                                        </ButtonGroup>
+                                    </Upload>
+
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2 }}
+                                        onClick={(e) => handleCertificateUpload(3)}
+                                    >
+                                        Save
+                                    </Button>
+
+                                    <p className='mt-3 mb-1'>
+
+                                        <strong >Your document(s)</strong>
+                                        {
+                                            certificate?.filter((post_type) => { return (post_type?.type) === "Identification Document" })?.map((post, id) => {
+                                                return (
+                                                    <Row key={post.id} >
+                                                        <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
+
+                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" > 
+                                                            <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
+                                                        </Col>
+                                                    </Row>
+                                                )
+
+                                            })
+                                        }
+                                    </p>
+                                </CAccordionBody>
+                            </CAccordionItem>
+                            <CAccordionItem itemKey={2}>
+                                <CAccordionHeader> Previous Credential Evaluation Reports (if any) </CAccordionHeader>
+                                <CAccordionBody>
+
+                                    <div className='mui-control-form' >
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <Row className='ml-4 mt-0 mb-5'>
+                                                <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'>
+                                                </Col>
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className='mt-0 '>
+
+                                                    <TextField
+                                                        error={getFormDataError?.certificateDate}
+                                                        // value={moment(getFormData?.dob).format("LLLL")}
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        type="date"
+                                                        max={"2000-01-01"}
+                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        placeholder="Date issued"
+                                                        name="certificateDate"
+                                                        autoFocus
+                                                        variant="outlined"
+                                                        className='mb-1 '
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                    />
+                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                </Col>
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
+                                            </Row>
+                                        </Box>
+
+                                    </div>
+
+                                    <strong>Upload your document(s) </strong>
+                                    <p className='mt-2 mb-1'>Your file size must be less than 1.22 MB</p>
+                                    <Upload {...props2} onChange={(e) => { setProfileCertificate(e?.target?.value || null) }} value={profileCertificate} maxCount={1} >
+                                        <ButtonGroup variant='outline' spacing='6'>
+                                            <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select a document </Button>
+                                        </ButtonGroup>
+                                    </Upload>
+
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2 }}
+                                        onClick={(e) => handleCertificateUpload(4)}
+                                    >
+                                        Save
+                                    </Button>
+
+                                    <p className='mt-3 mb-1'>
+
+                                        <strong >Your document(s)</strong>
+                                        {
+                                            certificate?.filter((post_type) => { return (post_type?.type) === "Evaluation Report" })?.map((post, id) => {
+                                                return (
+                                                    <Row key={post.id} >
+                                                        <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
+
+                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                            {/* <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge>  */}
+                                                            <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
+                                                        </Col>
+                                                    </Row>
+                                                )
+
+                                            })
+                                        }
+                                    </p>
+                                </CAccordionBody>
+                            </CAccordionItem>
+                            <CAccordionItem itemKey={3}>
+                                <CAccordionHeader> Letter of Recommendation (if applicable) </CAccordionHeader>
+                                <CAccordionBody>
+
+                                    <div className='mui-control-form' >
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <Row className='ml-4 mt-0 mb-5'>
+                                                <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'>
+                                                </Col>
+                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
+
+                                                    <TextField
+                                                        error={getFormDataError?.certificateDate}
+                                                        // value={moment(getFormData?.dob).format("LLLL")}
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        type="date"
+                                                        max={"2000-01-01"}
+                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        placeholder="Date issued"
+                                                        name="certificateDate"
+                                                        autoFocus
+                                                        variant="outlined"
+                                                        className='mb-1 '
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                    />
+                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                </Col>
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
+                                            </Row>
+                                        </Box>
+
+                                    </div>
+
+                                    <strong>Upload your document(s)</strong>
+                                    <p className='mt-2 mb-1'>Your file size must be less than 1.22 MB</p>
+                                    <Upload {...props2} onChange={(e) => { setProfileCertificate(e?.target?.value || null) }} value={profileCertificate} maxCount={1} >
+                                        <ButtonGroup variant='outline' spacing='6'>
+                                            <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select a document </Button>
+                                        </ButtonGroup>
+                                    </Upload>
+
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2 }}
+                                        onClick={(e) => handleCertificateUpload(5)}
+                                    >
+                                        Save
+                                    </Button>
+
+                                    <p className='mt-3 mb-1'>
+
+                                        <strong >Your document(s)</strong>
+                                        {
+                                            certificate?.filter((post_type) => { return (post_type?.type) === "Letter of Recommendation" })?.map((post, id) => {
                                                 return (
                                                     <Row key={post.id} >
                                                         <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
@@ -1368,10 +1780,115 @@ const BasicInfo = (props) => {
                     </p>
                     : ""
             }
+            {
+                props?.profileManage === "other" ?
+                    <CAccordion activeItemKey={1} className="mt-3">
+                        <h6>Other Information</h6>
+                        <CAccordionItem itemKey={1}>
+                            <CAccordionHeader> Purpose of Evaluation </CAccordionHeader>
+                            <CAccordionBody>
+
+                                    <div className='mui-control-form' >
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <InputLabel shrink htmlFor="fname"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.first_name}
+                                                value={getFormData?.first_name}
+                                                id="fname"
+                                                name="fname"
+                                                placeholder="First name"
+                                                variant="outlined"
+                                                margin="normal"
+                                                type="text"
+                                                fullWidth
+                                                required
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "first_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "first_name": false } }))}
+                                            />
+
+
+                                        </Box>
+                                    </div>
+
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    // style={{ color: "#fff" }}
+                                    // className="bg-text-com-wp"
+                                    onClick={(e) => passConfiguration("add", "patch", "personal", 419)}
+                                >
+                                    Save
+                                </Button>
+                            </CAccordionBody>
+                        </CAccordionItem>
+                        <CAccordionItem itemKey={2}>
+                            <CAccordionHeader> User Preferences </CAccordionHeader>
+                            <CAccordionBody>
+
+                                <CCol xs="12" sm="12" md={12} lg={12} className="mt-1" >
+                                    <div className='mui-control-form' >
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <InputLabel shrink htmlFor="email"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.email}
+                                                value={getFormData?.email}
+                                                id="email"
+                                                name="email"
+                                                placeholder="Your email"
+                                                variant="outlined"
+                                                margin="normal"
+                                                type="email"
+                                                fullWidth
+                                                required
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "email": false } }))}
+                                            />
+                                            <InputLabel shrink htmlFor="phone"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.phone}
+                                                value={getFormData?.phone}
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                type="text"
+                                                placeholder="Phone number"
+                                                name="phone"
+                                                autoFocus
+                                                variant="outlined"
+                                                className='mt-3 mb-0'
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "phone": false } }))}
+                                            />
+                                        </Box>
+                                    </div>
+                                </CCol>
+
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    onClick={(e) => passConfiguration("add", "patch", "contact", 419)}
+                                >
+                                    Save
+                                </Button>
+                            </CAccordionBody>
+                        </CAccordionItem>
+
+                    </CAccordion>
+                    : ""
+            }
 
             {
                 props?.profileManage === "family" ?
-                    <CAccordion activeItemKey={1} className="mt-5">
+                    <CAccordion activeItemKey={1} className="mt-3">
                         <h6>Family Information</h6>
                         <CAccordionItem itemKey={1}>
                             <CAccordionHeader>Parent </CAccordionHeader>
@@ -5930,7 +6447,14 @@ const optionsStatus = [
     // {value: "", label: "Se", icon: "", isDisabled: true },
     { value: "test", label: "Test Key" },
 ]
-
+const optionsStateDoc = [
+    {value: "Official", label: "Official", id: 1 },
+    {value: "Unofficial", label: "Unofficial", id: 2 },
+]
+const optionsIdDoc = [
+    {value: "Passport", label: "Passport", id: 1 },
+    {value: "ID Card", label: "ID Card", id: 2 },
+]
 let transformCountriesData = Object.keys(countries || []).map((post, id) => {
 
     return {
