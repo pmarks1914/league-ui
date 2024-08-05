@@ -1419,8 +1419,8 @@ const BasicInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
                                                     <InputLabel shrink htmlFor="major_study"> </InputLabel>
                                                     <TextField
-                                                        // error={getFormDataError?.certificate_name}
-                                                        // value={getFormData?.certificate_name}
+                                                        error={getFormDataError?.major_study}
+                                                        value={getFormData?.major_study}
                                                         id="major_study"
                                                         name="major_study"
                                                         placeholder="Major/Field of Study"
@@ -1429,7 +1429,7 @@ const BasicInfo = (props) => {
                                                         type="text"
                                                         fullWidth
                                                         required
-                                                        // onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "major_study": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "major_study": false } }))}
                                                     />
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
@@ -1446,7 +1446,7 @@ const BasicInfo = (props) => {
                                                         inputProps={{ min: 0, max: 5 }}
                                                         fullWidth
                                                         required
-                                                        // // onChange={(e) => (setGetFormData({ ...getFormData, ...{ "gpa": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "gpa": false } }))}
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "gpa": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "gpa": false } }))}
                                                     />
                                                 </Col>
                                                 
@@ -1789,28 +1789,17 @@ const BasicInfo = (props) => {
                             <CAccordionBody>
 
                                     <div className='mui-control-form' >
-                                        <Box
-                                            component="form"
-                                            noValidate
-                                            autoComplete="on"
-                                        >
-                                            <InputLabel shrink htmlFor="fname"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.first_name}
-                                                value={getFormData?.first_name}
-                                                id="fname"
-                                                name="fname"
-                                                placeholder="First name"
-                                                variant="outlined"
-                                                margin="normal"
-                                                type="text"
-                                                fullWidth
-                                                required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "first_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "first_name": false } }))}
-                                            />
-
-
-                                        </Box>
+                                        <Label for="pupose_evaluation" className="label-dc"> </Label>
+                                        <Select
+                                            placeholder={"Purpose of Evaluation "}
+                                            defaultInputValue={getFormData?.pupose_evaluation}
+                                            options={puposeEvaluation}
+                                            id="pupose_evaluation"
+                                            className='other-input-select d-filters wp-cursor-pointer mb-3'
+                                            // components={{ Option: paymentOption }}
+                                            // onChange={(e) => setAddressConntryInfo(e)}
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "pupose_evaluation": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "pupose_evaluation": false } }))}
+                                        />
                                     </div>
 
                                 <Button
@@ -1865,6 +1854,91 @@ const BasicInfo = (props) => {
                                                 variant="outlined"
                                                 className='mt-3 mb-0'
                                                 onChange={(e) => (setGetFormData({ ...getFormData, ...{ "phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "phone": false } }))}
+                                            />
+                                        </Box>
+                                    </div>
+                                </CCol>
+
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    onClick={(e) => passConfiguration("add", "patch", "contact", 419)}
+                                >
+                                    Save
+                                </Button>
+                            </CAccordionBody>
+                        </CAccordionItem>
+                        <CAccordionItem itemKey={3}>
+                            <CAccordionHeader> Recipient Institution Details </CAccordionHeader>
+                            <CAccordionBody>
+
+                                <CCol xs="12" sm="12" md={12} lg={12} className="mt-1" >
+                                    <div className='mui-control-form' >
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <InputLabel shrink htmlFor="institution_name"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.institution_name}
+                                                value={getFormData?.institution_name}
+                                                id="institution_name"
+                                                name="institution_name"
+                                                placeholder="Name of Institution"
+                                                variant="outlined"
+                                                margin="normal"
+                                                type="text"
+                                                fullWidth
+                                                required
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_name": false } }))}
+                                            />
+                                            <InputLabel shrink htmlFor="department_office"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.department_office}
+                                                value={getFormData?.department_office}
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                type="text"
+                                                placeholder="Department/Office (if applicable)"
+                                                name="department_office"
+                                                autoFocus
+                                                variant="outlined"
+                                                className='mt-4 mb-0'
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "department_office": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "department_office": false } }))}
+                                            />
+                                            <InputLabel shrink htmlFor="contact_person"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.contact_person}
+                                                value={getFormData?.contact_person}
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                type="text"
+                                                placeholder="Contact Person (if applicable)"
+                                                name="contact_person"
+                                                autoFocus
+                                                variant="outlined"
+                                                className='mt-4 mb-0'
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person": false } }))}
+                                            />
+                                            <InputLabel shrink htmlFor="contact_person_email"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.contact_person_email}
+                                                value={getFormData?.contact_person_email}
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                type="text"
+                                                placeholder="Contact Person (if applicable)"
+                                                name="contact_person_email"
+                                                autoFocus
+                                                variant="outlined"
+                                                className='mt-4 mb-0'
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person_email": false } }))}
                                             />
                                         </Box>
                                     </div>
@@ -6454,6 +6528,14 @@ const optionsStateDoc = [
 const optionsIdDoc = [
     {value: "Passport", label: "Passport", id: 1 },
     {value: "ID Card", label: "ID Card", id: 2 },
+]
+
+const puposeEvaluation = [
+    {value: "Graduate School Application", label: "Graduate School Application", id: 1 },
+    {value: "Undergraduate Admission", label: "Undergraduate Admission", id: 2 },
+    {value: "Employment", label: "Employment", id: 3 },
+    {value: "Professional Licensing", label: "Professional Licensing", id: 4 },
+    {value: "Immigration/Visa Application", label: "Immigration/Visa Application", id: 5 },
 ]
 let transformCountriesData = Object.keys(countries || []).map((post, id) => {
 
