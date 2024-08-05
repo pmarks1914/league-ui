@@ -2010,6 +2010,76 @@ const BasicInfo = (props) => {
                                 </Button>
                             </CAccordionBody>
                         </CAccordionItem>
+                        <CAccordionItem itemKey={5}>
+                            <CAccordionHeader> Reference - Verification Information  </CAccordionHeader>
+                            <CAccordionBody>
+
+                                    <div className='mui-control-form' >
+                                        <Label for="verification_status" className="label-dc"> </Label>
+                                        <Select
+                                            placeholder={"Select consent"}
+                                            defaultInputValue={getFormData?.verification_status}
+                                            options={optionsVerificationState}
+                                            id="verification_status"
+                                            className='other-input-select d-filters wp-cursor-pointer mb-3'
+                                            // components={{ Option: paymentOption }}
+                                            // onChange={(e) => setAddressConntryInfo(e)}
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } }))}
+                                        />
+                                    </div>
+
+                                    <div className='mui-control-form' >
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <InputLabel shrink htmlFor="reference_email"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.reference_email}
+                                                value={getFormData?.reference_email}
+                                                id="reference_email"
+                                                name="reference_email"
+                                                placeholder="Your reference email"
+                                                variant="outlined"
+                                                margin="normal"
+                                                type="reference_email"
+                                                fullWidth
+                                                required
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reference_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reference_email": false } }))}
+                                            />
+                                            <InputLabel shrink htmlFor="reference_phone"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.reference_phone}
+                                                value={getFormData?.reference_phone}
+                                                id="reference_phone"
+                                                name="reference_phone"
+                                                placeholder="Your reference phone number"
+                                                variant="outlined"
+                                                margin="normal"
+                                                type="reference_phone"
+                                                fullWidth
+                                                required
+                                                className='mt-4 mb-0'
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reference_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reference_phone": false } }))}
+                                            />
+                                            
+                                        </Box>
+                                    </div>
+
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    // style={{ color: "#fff" }}
+                                    // className="bg-text-com-wp"
+                                    onClick={(e) => passConfiguration("add", "patch", "personal", 419)}
+                                >
+                                    Save
+                                </Button>
+                            </CAccordionBody>
+                        </CAccordionItem>
 
                     </CAccordion>
                     : ""
@@ -6588,6 +6658,11 @@ const optionsIdDoc = [
 const optionsPaymentMethod = [
     {value: "Credit Card", label: "Credit Card", id: 1 },
     {value: "PayPal", label: "PayPal", id: 2 },
+]
+const optionsVerificationState = [
+    {value: "Give consent", label: "Give consent", icon: "", isDisabled: true },
+    {value: "Yes", label: "Yes", id: 1 },
+    {value: "No", label: "No", id: 2 },
 ]
 
 const purposeEvaluation = [
