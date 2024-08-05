@@ -1789,16 +1789,16 @@ const BasicInfo = (props) => {
                             <CAccordionBody>
 
                                     <div className='mui-control-form' >
-                                        <Label for="pupose_evaluation" className="label-dc"> </Label>
+                                        <Label for="purpose_evaluation" className="label-dc"> </Label>
                                         <Select
                                             placeholder={"Purpose of Evaluation "}
-                                            defaultInputValue={getFormData?.pupose_evaluation}
-                                            options={puposeEvaluation}
-                                            id="pupose_evaluation"
+                                            defaultInputValue={getFormData?.purpose_evaluation}
+                                            options={purposeEvaluation}
+                                            id="purpose_evaluation"
                                             className='other-input-select d-filters wp-cursor-pointer mb-3'
                                             // components={{ Option: paymentOption }}
                                             // onChange={(e) => setAddressConntryInfo(e)}
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "pupose_evaluation": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "pupose_evaluation": false } }))}
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "purpose_evaluation": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "purpose_evaluation": false } }))}
                                         />
                                     </div>
 
@@ -1950,6 +1950,61 @@ const BasicInfo = (props) => {
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                     onClick={(e) => passConfiguration("add", "patch", "contact", 419)}
+                                >
+                                    Save
+                                </Button>
+                            </CAccordionBody>
+                        </CAccordionItem>
+                        <CAccordionItem itemKey={4}>
+                            <CAccordionHeader> Payment Method </CAccordionHeader>
+                            <CAccordionBody>
+
+                                    <div className='mui-control-form' >
+                                        <Label for="payment_method" className="label-dc"> </Label>
+                                        <Select
+                                            placeholder={"Payment Method"}
+                                            defaultInputValue={getFormData?.payment_method}
+                                            options={optionsPaymentMethod}
+                                            id="payment_method"
+                                            className='other-input-select d-filters wp-cursor-pointer mb-3'
+                                            // components={{ Option: paymentOption }}
+                                            // onChange={(e) => setAddressConntryInfo(e)}
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "payment_method": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "payment_method": false } }))}
+                                        />
+                                    </div>
+
+                                    <div className='mui-control-form' >
+                                        <Box
+                                            component="form"
+                                            noValidate
+                                            autoComplete="on"
+                                        >
+                                            <InputLabel shrink htmlFor="billing_address"> </InputLabel>
+                                            <TextField
+                                                error={getFormDataError?.billing_address}
+                                                value={getFormData?.billing_address}
+                                                id="billing_address"
+                                                name="billing_address"
+                                                placeholder="Your billing address"
+                                                variant="outlined"
+                                                margin="normal"
+                                                type="billing_address"
+                                                fullWidth
+                                                required
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "billing_address": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "billing_address": false } }))}
+                                            />
+                                            
+                                        </Box>
+                                    </div>
+
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    // style={{ color: "#fff" }}
+                                    // className="bg-text-com-wp"
+                                    onClick={(e) => passConfiguration("add", "patch", "personal", 419)}
                                 >
                                     Save
                                 </Button>
@@ -6529,12 +6584,13 @@ const optionsIdDoc = [
     {value: "Passport", label: "Passport", id: 1 },
     {value: "ID Card", label: "ID Card", id: 2 },
 ]
+// 
 const optionsPaymentMethod = [
-    {value: "Passport", label: "Passport", id: 1 },
-    {value: "ID Card", label: "ID Card", id: 2 },
+    {value: "Credit Card", label: "Credit Card", id: 1 },
+    {value: "PayPal", label: "PayPal", id: 2 },
 ]
 
-const puposeEvaluation = [
+const purposeEvaluation = [
     {value: "Graduate School Application", label: "Graduate School Application", id: 1 },
     {value: "Undergraduate Admission", label: "Undergraduate Admission", id: 2 },
     {value: "Employment", label: "Employment", id: 3 },
