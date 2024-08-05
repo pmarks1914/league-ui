@@ -6529,6 +6529,10 @@ const optionsIdDoc = [
     {value: "Passport", label: "Passport", id: 1 },
     {value: "ID Card", label: "ID Card", id: 2 },
 ]
+const optionsPaymentMethod = [
+    {value: "Passport", label: "Passport", id: 1 },
+    {value: "ID Card", label: "ID Card", id: 2 },
+]
 
 const puposeEvaluation = [
     {value: "Graduate School Application", label: "Graduate School Application", id: 1 },
