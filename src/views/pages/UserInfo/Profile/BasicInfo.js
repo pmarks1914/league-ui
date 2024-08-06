@@ -500,6 +500,23 @@ const BasicInfo = (props) => {
                 // });
             }
         }
+        else if (section === "purpose_evaluation") {
+            // console.log(getFormData)
+            if (method === "patch") {
+                data = {
+                    "other_info": {"purpose_evaluation": getFormData?.purpose_evaluation},
+                }
+                config = {
+                    method: method,
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + userData?.token
+                    },
+                    data: data
+                };
+            }
+        }
 
         genericApiCall(config, section)
     }
@@ -1809,7 +1826,7 @@ const BasicInfo = (props) => {
                                     sx={{ mt: 3, mb: 2 }}
                                     // style={{ color: "#fff" }}
                                     // className="bg-text-com-wp"
-                                    onClick={(e) => passConfiguration("add", "patch", "personal", 419)}
+                                    onClick={(e) => passConfiguration("add", "patch", "purpose_evaluation", 419)}
                                 >
                                     Save
                                 </Button>
