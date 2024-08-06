@@ -503,8 +503,24 @@ const BasicInfo = (props) => {
         else if (section === "purpose_evaluation") {
             // console.log(getFormData)
             if (method === "patch") {
+                data =  {"purpose_evaluation": getFormData?.purpose_evaluation}
+                config = {
+                    method: method,
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + userData?.token
+                    },
+                    data: data
+                };
+            }
+        }
+        else if (section === "user_preference") {
+            // console.log(getFormData)
+            if (method === "patch") {
                 data = {
-                    "other_info": {"purpose_evaluation": getFormData?.purpose_evaluation},
+                    "user_preference_email": getFormData?.user_preference_email,
+                    "user_preference_phone": getFormData?.user_preference_phone
                 }
                 config = {
                     method: method,
@@ -1843,34 +1859,34 @@ const BasicInfo = (props) => {
                                             noValidate
                                             autoComplete="on"
                                         >
-                                            <InputLabel shrink htmlFor="email"> </InputLabel>
+                                            <InputLabel shrink htmlFor="user_preference_email"> </InputLabel>
                                             <TextField
-                                                error={getFormDataError?.email}
-                                                value={getFormData?.email}
-                                                id="email"
-                                                name="email"
+                                                error={getFormDataError?.user_preference_email}
+                                                value={getFormData?.user_preference_email || getFormData?.email}
+                                                id="user_preference_email"
+                                                name="user_preference_email"
                                                 placeholder="Your email"
                                                 variant="outlined"
                                                 margin="normal"
                                                 type="email"
                                                 fullWidth
                                                 required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "email": false } }))}
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "user_preference_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "user_preference_email": false } }))}
                                             />
-                                            <InputLabel shrink htmlFor="phone"> </InputLabel>
+                                            <InputLabel shrink htmlFor="user_preference_phone"> </InputLabel>
                                             <TextField
-                                                error={getFormDataError?.phone}
-                                                value={getFormData?.phone}
+                                                error={getFormDataError?.user_preference_phone}
+                                                value={getFormData?.user_preference_phone || getFormData?.phone}
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 type="text"
                                                 placeholder="Phone number"
-                                                name="phone"
+                                                name="user_preference_phone"
                                                 autoFocus
                                                 variant="outlined"
                                                 className='mt-3 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "phone": false } }))}
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "user_preference_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "user_preference_phone": false } }))}
                                             />
                                         </Box>
                                     </div>
@@ -1881,7 +1897,7 @@ const BasicInfo = (props) => {
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
-                                    onClick={(e) => passConfiguration("add", "patch", "contact", 419)}
+                                    onClick={(e) => passConfiguration("add", "patch", "user_preference", 419)}
                                 >
                                     Save
                                 </Button>
