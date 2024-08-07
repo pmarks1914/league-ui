@@ -533,6 +533,26 @@ const BasicInfo = (props) => {
                 };
             }
         }
+        else if (section === "recipient_institution_detail") {
+            // console.log(getFormData)   
+            if (method === "patch") {
+                data = {
+                    "institution_name": getFormData?.institution_name,
+                    "department_office": getFormData?.department_office,
+                    "contact_person": getFormData?.contact_person,
+                    "contact_person_email": getFormData?.contact_person_email
+                }
+                config = {
+                    method: method,
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + userData?.token
+                    },
+                    data: data
+                };
+            }
+        }
 
         genericApiCall(config, section)
     }
