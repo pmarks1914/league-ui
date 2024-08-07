@@ -134,9 +134,20 @@ const BasicInfo = (props) => {
         "city": userData?.user?.city,
         "address": userData?.user?.address,
         "dateOfBirth": userData?.user?.dob,
-        "certificate_name": "",
-        "transcript_name": "",
-        "certificateDate": ""
+        "certificate_name": userData?.user?.other_info?.certificate_name,
+        "transcript_name": userData?.user?.other_info?.transcript_name,
+        "certificateDate": userData?.user?.other_info?.certificateDate,
+        "purpose_evaluation": userData?.user?.other_info?.purpose_evaluation,
+        "user_preference_email": userData?.user?.other_info?.user_preference_email,
+        "contact_person_email": userData?.user?.other_info?.contact_person_email,
+        "institution_name": userData?.user?.other_info?.institution_name,
+        "department_office": userData?.user?.other_info?.department_office,
+        "contact_person": userData?.user?.other_info?.contact_person,
+        "payment_method": userData?.user?.other_info?.payment_method,
+        "billing_address": userData?.user?.other_info?.billing_address,
+        "verification_status": userData?.user?.other_info?.verification_status,
+        "reference_phone": userData?.user?.other_info?.reference_phone,
+        "reference_email": userData?.user?.other_info?.reference_email
     })
     const [selectedValue, setSelectedValue] = React.useState('a');
 
