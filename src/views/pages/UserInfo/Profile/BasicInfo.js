@@ -553,6 +553,24 @@ const BasicInfo = (props) => {
                 };
             }
         }
+        else if (section === "payment_method") {
+            // console.log(getFormData)   
+            if (method === "patch") {
+                data = {
+                    "payment_method": getFormData?.payment_method,
+                    "billing_address": getFormData?.billing_address
+                }
+                config = {
+                    method: method,
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + userData?.token
+                    },
+                    data: data
+                };
+            }
+        }
 
         genericApiCall(config, section)
     }
