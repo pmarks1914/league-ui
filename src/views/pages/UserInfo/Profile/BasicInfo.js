@@ -571,6 +571,25 @@ const BasicInfo = (props) => {
                 };
             }
         }
+        else if (section === "verification_reference") {
+            // console.log(getFormData)               
+            if (method === "patch") {
+                data = {
+                    "verification_status": getFormData?.verification_status,
+                    "reference_phone": getFormData?.reference_phone,
+                    "reference_email": getFormData?.reference_email
+                }
+                config = {
+                    method: method,
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + userData?.token
+                    },
+                    data: data
+                };
+            }
+        }
 
         genericApiCall(config, section)
     }
