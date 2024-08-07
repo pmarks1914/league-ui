@@ -1927,7 +1927,7 @@ const BasicInfo = (props) => {
                                                 fullWidth
                                                 required
                                                 onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_name": false } }))}
-                                            />
+                                            /> 
                                             <InputLabel shrink htmlFor="department_office"> </InputLabel>
                                             <TextField
                                                 error={getFormDataError?.department_office}
@@ -1982,7 +1982,7 @@ const BasicInfo = (props) => {
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
-                                    onClick={(e) => passConfiguration("add", "patch", "contact", 419)}
+                                    onClick={(e) => passConfiguration("add", "patch", "recipient_institution_detail", 419)}
                                 >
                                     Save
                                 </Button>
@@ -2026,7 +2026,6 @@ const BasicInfo = (props) => {
                                                 required
                                                 onChange={(e) => (setGetFormData({ ...getFormData, ...{ "billing_address": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "billing_address": false } }))}
                                             />
-                                            
                                         </Box>
                                     </div>
 
@@ -2037,7 +2036,7 @@ const BasicInfo = (props) => {
                                     sx={{ mt: 3, mb: 2 }}
                                     // style={{ color: "#fff" }}
                                     // className="bg-text-com-wp"
-                                    onClick={(e) => passConfiguration("add", "patch", "personal", 419)}
+                                    onClick={(e) => passConfiguration("add", "patch", "payment_method", 419)}
                                 >
                                     Save
                                 </Button>
@@ -2099,7 +2098,7 @@ const BasicInfo = (props) => {
                                             
                                         </Box>
                                     </div>
-
+                                    
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -2107,7 +2106,7 @@ const BasicInfo = (props) => {
                                     sx={{ mt: 3, mb: 2 }}
                                     // style={{ color: "#fff" }}
                                     // className="bg-text-com-wp"
-                                    onClick={(e) => passConfiguration("add", "patch", "personal", 419)}
+                                    onClick={(e) => passConfiguration("add", "patch", "verification_reference", 419)}
                                 >
                                     Save
                                 </Button>
