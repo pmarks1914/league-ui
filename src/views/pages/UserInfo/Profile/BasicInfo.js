@@ -157,7 +157,7 @@ const BasicInfo = (props) => {
     const [country, setCountry] = React.useState('');
     const [profileType, setProfileType] = React.useState('');
 
-    const [profilePhoto, setProfilePhoto] = useState(userData.photo)
+    const [profilePhoto, setProfilePhoto] = useState(userData?.photo)
     const [photoList, setPhotoList] = useState([]);
     // profile photo loading
     const [uploading3, setUploading3] = useState(false);
@@ -166,7 +166,7 @@ const BasicInfo = (props) => {
 
     // console.log(props?.profileManage)
     // certificate    
-    const [profileCertificate, setProfileCertificate] = useState(userData.certificate)
+    const [profileCertificate, setProfileCertificate] = useState(userData?.certificate)
 
     const [certificateList, setCertificateList] = useState([]);
     const [certificate, setCertificate] = useState([]);
@@ -198,31 +198,14 @@ const BasicInfo = (props) => {
 
 
     }
-
-    const props2 = {
-        onChange: (info) => {
-            console.log("l ", info.fileList);
-        },
-        onRemove: (file) => {
-            const index = certificateList.indexOf(file);
-            const newFileList = certificateList.slice();
-            newFileList.splice(index, 1);
-            setCertificateList(newFileList);
-        },
-        beforeUpload: (file) => {
-            setCertificateList([file]);
-            return false;
-        },
-        certificateList,
-    };
-    const props3 = {
+    const props1 = {
         onChange: (info) => {
             console.log("l ", info);
         },
         onRemove: (file) => {
             const index = photoList.indexOf(file);
             const newFileList = photoList.slice();
-            newFileList.splice(index, 1);
+            newFileList?.splice(index, 1);
             setPhotoList(newFileList);
         },
         beforeUpload: (file) => {
@@ -230,6 +213,19 @@ const BasicInfo = (props) => {
             return false;
         },
         photoList,
+    };
+    const props2 = {
+        onRemove: (file) => {
+            const index = certificateList?.indexOf(file);
+            const newFileList = certificateList?.slice();
+            newFileList?.splice(index, 1);
+            setCertificateList(newFileList);
+        },
+        beforeUpload: (file) => {
+            setCertificateList([file]);
+            return false;
+        },
+        certificateList,
     };
     // profile upload
     const handlePhotoUpload = () => {
@@ -241,15 +237,15 @@ const BasicInfo = (props) => {
             // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", photo, userData)
 
             let config = {
-                method: 'patch',
-                url: process.env.REACT_APP_BASE_API + '/user-account/' + userData?.id + "/",
+                method: 'POST',
+                url: process.env.REACT_APP_BASE_API + '/uploadf',
                 headers: {
-                    "Authorization": `Bearer ${userData.token}`,
+                    "Authorization": `Bearer ${userData?.token}`,
                     'Content-Type': 'application/json',
                 },
                 data: formData2
             };
-            //   console.log(photo.type)
+            // console.log(photo.type)
             if (photo.type === 'image/png' || photo.type === 'image/jpg' || photo.type === 'image/jpeg') {
                 axios(config).then(function (response) {
 
@@ -297,24 +293,24 @@ const BasicInfo = (props) => {
     };
     // certificate 
     const handleCertificateUpload = (fileType) => {
-        // console.log(userData,getFormData, moment(getFormData.certificateIssuedDate).format('YYYY-MM-DD'))
+        // console.log(userData,getFormData, moment(getFormData?.certificateIssuedDate).format('YYYY-MM-DD'))
         // console.log("<>", getFormData)
         const formData2 = new FormData();
         formData2.append('type', fileType);
-        formData2.append('issued_date', moment(getFormData.certificateDate).format('YYYY-MM-DD'));
+        formData2.append('issued_date', moment(getFormData?.certificateDate).format('YYYY-MM-DD'));
 
-        // formData2.append('slug', getFormData.certificate_name);
+        // formData2.append('slug', getFormData?.certificate_name);
 
         if(fileType = 1){
-            formData2.append('slug', getFormData.certificate_name);
+            formData2.append('slug', getFormData?.certificate_name);
         }
         if(fileType = 2){
-            formData2.append('slug', getFormData.transcript_name);
+            formData2.append('slug', getFormData?.transcript_name);
         }
 
-        certificateList.forEach((cert) => {
+        certificateList?.forEach((cert) => {
 
-            console.log(cert)
+            // console.log(cert)
             formData2.append('cert', cert);
             // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", getFormData, formData2)
 
@@ -322,7 +318,7 @@ const BasicInfo = (props) => {
                 method: 'POST',
                 url: process.env.REACT_APP_BASE_API + '/upload',
                 headers: {
-                    "Authorization": `Bearer ${userData.token}`,
+                    "Authorization": `Bearer ${userData?.token}`,
                     // 'Content-Type': 'application/json',
 
                 },
@@ -370,7 +366,7 @@ const BasicInfo = (props) => {
     function genericApiCall(config, section) {
         // 
         axios(config).then(response => {
-            console.log(response.data);
+            // console.log(response.data);
 
             toast.success(response?.data?.message, {
                 position: toast?.POSITION?.TOP_CENTER
@@ -860,7 +856,7 @@ const BasicInfo = (props) => {
             },
         };
         axios(config).then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             if (response.status === 200) {
                 // setFamilyData(response?.data?.family)
                 setGetFormData({
@@ -1022,23 +1018,11 @@ const BasicInfo = (props) => {
                             <CAccordionBody>
                                 <strong>Upload your profile image</strong>
                                 <p className='mt-4 mb-1'>Your file size must be less than 1.22 MB</p>
-                                <Upload {...props3} onChange={(e) => { setProfilePhoto(e?.target?.value || null) }} value={profilePhoto} maxCount={1} >
+                                <Upload {...props1} onChange={(e) => { setProfilePhoto(e?.target?.value || null) }} value={profilePhoto} maxCount={1} >
                                     {/* <ButtonGroup variant='outline' spacing='6'> */}
                                     <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select an image </Button>
                                     {/* </ButtonGroup> */}
                                 </Upload>
-                                {/* <Button
-                                // type="primary"
-                                colorScheme='orange'
-                                onClick={handlePhotoUpload}
-                                disabled={photoList.length === 0}
-                                loading={uploading3}
-                                style={{
-                                    marginTop: 16,
-                                }}
-                            >
-                                {uploading3 ? 'Uploading' : 'Submit Photo'}
-                            </Button> */}
 
                                 <Button
                                     type="submit"
@@ -1638,24 +1622,7 @@ const BasicInfo = (props) => {
                                             noValidate
                                             autoComplete="on"
                                         >
-                                            <Row className='ml-4 mt-4 mb-5'>
-                                                {/* <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'> */}
-                                                    {/* <InputLabel shrink htmlFor="certname"> </InputLabel> */}
-                                                    {/* <TextField
-                                                        error={getFormDataError?.certificate_name}
-                                                        value={getFormData?.certificate_name}
-                                                        id="certname"
-                                                        name="certname"
-                                                        placeholder="Certificate name"
-                                                        variant="outlined"
-                                                        margin="normal"
-                                                        type="text"
-                                                        fullWidth
-                                                        required
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
-                                                    /> */}
-
-                                                {/* </Col> */}
+                                            <Row className='ml-4 mt-4 mb-5'>                                                
                                                 <Col sm="2" xs="2" md="2" lg="2" xl="2" className=''></Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
@@ -1677,7 +1644,6 @@ const BasicInfo = (props) => {
                                                     />
                                                     <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -1866,7 +1832,6 @@ const BasicInfo = (props) => {
                                                         <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
 
                                                         <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
-                                                            {/* <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge>  */}
                                                             <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
                                                         </Col>
                                                     </Row>
