@@ -326,6 +326,8 @@ const Dashboard = () => {
       <br />
 
       {/* stats */}
+      {/* <CRow className='m-3'> */}
+        {/* <CCol xs={12} sm={6} lg={3}>
       {/* <CRow className='m-3'>
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
@@ -344,7 +346,7 @@ const Dashboard = () => {
             title="Programmes"
             value={schDetails?.count_stats?.programme || "0"}
           />
-        </CCol>
+        </CCol> 
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
             className="mb-4"
@@ -362,8 +364,8 @@ const Dashboard = () => {
             title="File"
             value={schDetails?.count_stats?.file || "0"}
           />
-        </CCol>
-      </CRow> */}
+        </CCol>*/}
+      {/* </CRow> */}
 
       <CRow className='m-3'>
         <CCol xs={12} sm={6} lg={3}>
@@ -477,7 +479,6 @@ const Dashboard = () => {
                         <CTableHeaderCell>Action</CTableHeaderCell>
                       </CTableRow>
                     </CTableHead>
-                    {/* { console.log(" schDetails >>", schDetails ) } */}
                     <CTableBody>
                       {schDetails?.data?.map((item, index) => (
                         <CTableRow v-for="item in tableItems" key={index}>
@@ -492,6 +493,7 @@ const Dashboard = () => {
                             </div>
                           </CTableDataCell>
                           <CTableDataCell className="text-center">
+                            {item?.description} 
                             {item?.description}
                             {/* <CIcon size="xl" icon={item.country.flag} title={item.country.name} /> */}
                           </CTableDataCell>
