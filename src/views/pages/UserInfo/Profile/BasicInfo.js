@@ -15,28 +15,10 @@ import {
     CContainer
 } from '@coreui/react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-
-import FormLabel from '@mui/material/FormLabel';
-import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { Tab, Tabs, TabPanel, TabList, TabPanels, ChakraProvider, Input, Stack, GridItem, Grid, Text, Divider } from '@chakra-ui/react';
-import theme from "src/styles/Styles"
 import axios from "axios"
-import { useNavigate } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
-
-import InputAdornment from '@mui/material/InputAdornment';
 import CIcon from '@coreui/icons-react'; import {
     // cilBell,
     cilCreditCard,
@@ -57,12 +39,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 
 import 'antd/dist/antd.min.css';
-import { message, Upload } from 'antd';
-import { DownloadIcon } from '@chakra-ui/icons';
 
-import { DocsCallout, DocsExample } from 'src/components'
-import classnames from 'classnames';
-//dd import './gen.css';
+import { message, Upload } from 'antd';
+
 import $ from 'jquery';
 import Select, { components } from 'react-select';
 import PropTypes, { func } from "prop-types";

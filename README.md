@@ -4,6 +4,7 @@
 
 ``` bash
 $ npm install
+$ npm install --legacy-peer-deps --strict-ssl=false
 ```
 
 or
