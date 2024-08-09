@@ -150,23 +150,12 @@ const BasicInfo = (props) => {
 
     useEffect(() => {
         getDataInfo()
-        // console.log(familyData)
+        console.log("familyData")
     }, [])
     useEffect(() => {
         // console.log(familyData)
     }, [familyData])
 
-    const toggle = tab => {
-        if (activeTab !== tab) setActiveTab(tab);
-        if (tab === '1' || tab === '14') {
-            document.getElementById("fin-month-id").style.display = "block";
-        }
-        else {
-            document.getElementById("fin-month-id").style.display = "none";
-        }
-
-
-    }
     const props1 = {
         onChange: (info) => {
             console.log("l ", info);
@@ -989,20 +978,21 @@ const BasicInfo = (props) => {
                                     <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select an image </Button>
                                     {/* </ButtonGroup> */}
                                 </Upload>
+                                {
+                                    certificate?.filter((post_type) => { return (post_type?.type) === "Photo" })?.length === 0 ? 
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ mt: 3, mb: 2 }}
+                                            onClick={() => handlePhotoUpload(0)}
+                                            disabled={uploading}
+                                        >
+                                            {uploading ? 'Uploading' : 'Submit Photo'}
 
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                    onClick={() => handlePhotoUpload(0)}
-                                    disabled={uploading}
-                                //   onClick={(e)=>handleSubmit(e)}
-                                >
-                                    {/* Save */}
-                                    {uploading ? 'Uploading' : 'Submit Photo'}
-
-                                </Button>
+                                        </Button>
+                                        : ""
+                                }
 
 
                                 <p className='mt-3 mb-1'>
@@ -1330,19 +1320,22 @@ const BasicInfo = (props) => {
                                 {uploading3 ? 'Uploading' : 'Submit Photo'}
                             </Button> */}
 
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => handleCertificateUpload(1)}
+{
+                                    certificate?.filter((post_type) => { return (post_type?.type) === "Certificate" })?.length === 0 ? 
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ mt: 3, mb: 2 }}
+                                            onClick={() => handleCertificateUpload(1)}
+                                            disabled={uploading}
+                                        >
+                                            {uploading ? 'Uploading' : 'Submit Photo'}
 
-                                        disabled={uploading}
-                                    //   onClick={(e)=>handleSubmit(e)}
-                                    >
-                                        {/* Save */}
-                                        {uploading ? 'Uploading' : 'Submit document'}
-                                    </Button>
+                                        </Button>
+                                        : ""
+                                }
+                                    
 
                                     <p className='mt-3 mb-1'>
 
@@ -1437,19 +1430,21 @@ const BasicInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
 
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => handleCertificateUpload(2)}
+                                    {
+                                    certificate?.filter((post_type) => { return (post_type?.type) === "Transcript" })?.length === 0 ? 
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ mt: 3, mb: 2 }}
+                                            onClick={() => handleCertificateUpload(1)}
+                                            disabled={uploading}
+                                        >
+                                            {uploading ? 'Uploading' : 'Submit Photo'}
 
-                                        disabled={uploading}
-                                    //   onClick={(e)=>handleSubmit(e)}
-                                    >
-                                        {/* Save */}
-                                        {uploading ? 'Uploading' : 'Submit document'}
-                                    </Button>
+                                        </Button>
+                                        : ""
+                                }
 
                                     <p className='mt-3 mb-1'>
 
@@ -1658,19 +1653,22 @@ const BasicInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
 
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => handleCertificateUpload(3)}
+                                    
+                                    {
+                                    certificate?.filter((post_type) => { return (post_type?.type) === "Identification Document" })?.length === 0 ? 
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ mt: 3, mb: 2 }}
+                                            onClick={() => handleCertificateUpload(3)}
+                                            disabled={uploading}
+                                        >
+                                            {uploading ? 'Uploading' : 'Submit Photo'}
 
-                                        disabled={uploading}
-                                    //   onClick={(e)=>handleSubmit(e)}
-                                    >
-                                        {/* Save */}
-                                        {uploading ? 'Uploading' : 'Submit document'}
-                                    </Button>
+                                        </Button>
+                                        : ""
+                                }
 
 
                                     <p className='mt-3 mb-1'>
@@ -1740,18 +1738,22 @@ const BasicInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
 
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => handleCertificateUpload(4)}
-                                        disabled={uploading}
-                                    //   onClick={(e)=>handleSubmit(e)}
-                                    >
-                                        {/* Save */}
-                                        {uploading ? 'Uploading' : 'Submit document'}
-                                    </Button>
+                                    
+                                    {
+                                    certificate?.filter((post_type) => { return (post_type?.type) === "Evaluation Report" })?.length === 0 ? 
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ mt: 3, mb: 2 }}
+                                            onClick={() => handleCertificateUpload(4)}
+                                            disabled={uploading}
+                                        >
+                                            {uploading ? 'Uploading' : 'Submit Photo'}
+
+                                        </Button>
+                                        : ""
+                                }
 
                                     <p className='mt-3 mb-1'>
 
@@ -1821,19 +1823,21 @@ const BasicInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
 
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => handleCertificateUpload(5)}
+                                    {
+                                    certificate?.filter((post_type) => { return (post_type?.type) === "Letter of Recommendation" })?.length === 0 ? 
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ mt: 3, mb: 2 }}
+                                            onClick={() => handleCertificateUpload(5)}
+                                            disabled={uploading}
+                                        >
+                                            {uploading ? 'Uploading' : 'Submit Photo'}
 
-                                        disabled={uploading}
-                                    //   onClick={(e)=>handleSubmit(e)}
-                                    >
-                                        {/* Save */}
-                                        {uploading ? 'Uploading' : 'Submit document'}
-                                    </Button>
+                                        </Button>
+                                        : ""
+                                }
 
                                     <p className='mt-3 mb-1'>
 
