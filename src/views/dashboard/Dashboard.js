@@ -80,7 +80,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // 
-    
+
     let schData = getSchData();
     schData?.list?.then(value => { setSchDetails(value) });
     trackActivity();
@@ -210,8 +210,8 @@ const Dashboard = () => {
       activity: 'Last week',
     },
   ]
-  function declineConfirm(programId, action){
-    
+  function declineConfirm(programId, action) {
+
     Swal.fire({
       // title: 'Successfully created!',
       text: action,
@@ -222,8 +222,8 @@ const Dashboard = () => {
       cancelButtonColor: 'danger',
       confirmButtonColor: 'primary',
       confirmButtonText: 'Confirm'
-    }).then((result) => { 
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         declineApply(programId)
       }
     });
@@ -232,43 +232,43 @@ const Dashboard = () => {
 
     // console.log(programId)
     let config = {
-        method: "DELETE",
-        url: process.env.REACT_APP_BASE_API + "/application/" + programId,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + userData?.token
-        },
-        body: {}
+      method: "DELETE",
+      url: process.env.REACT_APP_BASE_API + "/application/" + programId,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userData?.token
+      },
+      body: {}
     };
     axios(config).then(response => {
-        setApplicationAction(applicationAction+1)
-        toast.success(response?.data?.message, {
-            position: toast?.POSITION?.TOP_CENTER
-        });
-        // setSchoolInformation(response?.data)
+      setApplicationAction(applicationAction + 1)
+      toast.success(response?.data?.message, {
+        position: toast?.POSITION?.TOP_CENTER
+      });
+      // setSchoolInformation(response?.data)
     }).catch(function (error) {
 
-        if (error.response) {
-            // // console.log("==>");
-            /*
-                * The request was made and the server responded with a
-                * status code that falls out of the range of 2xx
-                */
+      if (error.response) {
+        // // console.log("==>");
+        /*
+            * The request was made and the server responded with a
+            * status code that falls out of the range of 2xx
+            */
 
-        } else if (error.request) {
-            /*
-                * The request was made but no response was received, `error.request`
-                * is an instance of XMLHttpRequest in the browser and an instance
-                * of http.ClientRequest in Node.js
-                */
+      } else if (error.request) {
+        /*
+            * The request was made but no response was received, `error.request`
+            * is an instance of XMLHttpRequest in the browser and an instance
+            * of http.ClientRequest in Node.js
+            */
 
-        } else {
-            // Something happened in setting up the request and triggered an Error
-        }
+      } else {
+        // Something happened in setting up the request and triggered an Error
+      }
     }
     );
 
-}
+  }
 
   function trackActivity() {
     // e.preventDefault();
@@ -290,13 +290,13 @@ const Dashboard = () => {
     localStorage.setItem("applicantData", JSON.stringify(rowIndexData));
 
     // setTimeout(()=>{
-      window.location.href = '/application-detail/' + userData?.organization_id + "/"
+    window.location.href = '/application-detail/' + userData?.organization_id + "/"
     // }, 1000)
 
     // console.log("<<<<   >>>>", '/payroll/salary/'+rowIndexData?.payrollID?.toString()  )
 
   }
-  
+
   return (
     <>
       {/* Sch  */}
@@ -304,7 +304,7 @@ const Dashboard = () => {
       {/* <WidgetsBrand withCharts /> */}
 
       <ToastContainer />
-      {
+      {/* {
         userData?.type === 'Student' ?
         <CRow className='m-3' >
           <CCol sm="12" md="12" lg="12" xl="12">
@@ -312,11 +312,21 @@ const Dashboard = () => {
           </CCol>
         </CRow>
         : ""
+      } */}
+
+      {
+        userData?.type === 'Student' ?
+          <CRow className='m-3' >
+            <CCol sm="12" md="12" lg="12" xl="12">
+              <a href='#' className='justify-content-between align-items-center text-white bg-dark rounded-1 p-2' > Request evaluation </a>
+            </CCol>
+          </CRow>
+          : ""
       }
       <br />
-      
+
       {/* stats */}
-      <CRow className='m-3'>
+      {/* <CRow className='m-3'>
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
             className="mb-4"
@@ -353,16 +363,105 @@ const Dashboard = () => {
             value={schDetails?.count_stats?.file || "0"}
           />
         </CCol>
+      </CRow> */}
+
+      <CRow className='m-3'>
+        <CCol xs={12} sm={6} lg={3}>
+          <CWidgetStatsB
+            className="mb-4"
+            progress={{ color: 'success', value: 100 }}
+            text="Profile information"
+            title="Profile"
+            value={"0%"}
+          />
+        </CCol>
+        <CCol xs={12} sm={6} lg={3}>
+          <CWidgetStatsB
+            className="mb-4"
+            progress={{ color: 'danger', value: 100 }}
+            text="Profile Docs Completed"
+            title="Documents"
+            value={"0%"}
+          />
+        </CCol>
+        <CCol xs={12} sm={6} lg={3}>
+          <CWidgetStatsB
+            className="mb-4"
+            progress={{ color: 'warning', value: 100 }}
+            text="My application"
+            title="Application"
+            value={schDetails?.count_stats?.application || "0"}
+          />
+        </CCol>
+        <CCol xs={12} sm={6} lg={3}>
+          <CWidgetStatsB
+            className="mb-4"
+            progress={{ color: 'info', value: 100 }}
+            text="My files uploaded"
+            title="File"
+            value={schDetails?.count_stats?.file || "0"}
+          />
+        </CCol>
+
       </CRow>
 
       {/* table for student */}
+
       {
         userData?.type === 'Student' ?
-          <CRow className='m-3' style={{width: "100%"}}>
+          <CRow className='m-3' style={{ width: "100%" }}>
+          <CCol xs={12} sm={8} lg={8}>
+            <CCard className="mb-4">
+              <CCardHeader>Your analytics</CCardHeader>
+              <CCardBody>
+                <CChartLine
+                  data={{
+                    labels: ['Profile', 'Application', 'Document', 'File'],
+                    datasets: [
+                      {
+                        label: '-',
+                        backgroundColor: 'rgba(151, 187, 205, 0.2)',
+                        borderColor: 'rgba(151, 187, 205, 1)',
+                        pointBackgroundColor: 'rgba(151, 187, 205, 1)',
+                        pointBorderColor: '#fff',
+                        data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file]
+                      },
+                    ],
+                  }}
+                />
+              </CCardBody>
+            </CCard>
+          </CCol>
+            <CCol xs={12} sm={3} lg={3}>
+              <CCard className="mb-4">
+                <CCardHeader>Your analytics</CCardHeader>
+                <CCardBody>
+                  <CChartPie
+                    data={{
+                      labels: ['Profile', 'Application', 'Document', 'File'],
+                      datasets: [
+                        {
+                          data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file],
+                          backgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
+                          hoverBackgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
+                        },
+                      ],
+                    }}
+                  />
+                </CCardBody>
+              </CCard>
+            </CCol>
+
+          </CRow>
+          : ""
+      }
+      {
+        userData?.type === 'Student iiiii' ?
+          <CRow className='m-3' style={{ width: "100%" }}>
 
             <CCol xs={12} sm={8} lg={8} >
-              
-              <CCard className="mb-4">            
+
+              <CCard className="mb-4">
                 <CCardHeader> Application Overview </CCardHeader>
                 <CCardBody>
 
@@ -388,18 +487,18 @@ const Dashboard = () => {
                           <CTableDataCell>
                             <div>{item?.student?.user?.first_name}</div>
                             <div className="small text-medium-emphasis">
-                              <span>{'New '}</span> | Applied:{' '}  
+                              <span>{'New '}</span> | Applied:{' '}
                               {moment(item?.created_on).format("YYYY-MM-DD")}
                             </div>
                           </CTableDataCell>
                           <CTableDataCell className="text-center">
-                            {item?.description} 
+                            {item?.description}
                             {/* <CIcon size="xl" icon={item.country.flag} title={item.country.name} /> */}
                           </CTableDataCell>
                           <CTableDataCell>
                             <div className="clearfix">
                               <div className="float-start ">
-                              <div style={{ width: 50, height: 50 }}>
+                                <div style={{ width: 50, height: 50 }}>
                                   <CircularProgressbar
                                     value={item?.progress || 25}
                                     text={`${item?.progress || 25}%`}
@@ -418,7 +517,7 @@ const Dashboard = () => {
                           </CTableDataCell>
                           <CTableDataCell>
                             <div className="small text-medium-emphasis"></div>
-                            <Badge color='primary' onClick={(e)=>{ declineConfirm( item?.id, "Decline Application : "+ item?.description ) } } > Delete </Badge> 
+                            <Badge color='primary' onClick={(e) => { declineConfirm(item?.id, "Decline Application : " + item?.description) }} > Delete </Badge>
                           </CTableDataCell>
                         </CTableRow>
                       ))}
@@ -447,8 +546,8 @@ const Dashboard = () => {
                 </CCardBody>
               </CCard>
             </CCol>
-          </CRow> 
-        : ""
+          </CRow>
+          : ""
       }
 
     </>
