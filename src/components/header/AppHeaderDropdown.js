@@ -50,7 +50,7 @@ const AppHeaderDropdown = (userData) => {
         <CDropdownHeader className="bg-light fw-semibold py-2">User Profile</CDropdownHeader>
 
         {
-          console.log("userData ", process.env.REACT_APP_MAIN_BASE + userData?.userData?.photo50, userData?.userData)
+          // console.log("userData ", process.env.REACT_APP_MAIN_BASE + userData?.userData?.photo50, userData?.userData)
         }
         <CDropdownItem>
           <CIcon icon={cilUser} className="me-2" />
