@@ -68,7 +68,7 @@ const optionsFinMonth = [
 
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
-console.log(userData)
+// console.log(userData)
 const BasicInfo = (props) => {
     const [activeTab, setActiveTab] = useState('1');
     const [month, setMonth] = useState(null);
@@ -128,6 +128,7 @@ const BasicInfo = (props) => {
     const [profilePhoto, setProfilePhoto] = useState(userData?.photo)
     const [photoList, setPhotoList] = useState([]);
     // profile photo loading
+    const [uploading, setUploading] = useState(false);
     const [uploading3, setUploading3] = useState(false);
     const [newPhoto, setNewPhoto] = useState(null)
     const [newCert, setNewCert] = useState(null)
@@ -196,47 +197,40 @@ const BasicInfo = (props) => {
         certificateList,
     };
     // profile upload
-    const handlePhotoUpload = () => {
+    const handlePhotoUpload = (fileType) => {
+        setUploading(true)
         const formData2 = new FormData();
-        photoList.forEach((photo) => {
+        formData2.append('type', fileType);
 
+        photoList.forEach((photo) => {
             // formData2.append('user', userData?.id);
             formData2.append('photo', photo);
-            // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", photo, userData)
+            // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", photo, photoList)
 
             let config = {
                 method: 'POST',
-                url: process.env.REACT_APP_BASE_API + '/uploadf',
+                url: process.env.REACT_APP_BASE_API + '/upload',
                 headers: {
                     "Authorization": `Bearer ${userData?.token}`,
-                    'Content-Type': 'application/json',
                 },
                 data: formData2
             };
             // console.log(photo.type)
-            if (photo.type === 'image/png' || photo.type === 'image/jpg' || photo.type === 'image/jpeg') {
+            if (photo?.type === 'image/png' || photo?.type === 'image/jpg' || photo?.type === 'image/jpeg') {
                 axios(config).then(function (response) {
-
                     // console.log(response?.data, photo)
-                    if (response.status === 200) {
-                        toast.success(response?.data.message, {
+                    if (response.data.code === 200) {
+                        toast.success(response?.data?.message, {
                             position: toast?.POSITION?.TOP_CENTER
                         });
-                        setNewPhoto(photo);
-                        let currentUser_new = JSON.parse(localStorage.getItem('userDataStore'));
-
-                        currentUser_new["photo"] = response?.data?.photo;
-
-                        localStorage.setItem("userDataStore", JSON.stringify(currentUser_new));
-                        setTimeout(() => {
-                            // window.location.reload()
-                        }, 1000)
-
+                        getDataInfo()
+                        setUploading(false)
                     }
-                    if (response.status != 200) {
-                        toast.error(response?.data.message, {
+                    else {
+                        toast.error(response?.data?.message, {
                             position: toast?.POSITION?.TOP_CENTER
                         });
+                        setUploading(false)
                     }
 
                 })
@@ -254,13 +248,15 @@ const BasicInfo = (props) => {
                 toast.error('Unsupported file type for photo.', {
                     position: toast?.POSITION?.TOP_CENTER
                 });
+                setUploading(false)
             }
         });
 
-        setUploading3(false); // You can use any AJAX library you like
+        // setUploading(false); // You can use any AJAX library you like
     };
     // certificate 
     const handleCertificateUpload = (fileType) => {
+        setUploading(true)
         // console.log(userData,getFormData, moment(getFormData?.certificateIssuedDate).format('YYYY-MM-DD'))
         // console.log("<>", getFormData)
         const formData2 = new FormData();
@@ -269,10 +265,10 @@ const BasicInfo = (props) => {
 
         // formData2.append('slug', getFormData?.certificate_name);
 
-        if(fileType = 1){
+        if (fileType = 1) {
             formData2.append('slug', getFormData?.certificate_name);
         }
-        if(fileType = 2){
+        if (fileType = 2) {
             formData2.append('slug', getFormData?.transcript_name);
         }
 
@@ -287,7 +283,6 @@ const BasicInfo = (props) => {
                 url: process.env.REACT_APP_BASE_API + '/upload',
                 headers: {
                     "Authorization": `Bearer ${userData?.token}`,
-                    // 'Content-Type': 'application/json',
 
                 },
                 data: formData2
@@ -297,10 +292,11 @@ const BasicInfo = (props) => {
                 axios(config).then(function (response) {
 
                     // console.log(response.status)
-                    if (response.status === 200) {
+                    if (response.data.code === 200) {
                         toast.success(response?.data.message || "Successful", {
                             position: toast?.POSITION?.TOP_CENTER
                         });
+                        setUploading(false)
                         getDataInfo()
 
                     }
@@ -308,6 +304,7 @@ const BasicInfo = (props) => {
                         toast.error(response?.data.message || "Failed", {
                             position: toast?.POSITION?.TOP_CENTER
                         });
+                        setUploading(false)
                     }
 
                 })
@@ -316,6 +313,7 @@ const BasicInfo = (props) => {
                         toast.error(error?.response?.data.message, {
                             position: toast?.POSITION?.TOP_CENTER
                         });
+                        setUploading(false)
 
                         // console.log(error);
                     });
@@ -325,10 +323,10 @@ const BasicInfo = (props) => {
                 toast.error('Unsupported file type for pdf.', {
                     position: toast?.POSITION?.TOP_CENTER
                 });
+                setUploading(false)
             }
         });
 
-        setUploading3(false); // You can use any AJAX library you like
     };
     // generic method
     function genericApiCall(config, section) {
@@ -478,7 +476,7 @@ const BasicInfo = (props) => {
         else if (section === "purpose_evaluation") {
             // console.log(getFormData)
             if (method === "patch") {
-                data =  {"purpose_evaluation": getFormData?.purpose_evaluation}
+                data = { "purpose_evaluation": getFormData?.purpose_evaluation }
                 config = {
                     method: method,
                     url: process.env.REACT_APP_BASE_API + "/user/any",
@@ -997,11 +995,34 @@ const BasicInfo = (props) => {
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
-                                    onClick={() => handlePhotoUpload()}
+                                    onClick={() => handlePhotoUpload(0)}
+                                    disabled={uploading}
                                 //   onClick={(e)=>handleSubmit(e)}
                                 >
-                                    Save
+                                    {/* Save */}
+                                    {uploading ? 'Uploading' : 'Submit Photo'}
+
                                 </Button>
+
+
+                                <p className='mt-3 mb-1'>
+
+                                    <strong >Your Profile Photo</strong>
+                                    {
+                                        certificate?.filter((post_type) => { return (post_type?.type) === "Photo" })?.map((post, id) => {
+                                            return (
+                                                <Row key={post.id} >
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
+
+                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                        <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
+                                                    </Col>
+                                                </Row>
+                                            )
+
+                                        })
+                                    }
+                                </p>
                             </CAccordionBody>
                         </CAccordionItem>
                         <CAccordionItem itemKey={3}>
@@ -1246,8 +1267,8 @@ const BasicInfo = (props) => {
                                         >
                                             <Row className='ml-4 mt-4 mb-5'>
                                                 {/* <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'> */}
-                                                    {/* <InputLabel shrink htmlFor="certname"> </InputLabel> */}
-                                                    {/* <TextField
+                                                {/* <InputLabel shrink htmlFor="certname"> </InputLabel> */}
+                                                {/* <TextField
                                                         error={getFormDataError?.certificate_name}
                                                         value={getFormData?.certificate_name}
                                                         id="certname"
@@ -1315,8 +1336,12 @@ const BasicInfo = (props) => {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                         onClick={(e) => handleCertificateUpload(1)}
+
+                                        disabled={uploading}
+                                    //   onClick={(e)=>handleSubmit(e)}
                                     >
-                                        Save
+                                        {/* Save */}
+                                        {uploading ? 'Uploading' : 'Submit document'}
                                     </Button>
 
                                     <p className='mt-3 mb-1'>
@@ -1418,8 +1443,12 @@ const BasicInfo = (props) => {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                         onClick={(e) => handleCertificateUpload(2)}
+
+                                        disabled={uploading}
+                                    //   onClick={(e)=>handleSubmit(e)}
                                     >
-                                        Save
+                                        {/* Save */}
+                                        {uploading ? 'Uploading' : 'Submit document'}
                                     </Button>
 
                                     <p className='mt-3 mb-1'>
@@ -1446,7 +1475,7 @@ const BasicInfo = (props) => {
                                 <CAccordionHeader>Educational Background </CAccordionHeader>
                                 <CAccordionBody>
 
-                                    <div className='mui-control-form' >  
+                                    <div className='mui-control-form' >
                                         <Box
                                             component="form"
                                             noValidate
@@ -1466,7 +1495,7 @@ const BasicInfo = (props) => {
                                                         type="text"
                                                         fullWidth
                                                         required
-                                                        // onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                                    // onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
                                                     />
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
@@ -1502,7 +1531,7 @@ const BasicInfo = (props) => {
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "gpa": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "gpa": false } }))}
                                                     />
                                                 </Col>
-                                                
+
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='mb-5'>
                                                     <TextField
                                                         error={getFormDataError?.school_year_from}
@@ -1522,7 +1551,7 @@ const BasicInfo = (props) => {
                                                     />
                                                     <InputLabel shrink htmlFor="school_year_from"> Date from </InputLabel>
                                                 </Col>
-                                                
+
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
                                                     <TextField
                                                         error={getFormDataError?.school_year_to}
@@ -1553,8 +1582,12 @@ const BasicInfo = (props) => {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                         onClick={(e) => handleCertificateUpload(1)}
+
+                                        disabled={uploading}
+                                    //   onClick={(e)=>handleSubmit(e)}
                                     >
-                                        Save
+                                        {/* Save */}
+                                        {uploading ? 'Uploading' : 'Submit document'}
                                     </Button>
                                 </CAccordionBody>
                             </CAccordionItem>
@@ -1590,7 +1623,7 @@ const BasicInfo = (props) => {
                                             noValidate
                                             autoComplete="on"
                                         >
-                                            <Row className='ml-4 mt-4 mb-5'>                                                
+                                            <Row className='ml-4 mt-4 mb-5'>
                                                 <Col sm="2" xs="2" md="2" lg="2" xl="2" className=''></Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
@@ -1631,9 +1664,14 @@ const BasicInfo = (props) => {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                         onClick={(e) => handleCertificateUpload(3)}
+
+                                        disabled={uploading}
+                                    //   onClick={(e)=>handleSubmit(e)}
                                     >
-                                        Save
+                                        {/* Save */}
+                                        {uploading ? 'Uploading' : 'Submit document'}
                                     </Button>
+
 
                                     <p className='mt-3 mb-1'>
 
@@ -1644,7 +1682,7 @@ const BasicInfo = (props) => {
                                                     <Row key={post.id} >
                                                         <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
 
-                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" > 
+                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
                                                             <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
                                                         </Col>
                                                     </Row>
@@ -1708,8 +1746,11 @@ const BasicInfo = (props) => {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                         onClick={(e) => handleCertificateUpload(4)}
+                                        disabled={uploading}
+                                    //   onClick={(e)=>handleSubmit(e)}
                                     >
-                                        Save
+                                        {/* Save */}
+                                        {uploading ? 'Uploading' : 'Submit document'}
                                     </Button>
 
                                     <p className='mt-3 mb-1'>
@@ -1786,8 +1827,12 @@ const BasicInfo = (props) => {
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                         onClick={(e) => handleCertificateUpload(5)}
+
+                                        disabled={uploading}
+                                    //   onClick={(e)=>handleSubmit(e)}
                                     >
-                                        Save
+                                        {/* Save */}
+                                        {uploading ? 'Uploading' : 'Submit document'}
                                     </Button>
 
                                     <p className='mt-3 mb-1'>
@@ -1822,19 +1867,19 @@ const BasicInfo = (props) => {
                             <CAccordionHeader> Purpose of Evaluation </CAccordionHeader>
                             <CAccordionBody>
 
-                                    <div className='mui-control-form' >
-                                        <Label for="purpose_evaluation" className="label-dc"> </Label>
-                                        <Select
-                                            placeholder={"Purpose of Evaluation "}
-                                            defaultInputValue={getFormData?.purpose_evaluation}
-                                            options={purposeEvaluation}
-                                            id="purpose_evaluation"
-                                            className='other-input-select d-filters wp-cursor-pointer mb-3'
-                                            // components={{ Option: paymentOption }}
-                                            // onChange={(e) => setAddressConntryInfo(e)}
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "purpose_evaluation": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "purpose_evaluation": false } }))}
-                                        />
-                                    </div>
+                                <div className='mui-control-form' >
+                                    <Label for="purpose_evaluation" className="label-dc"> </Label>
+                                    <Select
+                                        placeholder={"Purpose of Evaluation "}
+                                        defaultInputValue={getFormData?.purpose_evaluation}
+                                        options={purposeEvaluation}
+                                        id="purpose_evaluation"
+                                        className='other-input-select d-filters wp-cursor-pointer mb-3'
+                                        // components={{ Option: paymentOption }}
+                                        // onChange={(e) => setAddressConntryInfo(e)}
+                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "purpose_evaluation": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "purpose_evaluation": false } }))}
+                                    />
+                                </div>
 
                                 <Button
                                     type="submit"
@@ -1928,7 +1973,7 @@ const BasicInfo = (props) => {
                                                 fullWidth
                                                 required
                                                 onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_name": false } }))}
-                                            /> 
+                                            />
                                             <InputLabel shrink htmlFor="department_office"> </InputLabel>
                                             <TextField
                                                 error={getFormDataError?.department_office}
@@ -1993,42 +2038,42 @@ const BasicInfo = (props) => {
                             <CAccordionHeader> Payment Method </CAccordionHeader>
                             <CAccordionBody>
 
-                                    <div className='mui-control-form' >
-                                        <Label for="payment_method" className="label-dc"> </Label>
-                                        <Select
-                                            placeholder={"Payment Method"}
-                                            defaultInputValue={getFormData?.payment_method}
-                                            options={optionsPaymentMethod}
-                                            id="payment_method"
-                                            className='other-input-select d-filters wp-cursor-pointer mb-3'
-                                            // components={{ Option: paymentOption }}
-                                            // onChange={(e) => setAddressConntryInfo(e)}
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "payment_method": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "payment_method": false } }))}
-                                        />
-                                    </div>
+                                <div className='mui-control-form' >
+                                    <Label for="payment_method" className="label-dc"> </Label>
+                                    <Select
+                                        placeholder={"Payment Method"}
+                                        defaultInputValue={getFormData?.payment_method}
+                                        options={optionsPaymentMethod}
+                                        id="payment_method"
+                                        className='other-input-select d-filters wp-cursor-pointer mb-3'
+                                        // components={{ Option: paymentOption }}
+                                        // onChange={(e) => setAddressConntryInfo(e)}
+                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "payment_method": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "payment_method": false } }))}
+                                    />
+                                </div>
 
-                                    <div className='mui-control-form' >
-                                        <Box
-                                            component="form"
-                                            noValidate
-                                            autoComplete="on"
-                                        >
-                                            <InputLabel shrink htmlFor="billing_address"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.billing_address}
-                                                value={getFormData?.billing_address}
-                                                id="billing_address"
-                                                name="billing_address"
-                                                placeholder="Your billing address"
-                                                variant="outlined"
-                                                margin="normal"
-                                                type="billing_address"
-                                                fullWidth
-                                                required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "billing_address": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "billing_address": false } }))}
-                                            />
-                                        </Box>
-                                    </div>
+                                <div className='mui-control-form' >
+                                    <Box
+                                        component="form"
+                                        noValidate
+                                        autoComplete="on"
+                                    >
+                                        <InputLabel shrink htmlFor="billing_address"> </InputLabel>
+                                        <TextField
+                                            error={getFormDataError?.billing_address}
+                                            value={getFormData?.billing_address}
+                                            id="billing_address"
+                                            name="billing_address"
+                                            placeholder="Your billing address"
+                                            variant="outlined"
+                                            margin="normal"
+                                            type="billing_address"
+                                            fullWidth
+                                            required
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "billing_address": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "billing_address": false } }))}
+                                        />
+                                    </Box>
+                                </div>
 
                                 <Button
                                     type="submit"
@@ -2047,59 +2092,59 @@ const BasicInfo = (props) => {
                             <CAccordionHeader> Reference - Verification Information  </CAccordionHeader>
                             <CAccordionBody>
 
-                                    <div className='mui-control-form' >
-                                        <Label for="verification_status" className="label-dc"> </Label>
-                                        <Select
-                                            placeholder={"Select consent"}
-                                            defaultInputValue={getFormData?.verification_status}
-                                            options={optionsVerificationState}
-                                            id="verification_status"
-                                            className='other-input-select d-filters wp-cursor-pointer mb-3'
-                                            // components={{ Option: paymentOption }}
-                                            // onChange={(e) => setAddressConntryInfo(e)}
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } }))}
-                                        />
-                                    </div>
+                                <div className='mui-control-form' >
+                                    <Label for="verification_status" className="label-dc"> </Label>
+                                    <Select
+                                        placeholder={"Select consent"}
+                                        defaultInputValue={getFormData?.verification_status}
+                                        options={optionsVerificationState}
+                                        id="verification_status"
+                                        className='other-input-select d-filters wp-cursor-pointer mb-3'
+                                        // components={{ Option: paymentOption }}
+                                        // onChange={(e) => setAddressConntryInfo(e)}
+                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } }))}
+                                    />
+                                </div>
 
-                                    <div className='mui-control-form' >
-                                        <Box
-                                            component="form"
-                                            noValidate
-                                            autoComplete="on"
-                                        >
-                                            <InputLabel shrink htmlFor="reference_email"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.reference_email}
-                                                value={getFormData?.reference_email}
-                                                id="reference_email"
-                                                name="reference_email"
-                                                placeholder="Your reference email"
-                                                variant="outlined"
-                                                margin="normal"
-                                                type="reference_email"
-                                                fullWidth
-                                                required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reference_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reference_email": false } }))}
-                                            />
-                                            <InputLabel shrink htmlFor="reference_phone"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.reference_phone}
-                                                value={getFormData?.reference_phone}
-                                                id="reference_phone"
-                                                name="reference_phone"
-                                                placeholder="Your reference phone number"
-                                                variant="outlined"
-                                                margin="normal"
-                                                type="reference_phone"
-                                                fullWidth
-                                                required
-                                                className='mt-4 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reference_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reference_phone": false } }))}
-                                            />
-                                            
-                                        </Box>
-                                    </div>
-                                    
+                                <div className='mui-control-form' >
+                                    <Box
+                                        component="form"
+                                        noValidate
+                                        autoComplete="on"
+                                    >
+                                        <InputLabel shrink htmlFor="reference_email"> </InputLabel>
+                                        <TextField
+                                            error={getFormDataError?.reference_email}
+                                            value={getFormData?.reference_email}
+                                            id="reference_email"
+                                            name="reference_email"
+                                            placeholder="Your reference email"
+                                            variant="outlined"
+                                            margin="normal"
+                                            type="reference_email"
+                                            fullWidth
+                                            required
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reference_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reference_email": false } }))}
+                                        />
+                                        <InputLabel shrink htmlFor="reference_phone"> </InputLabel>
+                                        <TextField
+                                            error={getFormDataError?.reference_phone}
+                                            value={getFormData?.reference_phone}
+                                            id="reference_phone"
+                                            name="reference_phone"
+                                            placeholder="Your reference phone number"
+                                            variant="outlined"
+                                            margin="normal"
+                                            type="reference_phone"
+                                            fullWidth
+                                            required
+                                            className='mt-4 mb-0'
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reference_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reference_phone": false } }))}
+                                        />
+
+                                    </Box>
+                                </div>
+
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -6680,30 +6725,30 @@ const optionsStatus = [
     { value: "test", label: "Test Key" },
 ]
 const optionsStateDoc = [
-    {value: "Official", label: "Official", id: 1 },
-    {value: "Unofficial", label: "Unofficial", id: 2 },
+    { value: "Official", label: "Official", id: 1 },
+    { value: "Unofficial", label: "Unofficial", id: 2 },
 ]
 const optionsIdDoc = [
-    {value: "Passport", label: "Passport", id: 1 },
-    {value: "ID Card", label: "ID Card", id: 2 },
+    { value: "Passport", label: "Passport", id: 1 },
+    { value: "ID Card", label: "ID Card", id: 2 },
 ]
 // 
 const optionsPaymentMethod = [
-    {value: "Credit Card", label: "Credit Card", id: 1 },
-    {value: "PayPal", label: "PayPal", id: 2 },
+    { value: "Credit Card", label: "Credit Card", id: 1 },
+    { value: "PayPal", label: "PayPal", id: 2 },
 ]
 const optionsVerificationState = [
-    {value: "Give consent", label: "Give consent", icon: "", isDisabled: true },
-    {value: "Yes", label: "Yes", id: 1 },
-    {value: "No", label: "No", id: 2 },
+    { value: "Give consent", label: "Give consent", icon: "", isDisabled: true },
+    { value: "Yes", label: "Yes", id: 1 },
+    { value: "No", label: "No", id: 2 },
 ]
 
 const purposeEvaluation = [
-    {value: "Graduate School Application", label: "Graduate School Application", id: 1 },
-    {value: "Undergraduate Admission", label: "Undergraduate Admission", id: 2 },
-    {value: "Employment", label: "Employment", id: 3 },
-    {value: "Professional Licensing", label: "Professional Licensing", id: 4 },
-    {value: "Immigration/Visa Application", label: "Immigration/Visa Application", id: 5 },
+    { value: "Graduate School Application", label: "Graduate School Application", id: 1 },
+    { value: "Undergraduate Admission", label: "Undergraduate Admission", id: 2 },
+    { value: "Employment", label: "Employment", id: 3 },
+    { value: "Professional Licensing", label: "Professional Licensing", id: 4 },
+    { value: "Immigration/Visa Application", label: "Immigration/Visa Application", id: 5 },
 ]
 let transformCountriesData = Object.keys(countries || []).map((post, id) => {
 
