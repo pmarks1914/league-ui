@@ -65,7 +65,7 @@ const optionsFinMonth = [
     { value: "November", label: "November", key: 11 },
     { value: "December", label: "December", key: 12 },
 ];
-
+let countState = 1
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
 // console.log(userData)
@@ -149,12 +149,13 @@ const BasicInfo = (props) => {
     const [familyData, setFamilyData] = useState(null)
 
     useEffect(() => {
-        getDataInfo()
-        console.log("familyData")
+        countState += 1;
+        if(countState === 2){
+            getDataInfo()
+        }
+        console.log("familyData", countState)
     }, [])
-    useEffect(() => {
-        // console.log(familyData)
-    }, [familyData])
+   
 
     const props1 = {
         onChange: (info) => {
