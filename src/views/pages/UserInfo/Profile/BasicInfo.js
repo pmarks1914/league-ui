@@ -49,18 +49,7 @@ import { getSessionTimeout } from '../../../../Utils/Utils';
 import moment from 'moment';
 
 let date = new Date();
-// let dateYearInterval = 100;
-// let i = 1;s
 
-// const createOption = (label, dataId) => ({
-//   label,
-//   value: dataId,
-// });
-let optionsFinYear = [...Array(100)].map((x, i) => {
-    return ({ value: (date.getUTCFullYear() - 100 + 1 + i), label: (date.getUTCFullYear() - 100 + 1 + i), key: i + 1 })
-    // return createOption( (date.getUTCFullYear()-100+1+i), (date.getUTCFullYear()-100+1+i) )
-}
-);
 const optionsFinMonth = [
     // {value: "", label: "Select Fin-Month", icon: "", isDisabled: true },
     { value: "January", label: "January", key: 1 },
@@ -276,7 +265,7 @@ const BasicInfo = (props) => {
         // console.log("<>", getFormData)
         const formData2 = new FormData();
         formData2.append('type', fileType);
-        formData2.append('issued_date', moment(getFormData?.certificateDate).format('YYYY-MM-DD'));
+        formData2.append('issued_date', moment(getFormData?.certificateDate || "2000-01-01").format('YYYY-MM-DD'));
 
         // formData2.append('slug', getFormData?.certificate_name);
 
@@ -303,7 +292,7 @@ const BasicInfo = (props) => {
                 },
                 data: formData2
             };
-            //   console.log(cert.type)
+            // console.log(cert.type)
             if (cert.type === 'image/png' || cert.type === 'image/jpg' || cert.type === 'image/jpeg' || cert.type === 'application/pdf') {
                 axios(config).then(function (response) {
 
@@ -854,7 +843,7 @@ const BasicInfo = (props) => {
 
                 let user_new = { ...userData, ...response.data }
                 setCertificate(user_new?.user?.file)
-                //   console.log(user_new, userData);
+                // console.log(user_new, userData);
                 localStorage.setItem("userDataStore", JSON.stringify(user_new));
             }
 
