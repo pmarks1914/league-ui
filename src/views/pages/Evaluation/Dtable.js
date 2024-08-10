@@ -19,7 +19,7 @@ const userData = JSON.parse(localStorage.getItem("userDataStore"));
 let userGetInfoData = getEvaluation();
 let userGetInfo = []
 userGetInfoData?.list?.then(value => { (userGetInfo = value) });
-console.log("outside compo userGetInfo", userGetInfoData)
+// console.log("outside compo userGetInfo", userGetInfoData)
 
 const Dtable = (props) => {
     const [loader, setLoader] = useState('<div class="spinner-border dashboard-loader" style="color: #e0922f;"></div>')

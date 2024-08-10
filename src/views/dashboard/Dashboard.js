@@ -91,7 +91,7 @@ const Dashboard = () => {
     trackActivity();
 
   }, [applicationAction])
-  console.log("summarry products", evaDetails)
+  // console.log("summarry products", evaDetails)
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
