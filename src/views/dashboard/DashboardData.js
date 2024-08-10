@@ -250,3 +250,85 @@ export function getEvaluation(){
         "list": dataSource
     }
 }
+
+export function getDashEvaluation(){
+
+    let data = '';
+    let config_sch = {}
+    console.log(window.location )
+    if(userData?.type === "Student"){
+        if(window.location.pathname === '/dashboard'){
+            config_sch = {
+                method: 'get',
+                url: process.env.REACT_APP_BASE_API + "/evaluation-by-student-last-five/" + userData?.user?.student_id + "?per_page=5&page=1",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + userData?.token
+                },
+                data: data
+            };
+
+        }
+        else{
+            config_sch = {
+                method: 'get',
+                url: process.env.REACT_APP_BASE_API + "/evaluation-by-student/" + userData?.user?.student_id,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + userData?.token
+                },
+                data: data
+            };
+        }
+    }
+    else if(userData?.type === "School"){
+        config_sch = {
+            method: 'get',
+            url: process.env.REACT_APP_BASE_API + "/admission/organization/" + userData?.organization_id + "/",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + userData?.token
+            },
+            data: data
+        };
+    }
+
+    function evaDetails(){
+        return axios(config_sch).then(response => {
+            // console.log("data ==", response?.data);
+            if (response.status === 200) {
+                // 
+                return response.data;
+            }
+            return
+
+        }).catch(function (error) {
+
+            if (error.response) {
+                // // console.log("==");
+                /*
+                * The request was made and the server responded with a
+                * status code that falls out of the range of 2xx
+                */
+
+            } else if (error.request) {
+                /*
+                * The request was made but no response was received, `error.request`
+                * is an instance of XMLHttpRequest in the browser and an instance
+                * of http.ClientRequest in Node.js
+                */
+
+            } else {
+                // Something happened in setting up the request and triggered an Error
+
+            }
+        }
+        );
+
+    }
+ 
+    
+    return {
+        "list": evaDetails(),
+    }
+}
