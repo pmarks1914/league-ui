@@ -19,10 +19,15 @@ import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 // import { logo } from 'src/assets/brand/logo'
 
+import PropTypes, { func } from "prop-types";
 
-let userData = JSON.parse(localStorage.getItem("userDataStore"));
+const userData = JSON.parse(localStorage.getItem("userDataStore"));
+// userData
+
+// console.log("userData ", userData?.user?.cla_ref )
 
 const AppHeader = () => {
+
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
@@ -35,9 +40,9 @@ const AppHeader = () => {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        {/* <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <CIcon icon={logo} height={48} alt="Logo" /> 
-        </CHeaderBrand> */}
+        <CHeaderBrand className=" danger" to="/">
+          {userData?.user?.cla_ref || ""}
+        </CHeaderBrand>
         {/* <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink}>

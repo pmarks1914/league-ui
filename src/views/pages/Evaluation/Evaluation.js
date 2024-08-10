@@ -95,7 +95,7 @@ const Evaluation = () => {
         <div className='m-0'>      
          <ToastContainer />
         {
-            userData?.type === 'Student' ?
+            userData?.type === 'Student =====' ?
                 <a href='#' className='justify-content-between align-items-center text-white bg-dark rounded-1 p-2' onClick={() => requestEvaluation()}> Request evaluation </a>
                 : ""
         }
