@@ -12,6 +12,8 @@ import '../../datatable/table.css';
 import { getEvaluation } from '../../dashboard/DashboardData';
 import { Badge } from 'reactstrap';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import PropTypes, { func } from "prop-types";
+
 
 const userData = JSON.parse(localStorage.getItem("userDataStore"));
 let userGetInfoData = getEvaluation();
@@ -19,7 +21,7 @@ let userGetInfo = []
 userGetInfoData?.list?.then(value => { (userGetInfo = value) });
 console.log("outside compo userGetInfo", userGetInfoData)
 
-const Dtable = () => {
+const Dtable = (props) => {
     const [loader, setLoader] = useState('<div class="spinner-border dashboard-loader" style="color: #e0922f;"></div>')
     const [tableData, setTableData] = useState([]);
     const [noData, setNoData] = useState("")
@@ -96,11 +98,16 @@ const Dtable = () => {
       // }
   
       
-      // console.log("props ", dateRange, "userGetInfo, transactionStatus, monitorState")
+      console.log("props ", props, "userGetInfo, transactionStatus, monitorState")
       
     }, [ dateRange, noData, userGetInfo])
   
-  
+    useEffect(() => {
+      if(props.pushData){
+        window.location.reload()  
+        // performFilter("filterByDate", "none")      
+      }
+    }, [props])
     // perform filter 
     function datatablaScript(tdata) {
       let printCounter = 0;
@@ -368,3 +375,9 @@ const Dtable = () => {
 }
 
 export default Dtable;
+
+
+Dtable.propTypes = {
+  pushData: PropTypes.string,
+  // getNewPassedWalkAction: PropTypes.instanceOf(PropTypes.any).isRequired
+};

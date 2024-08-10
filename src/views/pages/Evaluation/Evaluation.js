@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dtable from './Dtable';
 
 import axios from "axios"
@@ -12,6 +12,7 @@ import { CCol, CRow } from '@coreui/react';
 
 const Evaluation = () => {
     const userData = JSON.parse(localStorage.getItem("userDataStore"));
+    const [pushData, setPushData] = useState(false)
     //   console.log("userData ", userData)
 
     function requestEvaluation() {
@@ -65,6 +66,7 @@ const Evaluation = () => {
             toast.success(response?.data?.message, {
                 position: toast?.POSITION?.TOP_CENTER
             });
+            setPushData(true)
         }).catch(function (error) {
 
             if (error.response) {
@@ -90,14 +92,16 @@ const Evaluation = () => {
     }
 
     return (
-        <div className='m-0'>      {
+        <div className='m-0'>      
+         <ToastContainer />
+        {
             userData?.type === 'Student' ?
                 <a href='#' className='justify-content-between align-items-center text-white bg-dark rounded-1 p-2' onClick={() => requestEvaluation()}> Request evaluation </a>
                 : ""
         }
 
 
-            <Dtable />
+            <Dtable pushData={pushData} />
         </div>
     );
 };
