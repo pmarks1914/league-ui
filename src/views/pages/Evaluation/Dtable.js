@@ -98,7 +98,7 @@ const Dtable = (props) => {
       // }
   
       
-      console.log("props ", props, "userGetInfo, transactionStatus, monitorState")
+      // console.log("props ", props, "userGetInfo, transactionStatus, monitorState")
       
     }, [ dateRange, noData, userGetInfo])
   
