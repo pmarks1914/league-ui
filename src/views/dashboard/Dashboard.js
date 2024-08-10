@@ -275,8 +275,9 @@ const Dashboard = () => {
 
   }
   function requestEvaluation() {
-
-    Swal.fire({
+    // 
+    if(evaDetails?.count_stats?.profile === 100){
+      Swal.fire({
         // title: 'Successfully created!',
         text: "Proceed to request for evaluation, provide a description",
         icon: "info",
@@ -288,24 +289,40 @@ const Dashboard = () => {
         confirmButtonText: 'Confirm',
         input: 'text',
         inputAttributes: {
-            autocapitalize: 'off'
+          autocapitalize: 'off'
         },
         showLoaderOnConfirm: true,
         preConfirm: (description) => {
-            // otpCodecription = otpCode
-            if (description === "") {
-                Swal.showValidationMessage(
-                    `Request failed! description is required.`
-                )
-            }
-            else {
-                evaluationApply(description)
-            }
+          // otpCodecription = otpCode
+          if (description === "") {
+            Swal.showValidationMessage(
+              `Request failed! description is required.`
+            )
+          }
+          else {
+            evaluationApply(description)
+          }
         },
-    }).then((result) => {
+      }).then((result) => {
         if (result.isConfirmed) {
         }
-    });
+      });
+    }
+    else{
+      Swal.fire({
+        // title: 'Successfully created!',
+        text: `Complete your profile, currently ${evaDetails?.count_stats?.profile || 0} percent.`,
+        icon: "warning",
+        allowOutsideClick: true,
+        // allowEscapeKey: false,
+        showCancelButton: true,
+        cancelButtonColor: 'danger',
+        cancelButtonText: 'OK',
+        showConfirmButton: false,
+        showLoaderOnConfirm: false,
+      }).then((result) => {
+      });
+    }
 }
 function evaluationApply(description) {
     let config = {
@@ -453,7 +470,7 @@ function evaluationApply(description) {
             progress={{ color: 'success', value: 100 }}
             text="Profile information"
             title="Profile"
-            value={"0%"}
+            value={ ((evaDetails?.count_stats?.profile)?.toString() || "0") + "%" }
           />
         </CCol>
         {/* <CCol xs={12} sm={6} lg={3}>
