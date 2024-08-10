@@ -188,7 +188,7 @@ export function getEvaluation(){
     //   console.log("data getApplication data api ==", response);
         <a dangerouslySetInnerHTML={{ __html: loader }}></a>
         if (response.status === 200) {
-              console.log("data source sch ====", response?.data?.data);
+            //   console.log("data source sch ====", response?.data?.data);
             if(response?.data){loader = "<a></>";}
                 
             <a dangerouslySetInnerHTML={{ __html: loader }}></a>;
@@ -197,6 +197,8 @@ export function getEvaluation(){
             let transformData = Object.keys(tableData)?.map((post, id) => {
                 return {
                   "ID": id+1,
+                  "description": tableData[id]?.description,
+                  "name": tableData[id]?.name, 
                   "applicant_full_name": tableData[id]?.description, 
                   "account_dob": tableData[id]?.description,
                   "account_photo": tableData[id]?.description,
@@ -204,11 +206,10 @@ export function getEvaluation(){
                   "applicant_last_name": tableData[id]?.account?.user?.last_name,
                   "applicant_phone": tableData[id]?.account?.user?.phone,
                   "applicant_email": tableData[id]?.account?.user?.email,
-                  "applicant_program_description": tableData[id]?.programme?.description,
-                  "applicant_program_name": tableData[id]?.programme?.name,
-                  "applicant_program_end_date": moment(tableData[id]?.programme?.end_date)?.format('LLLL'),
-                  "applicant_program_start_date": moment(tableData[id]?.programme?.start_date)?.format('LLLL'),
-                  "applicant_program_id": tableData[id]?.programme?.id,
+                  "applicant_program_name": tableData[id]?.name,
+                  "applicant_program_end_date": moment(tableData[id]?.end_date)?.format('LLLL'),
+                  "applicant_program_start_date": moment(tableData[id]?.start_date)?.format('LLLL'),
+                  "applicant_program_id": tableData[id]?.id,
                   "account": tableData[id]?.account,
                   "status": tableData[id]?.status,
                   "action": "View",

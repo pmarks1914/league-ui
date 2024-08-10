@@ -327,8 +327,8 @@ const Dtable = () => {
                 tableData?.map((post, id) =>
                 <tr key={id}>
                     <td>{id + 1}</td>
-                    <td>{ post?.applicant_full_name }</td>
-                    <td>{post?.applicant_program_description }</td> 
+                    <td>{ post?.name }</td>
+                    <td>{post?.description?.slice(0, 35) }</td> 
                     <td>
                     <div className="clearfix">
                               <div className="float-start ">

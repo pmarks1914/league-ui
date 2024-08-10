@@ -18,7 +18,7 @@ const Evaluation = () => {
 
         Swal.fire({
             // title: 'Successfully created!',
-            text: "Proceed to request for evaluation",
+            text: "Proceed to request for evaluation, provide a description",
             icon: "info",
             allowOutsideClick: false,
             // allowEscapeKey: false,
@@ -26,6 +26,11 @@ const Evaluation = () => {
             cancelButtonColor: 'danger',
             confirmButtonColor: 'primary',
             confirmButtonText: 'Confirm',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showLoaderOnConfirm: true,
             preConfirm: (description) => {
                 // otpCodecription = otpCode
                 if (description === "") {
@@ -51,8 +56,8 @@ const Evaluation = () => {
                 'Authorization': 'Bearer ' + userData?.token
             },
             data: {
-                "name": userData?.user?.first_name + " " + "Evaluation Request",
-                "description": description
+                "name": userData?.user?.first_name?.trim() + " " + "Evaluation Request",
+                "description": description?.trim()
             }
         };
         axios(config).then(response => {
@@ -85,16 +90,13 @@ const Evaluation = () => {
     }
 
     return (
-        <div>      {
+        <div className='m-0'>      {
             userData?.type === 'Student' ?
-                <CRow className='m-3' >
-                    <CCol sm="12" md="12" lg="12" xl="12">
-                        <a href='#' className='justify-content-between align-items-center text-white bg-dark rounded-1 p-2' onClick={()=> requestEvaluation() }> Request evaluation </a>
-                    </CCol>
-                </CRow>
+                <a href='#' className='justify-content-between align-items-center text-white bg-dark rounded-1 p-2' onClick={() => requestEvaluation()}> Request evaluation </a>
                 : ""
         }
-        
+
+
             <Dtable />
         </div>
     );
