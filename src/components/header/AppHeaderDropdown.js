@@ -33,14 +33,6 @@ const AppHeaderDropdown = (userData) => {
     localStorage.clear();
   }
 
-// $(document).ready(function () {
-//     window.addEventListener('storage', function(event){
-
-//       // console.log("storage ")
-//     });
-    
-// });
-
 
   return (
     <CDropdown variant="nav">
