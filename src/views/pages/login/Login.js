@@ -40,7 +40,7 @@ const Login = () => {
   const [loader, setLoader] = useState("<div></div")
   const [login, setLogin] = useState("Login")
   const [loginError, setLoginError] = useState("")
-  const [userType, setUserType] = useState("")
+  const [userType, setUserType] = useState("Student")
   const [userTypeError, setUserTypeError] = useState(false)
 
   function CheckLogin(e) {
@@ -59,9 +59,9 @@ const Login = () => {
       setGetFormDataError({ ...getFormDataError, ...{ "password": true } })
 
     }
-    else if(userType === ""){
-      setUserTypeError(true)
-    }
+    // else if(userType === ""){
+    //   setUserTypeError(true)
+    // }
     else {
       setLogin("")
       setLoader('<div class="spinner-border "style="color: #e0922f;"></div>`')
@@ -211,9 +211,8 @@ const Login = () => {
 
                         </Box>
 
-                        <FormControl fullWidth>
+                        {/* <FormControl fullWidth>
                           <InputLabel id="user-type-label" className='mt-3' >Select Login As * </InputLabel>
-                          
                           <Select
                             labelId="user-type-label"
                             id="user-type"
@@ -226,8 +225,7 @@ const Login = () => {
                             <MenuItem value={"Student"}> As Student</MenuItem>
                             <MenuItem value={"School"}>As School</MenuItem>
                           </Select>
-
-                        </FormControl>
+                        </FormControl> */}
                       </div>
                     </Col>
                     <p className="text-medium-emphasis mb-0">{loginError}</p>
