@@ -267,11 +267,7 @@ const Dtable = () => {
             <th>Description</th>
           </tr>
         </thead>
-        <tbody>
-            {
-                console.log("tableData ", tableData)
-            }
-            
+        <tbody>            
             {
               tableData?.length > 0 ?
                 tableData?.map((post, id) =>
