@@ -56,7 +56,7 @@ const Dtable = () => {
         xxx = setInterval(function() {
         //   userGetInfo = userGetInfo
           if(userGetInfo?.length > 0){
-              console.log("inside timer userGetInfo", userGetInfo)
+              // console.log("inside timer userGetInfo", userGetInfo)
             // datatablaScript(userGetInfo)
             setLoader('<a></a>')
             clearInterval(xxx)
@@ -320,7 +320,7 @@ const Dtable = () => {
         </thead>
         <tbody>
             {
-                console.log("tableData ", tableData)
+                // console.log("tableData ", tableData)
             }
             
             {

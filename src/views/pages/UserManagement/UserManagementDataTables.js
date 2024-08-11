@@ -665,7 +665,7 @@ const UserManagementDataTables = (props) => {
   }
   function edituserGet(e) {
     e.preventDefault();
-    console.log("editFormData ", editFormData)
+    // console.log("editFormData ", editFormData)
     let data = JSON.stringify({ 
       // collectFixAmount: true 
       "role_id": formInviteData?.role_id?.value

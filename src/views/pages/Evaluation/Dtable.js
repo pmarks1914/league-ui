@@ -58,7 +58,7 @@ const Dtable = (props) => {
         xxx = setInterval(function() {
         //   userGetInfo = userGetInfo
           if(userGetInfo?.length > 0){
-              console.log("inside timer userGetInfo", userGetInfo)
+              // console.log("inside timer userGetInfo", userGetInfo)
             // datatablaScript(userGetInfo)
             setLoader('<a></a>')
             clearInterval(xxx)
@@ -324,11 +324,7 @@ const Dtable = (props) => {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-            {/* {
-                console.log("tableData ", tableData)
-            } */}
-            
+        <tbody>            
             {
               tableData?.length > 0 ?
                 tableData?.map((post, id) =>

@@ -10,7 +10,7 @@ export function getSchData(){
     // /939e8b7b-ce5c-421f-b635-a88dc14fcb32/ 
     let data = '';
     let config_sch = {}
-    console.log(window.location )
+    // console.log(window.location )
     if(userData?.type === "Student"){
         if(window.location.pathname === '/dashboard'){
             config_sch = {
@@ -107,7 +107,7 @@ export function getApplication(){
     //   console.log("data getApplication data api ==", response);
         <a dangerouslySetInnerHTML={{ __html: loader }}></a>
         if (response.status === 200) {
-              console.log("data source sch ====", response?.data?.data);
+            //   console.log("data source sch ====", response?.data?.data);
             if(response?.data){loader = "<a></>";}
                 
             <a dangerouslySetInnerHTML={{ __html: loader }}></a>;
@@ -163,7 +163,7 @@ export function getApplication(){
     }
     );
     
-    console.log("before return-------->>> ", dataSource)
+    // console.log("before return-------->>> ", dataSource)
     return {
         "list": dataSource
     }
@@ -255,7 +255,7 @@ export function getDashEvaluation(){
 
     let data = '';
     let config_sch = {}
-    console.log(window.location )
+    // console.log(window.location )
     if(userData?.type === "Student"){
         if(window.location.pathname === '/dashboard'){
             config_sch = {
