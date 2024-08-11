@@ -60,7 +60,7 @@ export default function SignUp() {
       // console.log(payload)
         let config = {
           method: 'post',
-          url: process.env.REACT_APP_BASE_API + '/v1/otp/email',
+          url: process.env.REACT_APP_BASE_API + '/send/otp/email',
           headers: {
             'Content-Type': 'application/json'
           },
