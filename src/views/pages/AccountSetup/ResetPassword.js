@@ -138,13 +138,13 @@ export default function SignUp() {
           else {
               let data = JSON.stringify({
                   "email": getFormData?.email,
-                  "password": getFormData?.password,
+                  "password2": getFormData?.password,
                   "password1": getFormData?.password,
-                  "otp": otpCode
+                  "code": otpCode
               })
               let config = {
                   method: 'put',
-                  url: process.env.REACT_APP_BASE_API + "/auth/reset_password/",
+                  url: process.env.REACT_APP_BASE_API + "/v1/forget/password",
                   headers: {
                       'Content-Type': 'application/json'
                   },
