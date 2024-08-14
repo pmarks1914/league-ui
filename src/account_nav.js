@@ -56,18 +56,36 @@ const account_nav = [
     //   text: 'NEW',
     // },
   },
-  {
-    component: CNavItem,
-    name: 'My application',
-    to: '/application-detail',
-    icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'My application',
+  //   to: '/application-detail',
+  //   icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
+  // },
   // {
   //   component: CNavItem,
   //   name: 'Colleges',
   //   to: '/apply',
   //   icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   // },
+  // {
+  //   component: CNavItem,
+  //   name: 'My application',
+  //   to: '/application-detail',
+  //   icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Colleges',
+  //   to: '/apply',
+  //   icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+  // },
+  {
+    component: CNavItem,
+    name: 'My application',
+    to: '/evaluation-detail',
+    icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
+  },
   {
     component: CNavItem,
     name: 'Profile',

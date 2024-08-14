@@ -19,7 +19,7 @@ import {
   CTableRow,
   CWidgetStatsB,
 } from '@coreui/react'
-import { CChartLine, CChartPie } from '@coreui/react-chartjs'
+import { CChartBar, CChartPie } from '@coreui/react-chartjs'
 import { getStyle, hexToRgba } from '@coreui/utils'
 import CIcon from '@coreui/icons-react'
 import {
@@ -59,7 +59,7 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 // import Datatable from '../datatable/DatatableMain'
-import { getSchData } from './DashboardData'
+import { getSchData, getDashEvaluation } from './DashboardData'
 import { getSessionTimeout } from '../../Utils/Utils';
 import { Badge } from 'reactstrap'
 
@@ -76,17 +76,22 @@ const Dashboard = () => {
   const userData = JSON.parse(localStorage.getItem("userDataStore"));
 
   const [schDetails, setSchDetails] = useState(null)
+  const [evaDetails, setEvaDetails] = useState(null)
   const [applicationAction, setApplicationAction] = useState(1)
 
   useEffect(() => {
     // 
 
-    let schData = getSchData();
-    schData?.list?.then(value => { setSchDetails(value) });
+    // let schData = getSchData();
+    // schData?.list?.then(value => { setSchDetails(value) });
+
+    let stuData = getDashEvaluation();
+    stuData?.list?.then(value => { setEvaDetails(value) });
+
     trackActivity();
 
   }, [applicationAction])
-  // console.log("summarry products", products)
+  // console.log("summarry products", evaDetails)
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
@@ -269,7 +274,98 @@ const Dashboard = () => {
     );
 
   }
+  function requestEvaluation() {
+    // 
+    if(evaDetails?.count_stats?.profile === 100){
+      Swal.fire({
+        // title: 'Successfully created!',
+        text: "Proceed to request for evaluation, provide a description",
+        icon: "info",
+        allowOutsideClick: false,
+        // allowEscapeKey: false,
+        showCancelButton: true,
+        cancelButtonColor: 'danger',
+        confirmButtonColor: 'primary',
+        confirmButtonText: 'Confirm',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showLoaderOnConfirm: true,
+        preConfirm: (description) => {
+          // otpCodecription = otpCode
+          if (description === "") {
+            Swal.showValidationMessage(
+              `Request failed! description is required.`
+            )
+          }
+          else {
+            evaluationApply(description)
+          }
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+        }
+      });
+    }
+    else{
+      Swal.fire({
+        // title: 'Successfully created!',
+        text: `Complete your profile, currently ${evaDetails?.count_stats?.profile || 0} percent.`,
+        icon: "warning",
+        allowOutsideClick: true,
+        // allowEscapeKey: false,
+        showCancelButton: true,
+        cancelButtonColor: 'danger',
+        cancelButtonText: 'OK',
+        showConfirmButton: false,
+        showLoaderOnConfirm: false,
+      }).then((result) => {
+      });
+    }
+}
+function evaluationApply(description) {
+    let config = {
+        method: "post",
+        url: process.env.REACT_APP_BASE_API + "/evaluation",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + userData?.token
+        },
+        data: {
+            "name": userData?.user?.first_name?.trim() + " " + "Evaluation Request",
+            "description": description?.trim()
+        }
+    };
+    axios(config).then(response => {
+        // console.log(response?.data);
+      setApplicationAction(applicationAction + 1)
+        toast.success(response?.data?.message, {
+            position: toast?.POSITION?.TOP_CENTER
+        });
+    }).catch(function (error) {
 
+        if (error.response) {
+            // // console.log("==>");
+            /*
+                * The request was made and the server responded with a
+                * status code that falls out of the range of 2xx
+                */
+
+        } else if (error.request) {
+            /*
+                * The request was made but no response was received, `error.request`
+                * is an instance of XMLHttpRequest in the browser and an instance
+                * of http.ClientRequest in Node.js
+                */
+
+        } else {
+            // Something happened in setting up the request and triggered an Error
+        }
+    }
+    );
+
+}
   function trackActivity() {
     // e.preventDefault();
     getSessionTimeout();
@@ -318,7 +414,7 @@ const Dashboard = () => {
         userData?.type === 'Student' ?
           <CRow className='m-3' >
             <CCol sm="12" md="12" lg="12" xl="12">
-              <a href='#' className='justify-content-between align-items-center text-white bg-dark rounded-1 p-2' > Request evaluation </a>
+              <a href='#' className='justify-content-between align-items-center text-white bg-dark rounded-1 p-2' onClick={()=> requestEvaluation() } > Request evaluation </a>
             </CCol>
           </CRow>
           : ""
@@ -326,6 +422,8 @@ const Dashboard = () => {
       <br />
 
       {/* stats */}
+      {/* <CRow className='m-3'> */}
+        {/* <CCol xs={12} sm={6} lg={3}>
       {/* <CRow className='m-3'>
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
@@ -344,7 +442,7 @@ const Dashboard = () => {
             title="Programmes"
             value={schDetails?.count_stats?.programme || "0"}
           />
-        </CCol>
+        </CCol> 
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
             className="mb-4"
@@ -362,8 +460,8 @@ const Dashboard = () => {
             title="File"
             value={schDetails?.count_stats?.file || "0"}
           />
-        </CCol>
-      </CRow> */}
+        </CCol>*/}
+      {/* </CRow> */}
 
       <CRow className='m-3'>
         <CCol xs={12} sm={6} lg={3}>
@@ -372,10 +470,10 @@ const Dashboard = () => {
             progress={{ color: 'success', value: 100 }}
             text="Profile information"
             title="Profile"
-            value={"0%"}
+            value={ ((evaDetails?.count_stats?.profile)?.toString() || "0") + "%" }
           />
         </CCol>
-        <CCol xs={12} sm={6} lg={3}>
+        {/* <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
             className="mb-4"
             progress={{ color: 'danger', value: 100 }}
@@ -383,14 +481,14 @@ const Dashboard = () => {
             title="Documents"
             value={"0%"}
           />
-        </CCol>
+        </CCol> */}
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
             className="mb-4"
             progress={{ color: 'warning', value: 100 }}
-            text="My application"
+            text="My evaluation request"
             title="Application"
-            value={schDetails?.count_stats?.application || "0"}
+            value={evaDetails?.count_stats?.evaluation || "0"}
           />
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
@@ -399,24 +497,92 @@ const Dashboard = () => {
             progress={{ color: 'info', value: 100 }}
             text="My files uploaded"
             title="File"
-            value={schDetails?.count_stats?.file || "0"}
+            value={evaDetails?.count_stats?.file || "0"}
           />
         </CCol>
 
       </CRow>
 
       {/* table for student */}
-
       {
         userData?.type === 'Student' ?
           <CRow className='m-3' style={{ width: "100%" }}>
-          <CCol xs={12} sm={8} lg={8}>
+
+            <CCol xs={12} sm={9} lg={9} >
+
+              <CCard className="mb-4">
+                <CCardHeader> Application Overview </CCardHeader>
+                <CCardBody>
+
+                  <CTable align="middle" className="mb-0 border" hover responsive>
+                    <CTableHead color="light">
+                      <CTableRow>
+                        <CTableHeaderCell className="text-center">
+                          <CIcon icon={cilAlbum} />
+                        </CTableHeaderCell>
+                        <CTableHeaderCell>Description</CTableHeaderCell>
+                        <CTableHeaderCell> </CTableHeaderCell>
+                        <CTableHeaderCell>Status</CTableHeaderCell>
+                      </CTableRow>
+                    </CTableHead>
+                    <CTableBody>
+                      {evaDetails?.data?.map((item, index) => (
+                        <CTableRow v-for="item in tableItems" key={index}>
+                          <CTableDataCell className="text-center">
+                            <CAvatar size="md" src={process.env.REACT_APP_BASE_API + userData?.photo} status={"success"} />
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <div>{item?.name}</div>
+                            <div className="small text-medium-emphasis">
+                              <span>{'New '}</span> | Applied:{' '}
+                              {moment(item?.created_on).format("YYYY-MM-DD")}
+                            </div>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <div> {item?.description?.slice(0, 35)} </div>
+                          </CTableDataCell>
+                          <CTableDataCell>
+                            <div className="clearfix">
+                              <div className="float-start ">
+                                <div style={{ width: 50, height: 50 }}>
+                                  <CircularProgressbar
+                                    value={item?.progress|| 25}
+                                    text={`${item?.progress || 25}%`}
+                                    background
+                                    backgroundPadding={6}
+                                    styles={buildStyles({
+                                      backgroundColor: "#303c54",
+                                      textColor: "#fff",
+                                      pathColor: "#fff",
+                                      trailColor: "transparent"
+                                    })}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </CTableDataCell>
+                        </CTableRow>
+                      ))}
+                    </CTableBody>
+                  </CTable>
+                </CCardBody>
+              </CCard>
+            </CCol>
+
+          </CRow>
+          : ""
+      }
+
+      {
+        userData?.type === 'Student' ?
+          <CRow className='m-0' style={{ width: "100%" }}>
+          <CCol xs={12} sm={6} lg={6}>
             <CCard className="mb-4">
               <CCardHeader>Your analytics</CCardHeader>
               <CCardBody>
-                <CChartLine
+                <CChartBar
                   data={{
-                    labels: ['Profile', 'Application', 'Document', 'File'],
+                    labels: ['Profile', 'Application', 'Document'],
                     datasets: [
                       {
                         label: '-',
@@ -424,7 +590,7 @@ const Dashboard = () => {
                         borderColor: 'rgba(151, 187, 205, 1)',
                         pointBackgroundColor: 'rgba(151, 187, 205, 1)',
                         pointBorderColor: '#fff',
-                        data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file]
+                        data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.file]
                       },
                     ],
                   }}
@@ -438,12 +604,12 @@ const Dashboard = () => {
                 <CCardBody>
                   <CChartPie
                     data={{
-                      labels: ['Profile', 'Application', 'Document', 'File'],
+                      labels: ['Profile', 'Application', 'File'],
                       datasets: [
                         {
-                          data: [userData?.user?.count_stats?.school || 0, userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file],
-                          backgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
-                          hoverBackgroundColor: ['#2eb85c', '#f9b115', '#e55353', '#3399ff'],
+                          data: [ userData?.user?.count_stats?.application, userData?.user?.count_stats?.programme, userData?.user?.count_stats?.file],
+                          backgroundColor: ['#2eb85c', '#f9b115', '#3399ff'],
+                          hoverBackgroundColor: ['#2eb85c', '#f9b115', '#3399ff'],
                         },
                       ],
                     }}
@@ -451,7 +617,6 @@ const Dashboard = () => {
                 </CCardBody>
               </CCard>
             </CCol>
-
           </CRow>
           : ""
       }
@@ -477,7 +642,6 @@ const Dashboard = () => {
                         <CTableHeaderCell>Action</CTableHeaderCell>
                       </CTableRow>
                     </CTableHead>
-                    {/* { console.log(" schDetails >>", schDetails ) } */}
                     <CTableBody>
                       {schDetails?.data?.map((item, index) => (
                         <CTableRow v-for="item in tableItems" key={index}>
@@ -492,6 +656,7 @@ const Dashboard = () => {
                             </div>
                           </CTableDataCell>
                           <CTableDataCell className="text-center">
+                            {item?.description} 
                             {item?.description}
                             {/* <CIcon size="xl" icon={item.country.flag} title={item.country.name} /> */}
                           </CTableDataCell>

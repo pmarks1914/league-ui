@@ -25,6 +25,7 @@ import $ from 'jquery'
 import avatar9 from './../../assets/brand/logo.svg' 
 
 const AppHeaderDropdown = (userData) => {
+  // console.log(userData?.user?.file_photo)
   function logoutUser(){
     window.location.href="/login";
     // localStorage.removeItem("userDataStore");
@@ -32,19 +33,11 @@ const AppHeaderDropdown = (userData) => {
     localStorage.clear();
   }
 
-// $(document).ready(function () {
-//     window.addEventListener('storage', function(event){
-
-//       // console.log("storage ")
-//     });
-    
-// });
-
 
   return (
     <CDropdown variant="nav">
       <CDropdownToggle placement="bottom-end" className="p-0 profile-img" caret={false}>
-        <CAvatar src={ userData?.userData?.photo150 ? ( process.env.REACT_APP_MAIN_BASE + userData?.userData?.photo150) : avatar9 } size="md" alt="user image"/>
+        <CAvatar src={ userData?.userData?.user?.file_photo ? (userData?.userData?.user?.file_photo) : avatar9 } size="md" alt="user image"/>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">User Profile</CDropdownHeader>

@@ -56,6 +56,11 @@ $ yarn build
 # if you use Node 17+ use this command instead of `yarn build`
 $ yarn build:n17 
 ```
+```bash
+# commit to feature branch 
+$ git add . && git commit -m "state" && git checkout -b feature && git push -u origin feature
+
+```
 
 ## What's included
 
