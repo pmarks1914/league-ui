@@ -19,7 +19,7 @@ import Select, { components } from 'react-select';
 
 
 import { getSessionTimeout } from '../../../Utils/Utils';
-import BasicInfo from './Profile/EvaluationInfo';
+import BasicInfo from './Profile/BasicInfo';
 import College from './College.js/College';
 
 
@@ -71,6 +71,7 @@ const General = () => {
             <h6>Basic Information</h6>
           </NavLink>
         </NavItem>
+
       </Nav>
       <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
