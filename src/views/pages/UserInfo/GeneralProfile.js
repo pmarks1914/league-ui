@@ -14,8 +14,6 @@ import {
 import { DocsCallout, DocsExample } from 'src/components'
 import classnames from 'classnames';
 // import './gen.css';
-import $ from 'jquery';
-import Select, { components } from 'react-select';
 
 
 import { getSessionTimeout } from '../../../Utils/Utils';
