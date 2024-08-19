@@ -139,12 +139,12 @@ const EvaluationDetail = () => {
                                 </Col>
                                 <Col sm="4"></Col>
                                 <Col sm="4">
-                                    <a href={evaluationData?.evaluation_info?.transcript} target='_blank' rel="noreferrer" > Transcript </a> <br />
-                                    <a href={evaluationData?.evaluation_info?.certificate} target='_blank' rel="noreferrer" > Certificate </a> <br />
-                                    <a href={evaluationData?.evaluation_info?.identification} target='_blank' rel="noreferrer" > identification </a><br />
-                                    <a href={evaluationData?.evaluation_info?.report} target='_blank' rel="noreferrer" > Report </a> <br />
-                                    <a href={evaluationData?.evaluation_info?.recommendation} target='_blank' rel="noreferrer" > Recommendation </a> <br />
-                                    <a href={evaluationData?.evaluation_info?.photo} target='_blank' rel="noreferrer" > Photo </a>
+                                    { (evaluationData?.evaluation_info?.transcript)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.transcript } target='_blank' rel="noreferrer" key={1}> transcript </a>, <br key={2}/>] : '' }
+                                    { (evaluationData?.evaluation_info?.certificate)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.certificate } target='_blank' rel="noreferrer" key={1}> certificate </a>, <br key={2}/>] : '' }
+                                    { (evaluationData?.evaluation_info?.identification)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.identification } target='_blank' rel="noreferrer" key={1}> identification </a>, <br key={2}/>] : '' }
+                                    { (evaluationData?.evaluation_info?.report)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.report } target='_blank' rel="noreferrer" key={1}> Report </a>, <br key={2}/>] : '' } 
+                                    { (evaluationData?.evaluation_info?.recommendation)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.recommendation } target='_blank' rel="noreferrer" key={1}> recommendation </a>, <br key={2}/>] : '' } 
+                                    { (evaluationData?.evaluation_info?.photo)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.photo } target='_blank' rel="noreferrer" key={1}> photo </a>, <br key={2}/>] : '' } 
 
                                 </Col>
                             </Row>
@@ -178,7 +178,7 @@ const EvaluationDetail = () => {
                                     <a > {evaluationData?.evaluation_info?.country}  </a> <br />
                                     <a > {evaluationData?.evaluation_info?.town} </a> <br />
                                     <a > {evaluationData?.evaluation_info?.city} </a> <br />
-                                    <a > ({evaluationData?.evaluation_info?.lat || 0}, {evaluationData?.evaluation_info?.log || 0} ) </a> <br />
+                                    <a > ({evaluationData?.evaluation_info?.lat || 0}, {evaluationData?.evaluation_info?.lon || 0} ) </a> <br />
                                     <a > {evaluationData?.evaluation_info?.address} </a>
                                 </Col>
                             </Row>
@@ -265,6 +265,15 @@ const EvaluationDetail = () => {
                                 <Col sm="4"></Col>
                                 <Col sm="4">
                                     <a > {evaluationData?.evaluation_info?.verification_status} </a> <br />
+                                </Col>
+                            </Row>
+                        </CListGroupItem>
+                        <CListGroupItem>
+                            <Row className='mb-0 d-flex'>
+                                <Col sm="4" xm="4" md="4" lg="4" xl="4"> </Col>
+                                <Col sm="4"></Col>
+                                <Col sm="4">
+                                    {/* <a href={`/evaluation-edit/${evaluationData?.id}`} > Edit </a> <br /> */}
                                 </Col>
                             </Row>
                         </CListGroupItem>
