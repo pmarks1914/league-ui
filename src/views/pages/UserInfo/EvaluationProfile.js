@@ -19,7 +19,7 @@ import Select, { components } from 'react-select';
 
 
 import { getSessionTimeout } from '../../../Utils/Utils';
-import BasicInfo from './Profile/BasicInfo';
+import EvaluationInfo from './Profile/EvaluationInfo';
 import College from './College.js/College';
 
 
@@ -63,7 +63,6 @@ const General = () => {
   return (
     <div className="App">
       <Nav tabs className="v-flow">
-
         <NavItem>
           <NavLink
             className={classnames({ active: activeTab === '1' })}
@@ -94,7 +93,7 @@ const General = () => {
             <Row>
               <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-3 mr-0'> </Col>
               <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
-                <BasicInfo profileManage={"education"} />
+                <EvaluationInfo profileManage={"education"} />
               </Col>
             </Row>
           </TabPane>
@@ -102,7 +101,7 @@ const General = () => {
             <Row>
               <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-3 mr-0'> </Col>
               <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
-                <BasicInfo profileManage={"additional"} />
+                <EvaluationInfo profileManage={"additional"} />
               </Col>
             </Row>
           </TabPane>
@@ -110,7 +109,7 @@ const General = () => {
             <Row>
               <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-3 mr-0'> </Col>
               <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
-                <BasicInfo profileManage={"other"} />
+                <EvaluationInfo profileManage={"other"} />
               </Col>
             </Row>
           </TabPane>

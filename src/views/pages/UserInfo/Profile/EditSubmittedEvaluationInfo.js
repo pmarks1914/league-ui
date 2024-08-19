@@ -54,7 +54,7 @@ let countState = 1
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
 // console.log(userData)
-const EvaluationInfo = (props) => {
+const EditSubmittedEvaluationInfo = (props) => {
 
     const [getFormDataError, setGetFormDataError] = React.useState({
         "first_name": false,
@@ -1554,10 +1554,10 @@ const EvaluationInfo = (props) => {
     );
 };
 
-export default EvaluationInfo;
+export default EditSubmittedEvaluationInfo;
 
 
-EvaluationInfo.propTypes = {
+EditSubmittedEvaluationInfo.propTypes = {
     profileManage: PropTypes.string,
     // getNewPassedWalkAction: PropTypes.instanceOf(PropTypes.any).isRequired
 };

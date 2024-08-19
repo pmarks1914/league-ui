@@ -88,13 +88,13 @@ const account_nav = [
   },
   {
     component: CNavItem,
-    name: 'Profile',
+    name: 'Basic profile',
     to: '/apply-profile',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Create evaluation',
+    name: 'Create evaluation profile',
     to: '/evaluation-profile',
     icon: <CIcon icon={cilReload} customClassName="nav-icon" />,
   },

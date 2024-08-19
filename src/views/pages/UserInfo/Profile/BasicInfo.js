@@ -1080,7 +1080,7 @@ const BasicInfo = (props) => {
                                         <Label for="country" className="label-dc"> </Label>
                                         <Select
                                             placeholder={"Select country"}
-                                            defaultInputValue={getFormData?.country}
+                                            defaultInputValue={getFormData?.country || ""}
                                             options={transformCountriesData}
                                             id="country"
                                             className='other-input-select d-filters wp-cursor-pointer'
