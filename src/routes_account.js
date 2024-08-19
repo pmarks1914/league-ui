@@ -60,6 +60,7 @@ const GeneralCollege = React.lazy(() => import('./views/pages/UserInfo/GeneralCo
 const GeneralProfile = React.lazy(() => import('./views/pages/UserInfo/GeneralProfile'))
 const Application = React.lazy(() => import('./views/pages/Application/Application'))
 const ApplicationDetail = React.lazy(() => import('./views/pages/Application/ApplicationDetail'))
+const EvaluationProfile = React.lazy(() => import('./views/pages/UserInfo/EvaluationProfile'))
 const Evaluation = React.lazy(() => import('./views/pages/Evaluation/Evaluation'))
 const EvaluationDetail = React.lazy(() => import('./views/pages/Evaluation/EvaluationDetail'))
 
@@ -115,6 +116,7 @@ const routes = [
 
   { path: '/apply', name: 'Apply', element: GeneralCollege },
   { path: '/apply-profile', name: 'Profile', element: GeneralProfile },
+  { path: '/evaluation-profile', name: 'Create new evaluation', element: EvaluationProfile },
   { path: '/applications/:id', name: 'Applications', element: Application },
   { path: '/application-detail', name: 'Applications', element: Application },
   { path: '/application-detail/:id', name: 'Detail View', element: ApplicationDetail },

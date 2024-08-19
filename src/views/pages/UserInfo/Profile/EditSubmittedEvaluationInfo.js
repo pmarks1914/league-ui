@@ -50,31 +50,12 @@ import moment from 'moment';
 
 let date = new Date();
 
-const optionsFinMonth = [
-    // {value: "", label: "Select Fin-Month", icon: "", isDisabled: true },
-    { value: "January", label: "January", key: 1 },
-    { value: "February", label: "February", key: 2 },
-    { value: "March", label: "March", key: 3 },
-    { value: "April", label: "April", key: 4 },
-    { value: "May", label: "May", key: 5 },
-    { value: "June", label: "June", key: 6 },
-    { value: "July", label: "July", key: 7 },
-    { value: "August", label: "August", key: 8 },
-    { value: "September", label: "September", key: 9 },
-    { value: "October", label: "October", key: 10 },
-    { value: "November", label: "November", key: 11 },
-    { value: "December", label: "December", key: 12 },
-];
 let countState = 1
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
 // console.log(userData)
-const BasicInfo = (props) => {
-    const [activeTab, setActiveTab] = useState('1');
-    const [month, setMonth] = useState(null);
-    const [year, setYear] = useState(null);
+const EditSubmittedEvaluationInfo = (props) => {
 
-    const [address, setAddress] = useState(null)
     const [getFormDataError, setGetFormDataError] = React.useState({
         "first_name": false,
         "last_name": false,
@@ -115,24 +96,17 @@ const BasicInfo = (props) => {
         "billing_address": userData?.user?.other_info?.billing_address,
         "verification_status": userData?.user?.other_info?.verification_status,
         "reference_phone": userData?.user?.other_info?.reference_phone,
-        "reference_email": userData?.user?.other_info?.reference_email
+        "reference_email": userData?.user?.other_info?.reference_email,
+        "school_year_to": userData?.user?.other_info?.school_year_to,
+        "school_year_from": userData?.user?.other_info?.school_year_from,
+        "gpa": userData?.user?.other_info?.gpa,
+        "major_study": userData?.user?.other_info?.major_study,
+        "degree_obtained": userData?.user?.other_info?.degree_obtained
     })
-    const [selectedValue, setSelectedValue] = React.useState('a');
-
-    // const [certificateName, setCertificateName] = useState("")
-    // const [certificateIssuedDate, setCertificateIssuedDate] = useState("")
-
-    const [country, setCountry] = React.useState('');
-    const [profileType, setProfileType] = React.useState('');
-
     const [profilePhoto, setProfilePhoto] = useState(userData?.photo)
     const [photoList, setPhotoList] = useState([]);
     // profile photo loading
     const [uploading, setUploading] = useState(false);
-    const [uploading3, setUploading3] = useState(false);
-    const [newPhoto, setNewPhoto] = useState(null)
-    const [newCert, setNewCert] = useState(null)
-
     // console.log(props?.profileManage)
     // certificate    
     const [profileCertificate, setProfileCertificate] = useState(userData?.certificate)
@@ -140,8 +114,7 @@ const BasicInfo = (props) => {
     const [certificateList, setCertificateList] = useState([]);
     const [certificate, setCertificate] = useState([]);
     // profile Certificate loading
-    const [uploading2, setUploading2] = useState(false);
-    const [newCertificate, setNewCertificate] = useState(null)
+    
     useEffect(() => {
         //   getSessionTimeout();
         passConfiguration("get", "get", "address", 419)
@@ -156,23 +129,6 @@ const BasicInfo = (props) => {
         // console.log("familyData", countState)
     }, [])
 
-
-    const props1 = {
-        onChange: (info) => {
-            console.log("l ", info);
-        },
-        onRemove: (file) => {
-            const index = photoList.indexOf(file);
-            const newFileList = photoList.slice();
-            newFileList?.splice(index, 1);
-            setPhotoList(newFileList);
-        },
-        beforeUpload: (file) => {
-            setPhotoList([file]);
-            return false;
-        },
-        photoList,
-    };
     const props2 = {
         onRemove: (file) => {
             const index = certificateList?.indexOf(file);
@@ -186,65 +142,8 @@ const BasicInfo = (props) => {
         },
         certificateList,
     };
-    // profile upload
-    const handlePhotoUpload = (fileType) => {
-        setUploading(true)
-        const formData2 = new FormData();
-        formData2.append('type', fileType);
 
-        photoList.forEach((photo) => {
-            // formData2.append('user', userData?.id);
-            formData2.append('photo', photo);
-            // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", photo, photoList)
-
-            let config = {
-                method: 'POST',
-                url: process.env.REACT_APP_BASE_API + '/upload',
-                headers: {
-                    "Authorization": `Bearer ${userData?.token}`,
-                },
-                data: formData2
-            };
-            // console.log(photo.type)
-            if (photo?.type === 'image/png' || photo?.type === 'image/jpg' || photo?.type === 'image/jpeg') {
-                axios(config).then(function (response) {
-                    // console.log(response?.data, photo)
-                    if (response.data.code === 200) {
-                        toast.success(response?.data?.message, {
-                            position: toast?.POSITION?.TOP_CENTER
-                        });
-                        getDataInfo()
-                        setUploading(false)
-                    }
-                    else {
-                        toast.error(response?.data?.message, {
-                            position: toast?.POSITION?.TOP_CENTER
-                        });
-                        setUploading(false)
-                    }
-
-                })
-                    .catch(function (error) {
-
-                        toast.error(error?.response?.data.message, {
-                            position: toast?.POSITION?.TOP_CENTER
-                        });
-
-                        // console.log(error);
-                    });
-            }
-            else {
-                //
-                toast.error('Unsupported file type for photo.', {
-                    position: toast?.POSITION?.TOP_CENTER
-                });
-                setUploading(false)
-            }
-        });
-
-        // setUploading(false); // You can use any AJAX library you like
-    };
-    // certificate 
+    // certificate Transcript others
     const handleCertificateUpload = (fileType) => {
         setUploading(true)
         // console.log(userData,getFormData, moment(getFormData?.certificateIssuedDate).format('YYYY-MM-DD'))
@@ -496,6 +395,28 @@ const BasicInfo = (props) => {
                 };
             }
         }
+
+        else if (section === "education_background") {
+            // console.log(getFormData)
+            if (method === "patch") {
+                data = {
+                    "school_year_to": getFormData?.school_year_from,
+                    "school_year_from": getFormData?.school_year_to,
+                    "gpa": getFormData?.gpa,
+                    "major_study": getFormData?.major_study,
+                    "degree_obtained": getFormData?.degree_obtained
+                }
+                config = {
+                    method: method,
+                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + userData?.token
+                    },
+                    data: data
+                };
+            }
+        }
         else if (section === "recipient_institution_detail") {
             // console.log(getFormData)   
             if (method === "patch") {
@@ -556,251 +477,7 @@ const BasicInfo = (props) => {
 
         genericApiCall(config, section)
     }
-    function setAddressConntryInfo(e) {
-        setGetFormData({ ...getFormData, ...{ "country": e.value, "code": e.code } })
-    }
 
-    function handleFamilySubmit(e, familyAction, postData, familyRelation) {
-        e.preventDefault()
-        let config, data = {};
-        // console.log("getFormData", familyRelation, familyAction)
-
-        if (familyRelation === "Parent") {
-            // 
-            // familyAction === Put, Post, Delete
-            if (familyAction === "Post") {
-                // 
-                // familyData = {...familyData, ...{"primary_first_name": getFormData?.primary_first_name, "primary_other_name": getFormData?.primary_other_name, "primary_last_name": getFormData?.primary_last_name}}
-
-                let arrayData = familyData
-                arrayData.push({ "first_name": getFormData?.primary_first_name, "other_name": getFormData?.primary_other_name || "", "last_name": getFormData?.primary_last_name, "country": getFormData?.primary_country || "", "id": familyData.length + 1 })
-
-                setFamilyData(arrayData)
-                // console.log(familyData)
-
-                data = {
-                    "first_name": getFormData?.primary_first_name,
-                    "last_name": getFormData?.primary_last_name,
-                    "relation_type": familyRelation,
-                    "account": userData?.id
-                }
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-                // clear the post id === use this to manage props effects
-                setGetFormData({ ...getFormData, ...{ "primary": false } })
-            }
-            else if (familyAction === "Patch") {
-                // 
-                let arrayData = familyData.filter(post => { return post.id !== getFormData?.theId })
-                arrayData.push({ "first_name": getFormData?.primary_first_name, "other_name": getFormData?.primary_other_name || "", "last_name": getFormData?.primary_last_name, "country": getFormData?.primary_country || "", "id": getFormData?.theId })
-                setFamilyData(arrayData)
-
-                data = {
-                    "first_name": getFormData?.primary_first_name,
-                    "last_name": getFormData?.primary_last_name,
-                    "relation_type": familyRelation,
-                    "account": userData?.id
-                }
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/" + getFormData?.theId + "/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-                // clear the post id
-                setGetFormData({ ...getFormData, ...{ "theId": "", "primary": false } })
-            }
-            else if (familyAction === "Delete" && postData?.id) {
-                // 
-                // console.log(familyData)
-                let arrayData = familyData.filter(post => { return post.id !== postData?.id })
-                // console.log(arrayData, postData?.id)
-                setFamilyData(arrayData)
-
-                data = {}
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/" + postData?.id + "/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-
-                setGetFormData({ ...getFormData, ...{ "nothing": "", "primary": false } })
-            }
-        }
-        else if (familyRelation === "Sibling") {
-            // 
-            // familyAction === Put, Post, Delete
-            if (familyAction === "Post") {
-                //
-                let arrayData = familyData
-                arrayData.push({ "first_name": getFormData?.primary_first_name, "other_name": getFormData?.primary_other_name || "", "last_name": getFormData?.primary_last_name, "country": getFormData?.primary_country || "", "id": familyData.length + 1 })
-
-                setFamilyData(arrayData)
-                // clear the post id === use this to manage props effects
-                setGetFormData({ ...getFormData, ...{ "primary": false } })
-
-                data = {
-                    "first_name": getFormData?.sibling_first_name,
-                    "last_name": getFormData?.sibling_last_name,
-                    "relation_type": familyRelation,
-                    "account": userData?.id
-                }
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-            }
-            else if (familyAction === "Patch") {
-                // 
-                let arrayData = familyData.filter(post => { return post.id !== getFormData?.theId })
-                arrayData.push({ "first_name": getFormData?.primary_first_name, "other_name": getFormData?.primary_other_name || "", "last_name": getFormData?.primary_last_name, "country": getFormData?.primary_country || "", "id": getFormData?.theId })
-                setFamilyData(arrayData)
-
-                data = {
-                    "first_name": getFormData?.sibling_first_name,
-                    "last_name": getFormData?.sibling_last_name,
-                    "relation_type": familyRelation,
-                    "account": userData?.id
-                }
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/" + getFormData?.theId + "/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-
-                // // clear the post id
-                setGetFormData({ ...getFormData, ...{ "theId": "", "primary": false } })
-            }
-            else if (familyAction === "Delete" && postData?.id) {
-                // 
-                // console.log(familyData)
-                let arrayData = familyData.filter(post => { return post.id !== postData?.id })
-                // console.log(arrayData, postData?.id)
-                setFamilyData(arrayData)
-
-                data = {}
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/" + postData?.id + "/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-
-                setGetFormData({ ...getFormData, ...{ "nothing": "", "primary": false } })
-            }
-        }
-        else if (familyRelation === "Spouce") {
-            // 
-            // console.log(getFormData, familyAction)
-            // familyAction === Put, Post, Delete
-            if (familyAction === "Post") {
-                //
-                let arrayData = familyData
-                arrayData.push({ "first_name": getFormData?.primary_first_name, "other_name": getFormData?.primary_other_name || "", "last_name": getFormData?.primary_last_name, "country": getFormData?.primary_country || "", "id": familyData.length + 1 })
-
-                setFamilyData(arrayData)
-                // clear the post id === use this to manage props effects
-                setGetFormData({ ...getFormData, ...{ "primary": false } })
-
-                data = {
-                    "first_name": getFormData?.sibling_first_name,
-                    "last_name": getFormData?.sibling_last_name,
-                    "relation_type": familyRelation,
-                    "account": userData?.id
-                }
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-            }
-            else if (familyAction === "Patch") {
-                // 
-                let arrayData = familyData.filter(post => { return post.id !== getFormData?.theId })
-                arrayData.push({ "first_name": getFormData?.spouce_first_name, "other_name": getFormData?.spouce_other_name || "", "last_name": getFormData?.spouce_last_name, "country": getFormData?.primary_country || "", "id": getFormData?.theId })
-                setFamilyData(arrayData)
-
-                data = {
-                    "first_name": getFormData?.spouce_first_name,
-                    "last_name": getFormData?.spouce_last_name,
-                    "relation_type": familyRelation,
-                    "account": userData?.id
-                }
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/" + getFormData?.theId + "/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-
-                // // clear the post id
-                setGetFormData({ ...getFormData, ...{ "theId": "", "primary": false } })
-            }
-            else if (familyAction === "Delete" && postData?.id) {
-                // 
-                // console.log(familyData)
-                let arrayData = familyData.filter(post => { return post.id !== postData?.id })
-                // console.log(arrayData, postData?.id)
-                setFamilyData(arrayData)
-
-                data = {}
-                config = {
-                    method: familyAction,
-                    url: process.env.REACT_APP_BASE_API + "/family/" + postData?.id + "/",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + userData?.token
-                    },
-                    data: data
-                };
-                genericApiCall(config, familyRelation)
-
-                setGetFormData({ ...getFormData, ...{ "nothing": "", "primary": false } })
-            }
-        }
-        getDataInfo();
-    }
     function getDataInfo() {
         let config = {
             method: "get",
@@ -871,364 +548,6 @@ const BasicInfo = (props) => {
         <div className="" onClick={() => trackActivity()}>
             <ToastContainer />
             {
-                props?.profileManage === "basic" ?
-                    <CAccordion activeItemKey={1} className="mt-3">
-                        <h6>Basic Information</h6>
-                        <CAccordionItem itemKey={1}>
-                            <CAccordionHeader>Personal Information</CAccordionHeader>
-                            <CAccordionBody>
-
-                                <CCol xs="12" sm="12" md={12} lg={12} className="mt-1" >
-                                    <div className='mui-control-form' >
-                                        <Box
-                                            component="form"
-                                            noValidate
-                                            autoComplete="on"
-                                        >
-                                            <InputLabel shrink htmlFor="fname"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.first_name}
-                                                value={getFormData?.first_name}
-                                                id="fname"
-                                                name="fname"
-                                                placeholder="First name"
-                                                variant="outlined"
-                                                margin="normal"
-                                                type="text"
-                                                fullWidth
-                                                required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "first_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "first_name": false } }))}
-                                            />
-
-                                            <InputLabel shrink htmlFor="lname"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.last_name}
-                                                value={getFormData?.last_name}
-                                                id="lname"
-                                                name="lname"
-                                                placeholder="Last name"
-                                                variant="outlined"
-                                                margin="normal"
-                                                type="text"
-                                                fullWidth
-                                                required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "last_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "last_name": false } }))}
-
-                                            />
-
-                                            <InputLabel shrink htmlFor="oname"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.other_name}
-                                                value={getFormData?.other_name}
-                                                id="oname"
-                                                name="oname"
-                                                placeholder="Other name"
-                                                variant="outlined"
-                                                margin="normal"
-                                                type="text"
-                                                fullWidth
-                                                required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "other_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "other_name": false } }))}
-                                            />
-                                            <Row className='mt-4 mb-4'>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left'> :</Col> */}
-                                                <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
-                                                    <TextField
-                                                        error={getFormDataError?.dateOfBirth}
-                                                        // value={moment(getFormData?.dob).format("LLLL")}
-                                                        margin="normal"
-                                                        required
-                                                        fullWidth
-                                                        type="date"
-                                                        min={"2006-01-01"}
-                                                        defaultValue={moment(getFormData?.dateOfBirth).format("YYYY-MM-DD")}
-                                                        placeholder="Date of birth"
-                                                        name="dateOfBirth"
-                                                        autoFocus
-                                                        variant="outlined"
-                                                        className='mb-1'
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "dateOfBirth": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "dateOfBirth": false } }))}
-                                                    />
-                                                    <InputLabel shrink htmlFor="dateOfBirth"> Date of birth  </InputLabel>
-                                                </Col>
-                                            </Row>
-                                        </Box>
-                                    </div>
-                                </CCol>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                    // style={{ color: "#fff" }}
-                                    // className="bg-text-com-wp"
-                                    onClick={(e) => passConfiguration("add", "patch", "personal", 419)}
-                                >
-                                    Save
-                                </Button>
-                            </CAccordionBody>
-                        </CAccordionItem>
-                        <CAccordionItem itemKey={2}>
-                            <CAccordionHeader>Profile Image</CAccordionHeader>
-                            <CAccordionBody>
-                                <strong>Upload your profile image</strong>
-                                <p className='mt-4 mb-1'>Your file size must be less than 1.22 MB</p>
-                                <Upload {...props1} onChange={(e) => { setProfilePhoto(e?.target?.value || null) }} value={profilePhoto} maxCount={1} >
-                                    {/* <ButtonGroup variant='outline' spacing='6'> */}
-                                    <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select an image </Button>
-                                    {/* </ButtonGroup> */}
-                                </Upload>
-                                {
-                                    certificate?.filter((post_type) => { return (post_type?.type) === "Photo" })?.length === 0 ?
-                                        <Button
-                                            type="submit"
-                                            fullWidth
-                                            variant="contained"
-                                            sx={{ mt: 3, mb: 2 }}
-                                            onClick={() => handlePhotoUpload(0)}
-                                            disabled={uploading}
-                                        >
-                                            {uploading ? 'Uploading' : 'Submit Photo'}
-
-                                        </Button>
-                                        : ""
-                                }
-
-
-                                <p className='mt-3 mb-1'>
-
-                                    <strong >Your Profile Photo</strong>
-                                    {
-                                        certificate?.filter((post_type) => { return (post_type?.type) === "Photo" })?.map((post, id) => {
-                                            return (
-                                                <Row key={post.id} >
-                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
-
-                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
-                                                        <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
-                                                    </Col>
-                                                </Row>
-                                            )
-
-                                        })
-                                    }
-                                </p>
-                            </CAccordionBody>
-                        </CAccordionItem>
-                        <CAccordionItem itemKey={3}>
-                            <CAccordionHeader>Contact Details</CAccordionHeader>
-                            <CAccordionBody>
-
-                                <CCol xs="12" sm="12" md={12} lg={12} className="mt-1" >
-                                    <div className='mui-control-form' >
-                                        <Box
-                                            component="form"
-                                            noValidate
-                                            autoComplete="on"
-                                        >
-                                            <InputLabel shrink htmlFor="email"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.email}
-                                                value={getFormData?.email}
-                                                id="email"
-                                                name="email"
-                                                placeholder="Your email"
-                                                variant="outlined"
-                                                margin="normal"
-                                                type="email"
-                                                fullWidth
-                                                required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "email": false } }))}
-                                            />
-                                            <InputLabel shrink htmlFor="phone"> </InputLabel>
-                                            <TextField
-                                                error={getFormDataError?.phone}
-                                                value={getFormData?.phone}
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                type="text"
-                                                placeholder="Phone number"
-                                                name="phone"
-                                                autoFocus
-                                                variant="outlined"
-                                                className='mt-3 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "phone": false } }))}
-                                            />
-                                        </Box>
-                                    </div>
-                                </CCol>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                    onClick={(e) => passConfiguration("add", "patch", "contact", 419)}
-                                >
-                                    Save
-                                </Button>
-                            </CAccordionBody>
-                        </CAccordionItem>
-                        <CAccordionItem itemKey={4}>
-                            <CAccordionHeader>Address</CAccordionHeader>
-                            <CAccordionBody>
-
-                                <Row>
-                                    <Col xs="6" sm="6" md={4} lg={4} >
-                                        <Label for="country" className="label-dc"> </Label>
-                                        <Select
-                                            placeholder={"Select country"}
-                                            defaultInputValue={getFormData?.country || ""}
-                                            options={transformCountriesData}
-                                            id="country"
-                                            className='other-input-select d-filters wp-cursor-pointer'
-                                            // components={{ Option: paymentOption }}
-                                            onChange={(e) => setAddressConntryInfo(e)}
-                                        />
-                                    </Col>
-                                    <Col xs="6" sm="6" md={4} lg={4} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="city"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.city}
-                                                    value={getFormData?.city}
-                                                    id="city"
-                                                    name="city"
-                                                    placeholder="Your city"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="city"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "city": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "city": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="6" sm="6" md={4} lg={4} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="town"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.town}
-                                                    value={getFormData?.town}
-                                                    id="town"
-                                                    name="town"
-                                                    placeholder="Your town"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="town"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "town": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "town": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="6" sm="6" md={4} lg={4} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="address"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.address}
-                                                    value={getFormData?.address}
-                                                    id="address"
-                                                    name="address"
-                                                    placeholder="Your address"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="address"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "address": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "address": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="6" sm="6" md={4} lg={4} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="lat"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.lat}
-                                                    value={getFormData?.lat}
-                                                    id="lat"
-                                                    name="lat"
-                                                    placeholder="latitude"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="lat"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "lat": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "lat": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="6" sm="6" md={4} lg={4} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="lon"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.lon}
-                                                    value={getFormData?.lon}
-                                                    id="lon"
-                                                    name="lon"
-                                                    placeholder="longitude"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="lon"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "lon": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "lon": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                </Row>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                    onClick={(e) => passConfiguration("add", "patch", "address", 419)}
-                                // onClick={(e) => (getFormData?.address && getFormData?.city) ? passConfiguration("", (getFormData?.addressAction ? (getFormData?.addressAction === "patch" ? "patch" : "delete" ) : "post" ), "address", 419) : ""}
-                                >
-                                    {/* passConfiguration("add", "patch", "address", 419) */}
-
-                                    Save
-                                </Button>
-
-                            </CAccordionBody>
-                        </CAccordionItem>
-                    </CAccordion>
-                    : ""
-            }
-            {
                 props?.profileManage === "education" ?
                     <p>
                         <CAccordion activeItemKey={1} className="mt-3">
@@ -1246,8 +565,6 @@ const BasicInfo = (props) => {
                                             options={optionsStateDoc}
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer'
-                                            // components={{ Option: paymentOption }}
-                                            // onChange={(e) => setAddressConntryInfo(e)}
                                             onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
                                         />
 
@@ -1425,7 +742,7 @@ const BasicInfo = (props) => {
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(1)}
+                                                onClick={() => handleCertificateUpload(2)}
                                                 disabled={uploading}
                                             >
                                                 {uploading ? 'Uploading' : 'Submit Photo'}
@@ -1468,8 +785,8 @@ const BasicInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
                                                     <InputLabel shrink htmlFor="degree_obtained"> </InputLabel>
                                                     <TextField
-                                                        // error={getFormDataError?.certificate_name}
-                                                        // value={getFormData?.certificate_name}
+                                                        error={getFormDataError?.degree_obtained}
+                                                        value={getFormData?.degree_obtained}
                                                         id="degree_obtained"
                                                         name="degree_obtained"
                                                         placeholder="Degree(s) Obtained"
@@ -1478,7 +795,7 @@ const BasicInfo = (props) => {
                                                         type="text"
                                                         fullWidth
                                                         required
-                                                    // onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "degree_obtained": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "degree_obtained": false } }))}
                                                     />
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
@@ -1495,7 +812,7 @@ const BasicInfo = (props) => {
                                                         fullWidth
                                                         required
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "major_study": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "major_study": false } }))}
-                                                    />
+                                                    /> 
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
                                                     <InputLabel shrink htmlFor="gpa"> </InputLabel>
@@ -1518,7 +835,7 @@ const BasicInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='mb-5'>
                                                     <TextField
                                                         error={getFormDataError?.school_year_from}
-                                                        value={moment(getFormData?.school_year_from).format("LLLL")}
+                                                        // value={moment(getFormData?.school_year_from).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
@@ -1531,14 +848,14 @@ const BasicInfo = (props) => {
                                                         variant="outlined"
                                                         // className='mb-5 '
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "school_year_from": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "school_year_from": false } }))}
-                                                    />
+                                                    /> 
                                                     <InputLabel shrink htmlFor="school_year_from"> Date from </InputLabel>
                                                 </Col>
 
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
                                                     <TextField
                                                         error={getFormDataError?.school_year_to}
-                                                        value={moment(getFormData?.school_year_to).format("LLLL")}
+                                                        // value={moment(getFormData?.school_year_to).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
@@ -1564,13 +881,13 @@ const BasicInfo = (props) => {
                                         fullWidth
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => handleCertificateUpload(1)}
-
+                                        // onClick={(e) => handleCertificateUpload(1)}
+                                        onClick={(e) => passConfiguration("add", "patch", "education_background", 419)}
                                         disabled={uploading}
                                     //   onClick={(e)=>handleSubmit(e)}
                                     >
                                         {/* Save */}
-                                        {uploading ? 'Uploading' : 'Submit document'}
+                                        {uploading ? 'saving' : 'Submit'}
                                     </Button>
                                 </CAccordionBody>
                             </CAccordionItem>
@@ -1596,8 +913,6 @@ const BasicInfo = (props) => {
                                             options={optionsIdDoc}
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer'
-                                            // components={{ Option: paymentOption }}
-                                            // onChange={(e) => setAddressConntryInfo(e)}
                                             onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
                                         />
 
@@ -1926,7 +1241,7 @@ const BasicInfo = (props) => {
                                         type="submit"
                                         fullWidth
                                         variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
+                                        sx={{ mt: 3, mb: 2 }} 
                                         onClick={(e) => passConfiguration("add", "patch", "recipient_institution_detail", 419)}
                                     >
                                         Save
@@ -1953,8 +1268,6 @@ const BasicInfo = (props) => {
                                         options={purposeEvaluation}
                                         id="purpose_evaluation"
                                         className='other-input-select d-filters wp-cursor-pointer mb-3'
-                                        // components={{ Option: paymentOption }}
-                                        // onChange={(e) => setAddressConntryInfo(e)}
                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "purpose_evaluation": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "purpose_evaluation": false } }))}
                                     />
                                 </div>
@@ -2124,8 +1437,6 @@ const BasicInfo = (props) => {
                                         options={optionsPaymentMethod}
                                         id="payment_method"
                                         className='other-input-select d-filters wp-cursor-pointer mb-3'
-                                        // components={{ Option: paymentOption }}
-                                        // onChange={(e) => setAddressConntryInfo(e)}
                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "payment_method": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "payment_method": false } }))}
                                     />
                                 </div>
@@ -2178,8 +1489,6 @@ const BasicInfo = (props) => {
                                         options={optionsVerificationState}
                                         id="verification_status"
                                         className='other-input-select d-filters wp-cursor-pointer mb-3'
-                                        // components={{ Option: paymentOption }}
-                                        // onChange={(e) => setAddressConntryInfo(e)}
                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } }))}
                                     />
                                 </div>
@@ -2241,338 +1550,14 @@ const BasicInfo = (props) => {
                     : ""
             }
 
-            {
-                props?.profileManage === "family" ?
-                    <CAccordion activeItemKey={1} className="mt-3">
-                        <h6>Family Information</h6>
-                        <CAccordionItem itemKey={1}>
-                            <CAccordionHeader>Parent </CAccordionHeader>
-                            <CAccordionBody>
-                                <strong></strong>
-                                {
-                                    familyData?.filter(filt => filt?.relation_type === "Parent")?.map((post, id) => {
-                                        return (
-                                            <Row key={post.id} >
-                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.first_name} </Col>
-                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.last_name} </Col>
-                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > </Col>
-                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" >
-                                                    <Badge color='secondary' onClick={() => setGetFormData({ ...getFormData, ...{ "primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name } })} style={{ "marginRight": "4px" }}>Edit</Badge>
-
-                                                    <Badge color='primary' onClick={(e) => { handleFamilySubmit(e, "Delete", post, "Parent") }} >Delete</Badge>
-                                                </Col>
-                                            </Row>
-                                        )
-                                    }
-
-                                    )
-                                }
-                                <Row>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="primary_first_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.primary_first_name}
-                                                    value={getFormData?.primary_first_name}
-                                                    id="primary_first_name"
-                                                    name="primary_first_name"
-                                                    placeholder="First name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="primary_first_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "primary_first_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "primary_first_name": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="primary_last_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.primary_last_name}
-                                                    value={getFormData?.primary_last_name}
-                                                    id="primary_last_name"
-                                                    name="primary_last_name"
-                                                    placeholder="last name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="primary_last_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "primary_last_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "primary_last_name": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                {/* <InputLabel shrink htmlFor="primary_other_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.primary_other_name}
-                                                    value={getFormData?.primary_other_name}
-                                                    id="primary_other_name"
-                                                    name="primary_other_name"
-                                                    placeholder="other name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="primary_other_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "primary_other_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "primary_other_name": false } }))}
-                                                /> */}
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                </Row>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                    onClick={(e) => (getFormData?.primary_first_name && getFormData?.primary_last_name) ? handleFamilySubmit(e, (getFormData?.primary ? (getFormData?.primary === "Patch" ? "Patch" : "Delete") : "Post"), {}, "Parent") : ""}
-                                >
-                                    Save
-                                </Button>
-                            </CAccordionBody>
-                        </CAccordionItem>
-                        <CAccordionItem itemKey={2}>
-                            <CAccordionHeader>Spouse </CAccordionHeader>
-                            <CAccordionBody>
-                                <strong></strong>
-                                <Row>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                {
-                                                    familyData?.filter(filt => filt?.relation_type === "Spouce")?.map((post, id) => {
-                                                        return (
-                                                            <Row key={post.id} >
-                                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.first_name} </Col>
-                                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.last_name} </Col>
-                                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > </Col>
-                                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" >
-                                                                    <Badge color='secondary' onClick={() => setGetFormData({ ...getFormData, ...{ "spouce": "Patch", "theId": post?.id, "spouce_first_name": post?.first_name, "spouce_other_name": post?.other_name, "spouce_last_name": post?.last_name } })} style={{ "marginRight": "4px" }} >Edit</Badge>
-
-                                                                    <Badge color='primary' onClick={(e) => { handleFamilySubmit(e, "Delete", post, "Spouce") }} >Delete</Badge>
-                                                                </Col>
-                                                            </Row>
-                                                        )
-                                                    }
-
-                                                    )
-                                                }
-                                                <InputLabel shrink htmlFor="spouce_first_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.spouce_first_name}
-                                                    value={getFormData?.spouce_first_name}
-                                                    id="spouce_first_name"
-                                                    name="spouce_first_name"
-                                                    placeholder="First name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="spouce_first_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "spouce_first_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "spouce_first_name": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="spouce_last_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.spouce_last_name}
-                                                    value={getFormData?.spouce_last_name}
-                                                    id="spouce_last_name"
-                                                    name="spouce_last_name"
-                                                    placeholder="last name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="spouce_last_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "spouce_last_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "spouce_last_name": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                {/* <InputLabel shrink htmlFor="spouce_other_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.spouce_other_name}
-                                                    value={getFormData?.spouce_other_name}
-                                                    id="spouce_other_name"
-                                                    name="spouce_other_name"
-                                                    placeholder="other name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="spouce_other_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "spouce_other_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "spouce_other_name": false } }))}
-                                                /> */}
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                </Row>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                    onClick={(e) => (getFormData?.spouce_first_name && getFormData?.spouce_last_name) ? handleFamilySubmit(e, (getFormData?.spouce ? (getFormData?.spouce === "Patch" ? "Patch" : "Delete") : "Post"), {}, "Spouce") : ""}
-                                >
-                                    Save
-                                </Button>
-                            </CAccordionBody>
-                        </CAccordionItem>
-                        <CAccordionItem itemKey={3}>
-                            <CAccordionHeader>Sibling</CAccordionHeader>
-                            <CAccordionBody>
-                                <strong>Add a sibling</strong>
-                                <Row>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                {
-                                                    familyData?.filter(filt => filt?.relation_type === "Sibling")?.map((post, id) => {
-                                                        return (
-                                                            <Row key={post.id} >
-                                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.first_name} </Col>
-                                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > {post.last_name} </Col>
-                                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" > </Col>
-                                                                <Col xs="3" sm="3" md={3} lg={3} className="mt-2" >
-                                                                    <Badge color='secondary' onClick={() => setGetFormData({ ...getFormData, ...{ "sibling": "Patch", "theId": post?.id, "sibling_first_name": post?.first_name, "sibling_other_name": post?.other_name, "sibling_last_name": post?.last_name } })} style={{ "marginRight": "4px" }}>Edit</Badge>
-
-                                                                    <Badge color='primary' onClick={(e) => { handleFamilySubmit(e, "Delete", post, "Sibling") }} >Delete</Badge>
-                                                                </Col>
-                                                            </Row>
-                                                        )
-                                                    }
-
-                                                    )
-                                                }
-                                                <InputLabel shrink htmlFor="sibling_first_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.sibling_first_name}
-                                                    value={getFormData?.sibling_first_name}
-                                                    id="sibling_first_name"
-                                                    name="sibling_first_name"
-                                                    placeholder="First name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="sibling_first_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "sibling_first_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "sibling_first_name": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                    <Col xs="12" sm="12" md={12} lg={12} className="mt-2" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="sibling_last_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.sibling_last_name}
-                                                    value={getFormData?.sibling_last_name}
-                                                    id="sibling_last_name"
-                                                    name="sibling_last_name"
-                                                    placeholder="last name"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="sibling_last_name"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "sibling_last_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "sibling_last_name": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </Col>
-                                </Row>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                    onClick={(e) => (getFormData?.sibling_first_name && getFormData?.sibling_last_name) ? handleFamilySubmit(e, (getFormData?.sibling ? (getFormData?.sibling === "Patch" ? "Patch" : "Delete") : "Post"), {}, "Sibling") : ""}
-                                >
-                                    Save
-                                </Button>
-                            </CAccordionBody>
-                        </CAccordionItem>
-                        {/* <CAccordionItem itemKey={4}>
-                            <CAccordionHeader>Household</CAccordionHeader>
-                            <CAccordionBody>
-                                <strong></strong>
-
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
-                                //   onClick={(e)=>handleSubmit(e)}
-                                >
-                                    Save
-                                </Button>
-                            </CAccordionBody>
-                        </CAccordionItem> */}
-                    </CAccordion>
-                    : ""
-            }
-
         </div>
     );
 };
 
-export default BasicInfo;
+export default EditSubmittedEvaluationInfo;
 
 
-BasicInfo.propTypes = {
+EditSubmittedEvaluationInfo.propTypes = {
     profileManage: PropTypes.string,
     // getNewPassedWalkAction: PropTypes.instanceOf(PropTypes.any).isRequired
 };
