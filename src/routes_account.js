@@ -116,7 +116,7 @@ const routes = [
 
   { path: '/apply', name: 'Apply', element: GeneralCollege },
   { path: '/apply-profile', name: 'Profile', element: GeneralProfile },
-  { path: '/evaluation-profile', name: 'Profile', element: EvaluationProfile },
+  { path: '/evaluation-profile', name: 'Create new evaluation', element: EvaluationProfile },
   { path: '/applications/:id', name: 'Applications', element: Application },
   { path: '/application-detail', name: 'Applications', element: Application },
   { path: '/application-detail/:id', name: 'Detail View', element: ApplicationDetail },
