@@ -63,6 +63,8 @@ const ApplicationDetail = React.lazy(() => import('./views/pages/Application/App
 const EvaluationProfile = React.lazy(() => import('./views/pages/UserInfo/EvaluationProfile'))
 const Evaluation = React.lazy(() => import('./views/pages/Evaluation/Evaluation'))
 const EvaluationDetail = React.lazy(() => import('./views/pages/Evaluation/EvaluationDetail'))
+const EditSubmittedEvaluationProfile = React.lazy(() => import('./views/pages/UserInfo/EditSubmittedEvaluationProfile'))
+
 
 const routes = [
   // { path: '/theme', name: 'Theme', element: Colors, exact: true },
@@ -122,7 +124,8 @@ const routes = [
   { path: '/application-detail/:id', name: 'Detail View', element: ApplicationDetail },
   { path: '/evaluation/:id', name: 'Evaluation', element: Evaluation },
   { path: '/evaluation-detail', name: 'Evaluation', element: Evaluation },
-  { path: '/evaluation-detail/:id', name: 'Detail View', element: EvaluationDetail }
+  { path: '/evaluation-detail/:id', name: 'Detail View', element: EvaluationDetail },
+  { path: '/evaluation-edit/:id', name: 'Edit Evaluation Profile', element: EditSubmittedEvaluationProfile }
 
   // { path: '/checkout/:id', name: '', element: Checkout }, 
 

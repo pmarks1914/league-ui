@@ -69,47 +69,47 @@ const EditSubmittedEvaluationInfo = (props) => {
         "certificate_name": false,
         "transcript_name": false
     })
+    const [evaluationData, setEvaluationData] = useState([]);
+
     const [getFormData, setGetFormData] = React.useState({
-        "first_name": userData?.user?.first_name,
-        "last_name": userData?.user?.last_name,
-        "other_name": userData?.user?.other_name,
-        "email": userData?.user?.email,
-        "phone": userData?.user?.phone,
-        "photo": userData?.user?.photo,
-        "lon": userData?.user?.lon,
-        "lat": userData?.user?.lat,
-        "country": userData?.user?.country,
-        "town": userData?.user?.town,
-        "city": userData?.user?.city,
-        "address": userData?.user?.address,
-        "dateOfBirth": userData?.user?.dob,
-        "certificate_name": userData?.user?.other_info?.certificate_name,
-        "transcript_name": userData?.user?.other_info?.transcript_name,
-        "certificateDate": userData?.user?.other_info?.certificateDate,
-        "purpose_evaluation": userData?.user?.other_info?.purpose_evaluation,
-        "user_preference_email": userData?.user?.other_info?.user_preference_email,
-        "contact_person_email": userData?.user?.other_info?.contact_person_email,
-        "institution_name": userData?.user?.other_info?.institution_name,
-        "department_office": userData?.user?.other_info?.department_office,
-        "contact_person": userData?.user?.other_info?.contact_person,
-        "payment_method": userData?.user?.other_info?.payment_method,
-        "billing_address": userData?.user?.other_info?.billing_address,
-        "verification_status": userData?.user?.other_info?.verification_status,
-        "reference_phone": userData?.user?.other_info?.reference_phone,
-        "reference_email": userData?.user?.other_info?.reference_email,
-        "school_year_to": userData?.user?.other_info?.school_year_to,
-        "school_year_from": userData?.user?.other_info?.school_year_from,
-        "gpa": userData?.user?.other_info?.gpa,
-        "major_study": userData?.user?.other_info?.major_study,
-        "degree_obtained": userData?.user?.other_info?.degree_obtained
+        "first_name": evaluationData?.user?.first_name,
+        "last_name": evaluationData?.user?.last_name,
+        "other_name": evaluationData?.user?.other_name,
+        "email": evaluationData?.user?.email,
+        "phone": evaluationData?.user?.phone,
+        "photo": evaluationData?.user?.photo,
+        "lon": evaluationData?.user?.lon,
+        "lat": evaluationData?.user?.lat,
+        "country": evaluationData?.user?.country,
+        "town": evaluationData?.user?.town,
+        "city": evaluationData?.user?.city,
+        "address": evaluationData?.user?.address,
+        "dateOfBirth": evaluationData?.user?.dob,
+        "certificate_name": evaluationData?.user?.other_info?.certificate_name,
+        "transcript_name": evaluationData?.user?.other_info?.transcript_name,
+        "certificateDate": evaluationData?.user?.other_info?.certificateDate,
+        "purpose_evaluation": evaluationData?.user?.other_info?.purpose_evaluation,
+        "user_preference_email": evaluationData?.user?.other_info?.user_preference_email,
+        "contact_person_email": evaluationData?.user?.other_info?.contact_person_email,
+        "institution_name": evaluationData?.user?.other_info?.institution_name,
+        "department_office": evaluationData?.user?.other_info?.department_office,
+        "contact_person": evaluationData?.user?.other_info?.contact_person,
+        "payment_method": evaluationData?.user?.other_info?.payment_method,
+        "billing_address": evaluationData?.user?.other_info?.billing_address,
+        "verification_status": evaluationData?.user?.other_info?.verification_status,
+        "reference_phone": evaluationData?.user?.other_info?.reference_phone,
+        "reference_email": evaluationData?.user?.other_info?.reference_email,
+        "school_year_to": evaluationData?.user?.other_info?.school_year_to,
+        "school_year_from": evaluationData?.user?.other_info?.school_year_from,
+        "gpa": evaluationData?.user?.other_info?.gpa,
+        "major_study": evaluationData?.user?.other_info?.major_study,
+        "degree_obtained": evaluationData?.user?.other_info?.degree_obtained
     })
-    const [profilePhoto, setProfilePhoto] = useState(userData?.photo)
-    const [photoList, setPhotoList] = useState([]);
     // profile photo loading
     const [uploading, setUploading] = useState(false);
     // console.log(props?.profileManage)
     // certificate    
-    const [profileCertificate, setProfileCertificate] = useState(userData?.certificate)
+    const [profileCertificate, setProfileCertificate] = useState(evaluationData?.evaluation_info?.certificate)
 
     const [certificateList, setCertificateList] = useState([]);
     const [certificate, setCertificate] = useState([]);
@@ -128,6 +128,58 @@ const EditSubmittedEvaluationInfo = (props) => {
         }
         // console.log("familyData", countState)
     }, [])
+    useEffect(() => {
+        getFuncEvaluation()
+    }, [])
+    // console.log("evaluationData ", JSON.stringify(evaluationData))
+
+    function getFuncEvaluation() {
+        // 
+        let config = {
+            method: 'get',
+            url: process.env.REACT_APP_BASE_API + "/evaluation/" + window.location.pathname.split('/')[2],
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + userData?.token
+            },
+            data: {}
+        };
+
+        axios(config).then(response => {
+            //   console.log("data getApplication data api ==", response);
+
+            if (response.status === 200) {
+                console.log("data source sch ====", response?.data);
+                if (response?.data?.data) {
+                    setEvaluationData(response?.data?.data)
+                }
+
+            }
+
+
+        }).catch(function (error) {
+
+            if (error.response) {
+                // // console.log("==");
+                /*
+                * The request was made and the server responded with a
+                * status code that falls out of the range of 2xx
+                */
+
+            } else if (error.request) {
+                /*
+                * The request was made but no response was received, `error.request`
+                * is an instance of XMLHttpRequest in the browser and an instance
+                * of http.ClientRequest in Node.js
+                */
+
+            } else {
+                // Something happened in setting up the request and triggered an Error
+
+            }
+        }
+        );
+    }
 
     const props2 = {
         onRemove: (file) => {
@@ -272,7 +324,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                     "first_name": getFormData?.first_name,
                     "last_name": getFormData?.last_name,
                     "country": getFormData?.country,
-                    "dob": moment(getFormData?.dateOfBirth || userData?.user?.dob).format('YYYY-MM-DD'),
+                    "dob": moment(getFormData?.dateOfBirth || evaluationData?.user?.dob).format('YYYY-MM-DD'),
                 }
                 config = {
                     method: method,
