@@ -660,7 +660,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
                                     {
-                                        evaluationData?.evaluation_info?.transcript ? "" :
+                                        evaluationData?.evaluation_info?.certificate ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
@@ -670,20 +670,15 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 disabled={uploading}
                                             >
                                                 {uploading ? 'Uploading' : 'Submit Photo'}
-
                                             </Button>
-
                                     }
-
-
                                     <p className='mt-3 mb-1'>
 
                                         <strong >Your educational document </strong>
                                         {
-                                            evaluationData?.evaluation_info?.transcript ?
+                                            evaluationData?.evaluation_info?.certificate ?
                                                 <Row>
-                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.transcript} target='_blank' rel="noreferrer" > File </a> </Col>
-
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.certificate} target='_blank' rel="noreferrer" > File </a> </Col>
                                                     <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
                                                         <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", "file") }} >Delete</Badge>
                                                     </Col>
@@ -750,39 +745,30 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             <Button className='bg-secondary text-white' ><CIcon icon={cilCloudDownload} className="me-2" /> Select a transcript </Button>
                                         </ButtonGroup>
                                     </Upload>
-
                                     {
-                                        certificate?.filter((post_type) => { return (post_type?.type) === "Transcript" })?.length === 0 ?
+                                        evaluationData?.evaluation_info?.transcript ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(2)}
+                                                onClick={() => handleCertificateUpload(1)}
                                                 disabled={uploading}
                                             >
                                                 {uploading ? 'Uploading' : 'Submit Photo'}
-
                                             </Button>
-                                            : ""
                                     }
-
                                     <p className='mt-3 mb-1'>
-
                                         <strong >Your educational document(s)</strong>
                                         {
-                                            certificate?.filter((post_type) => { return (post_type?.type) === "Transcript" })?.map((post, id) => {
-                                                return (
-                                                    <Row key={post.id} >
-                                                        <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
-
-                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
-                                                            {/* <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge>  */}
-                                                            <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
-                                                        </Col>
-                                                    </Row>
-                                                )
-                                            })
+                                            evaluationData?.evaluation_info?.transcript ?
+                                                <Row>
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.transcript} target='_blank' rel="noreferrer" > File </a> </Col>
+                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                        <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "transcript", "file") }} >Delete</Badge>
+                                                    </Col>
+                                                </Row>
+                                                : ''
                                         }
                                     </p>
                                 </CAccordionBody>
