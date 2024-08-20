@@ -669,7 +669,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 onClick={() => handleCertificateUpload(1)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
+                                                {uploading ? 'Uploading' : 'Submit'}
                                             </Button>
                                     }
                                     <p className='mt-3 mb-1'>
@@ -755,7 +755,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 onClick={() => handleCertificateUpload(1)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
+                                                {uploading ? 'Uploading' : 'Submit'}
                                             </Button>
                                     }
                                     <p className='mt-3 mb-1'>
@@ -959,39 +959,31 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     </Upload>
 
 
+                                    
                                     {
-                                        certificate?.filter((post_type) => { return (post_type?.type) === "Identification Document" })?.length === 0 ?
+                                        evaluationData?.evaluation_info?.identification ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(3)}
+                                                onClick={() => handleCertificateUpload(1)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
-
+                                                {uploading ? 'Uploading' : 'Submit'}
                                             </Button>
-                                            : ""
                                     }
-
-
                                     <p className='mt-3 mb-1'>
-
-                                        <strong >Your document(s)</strong>
+                                        <strong >Your educational document(s)</strong>
                                         {
-                                            certificate?.filter((post_type) => { return (post_type?.type) === "Identification Document" })?.map((post, id) => {
-                                                return (
-                                                    <Row key={post.id} >
-                                                        <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
-
-                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
-                                                            <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
-                                                        </Col>
-                                                    </Row>
-                                                )
-
-                                            })
+                                            evaluationData?.evaluation_info?.identification ?
+                                                <Row>
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.identification} target='_blank' rel="noreferrer" > File </a> </Col>
+                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                        <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "identification", "file") }} >Delete</Badge>
+                                                    </Col>
+                                                </Row>
+                                                : ''
                                         }
                                     </p>
                                 </CAccordionBody>
@@ -1044,39 +1036,30 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     </Upload>
 
 
-                                    {
-                                        certificate?.filter((post_type) => { return (post_type?.type) === "Evaluation Report" })?.length === 0 ?
+                                    
+                                    { evaluationData?.evaluation_info?.report ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(4)}
+                                                onClick={() => handleCertificateUpload(1)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
-
+                                                {uploading ? 'Uploading' : 'Submit'}
                                             </Button>
-                                            : ""
                                     }
-
                                     <p className='mt-3 mb-1'>
-
-                                        <strong >Your document(s)</strong>
+                                        <strong >Your educational document(s)</strong>
                                         {
-                                            certificate?.filter((post_type) => { return (post_type?.type) === "Evaluation Report" })?.map((post, id) => {
-                                                return (
-                                                    <Row key={post.id} >
-                                                        <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
-
-                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
-                                                            {/* <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge>  */}
-                                                            <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
-                                                        </Col>
-                                                    </Row>
-                                                )
-
-                                            })
+                                            evaluationData?.evaluation_info?.report ?
+                                                <Row>
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.report} target='_blank' rel="noreferrer" > File </a> </Col>
+                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                        <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "report", "file") }} >Delete</Badge>
+                                                    </Col>
+                                                </Row>
+                                                : ''
                                         }
                                     </p>
                                 </CAccordionBody>
@@ -1128,38 +1111,30 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
 
-                                    {
-                                        certificate?.filter((post_type) => { return (post_type?.type) === "Letter of Recommendation" })?.length === 0 ?
+                                    { 
+                                        evaluationData?.evaluation_info?.recommendation ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(5)}
+                                                onClick={() => handleCertificateUpload(1)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
-
+                                                {uploading ? 'Uploading' : 'Submit'}
                                             </Button>
-                                            : ""
                                     }
-
                                     <p className='mt-3 mb-1'>
-
-                                        <strong >Your document(s)</strong>
+                                        <strong >Your educational document(s)</strong>
                                         {
-                                            certificate?.filter((post_type) => { return (post_type?.type) === "Letter of Recommendation" })?.map((post, id) => {
-                                                return (
-                                                    <Row key={post.id} >
-                                                        <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
-
-                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
-                                                            <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
-                                                        </Col>
-                                                    </Row>
-                                                )
-
-                                            })
+                                            evaluationData?.evaluation_info?.recommendation ?
+                                                <Row>
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.recommendation} target='_blank' rel="noreferrer" > File </a> </Col>
+                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                        <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "recommendation", "file") }} >Delete</Badge>
+                                                    </Col>
+                                                </Row>
+                                                : ''
                                         }
                                     </p>
                                 </CAccordionBody>
