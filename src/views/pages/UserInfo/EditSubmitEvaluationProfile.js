@@ -19,11 +19,11 @@ import Select, { components } from 'react-select';
 
 
 import { getSessionTimeout } from '../../../Utils/Utils';
-import EvaluationInfo from './Profile/EvaluationInfo';
+import EditSubmittedEvaluationInfo from './Profile/EditSubmittedEvaluationInfo';
 import College from './College.js/College';
 
 
-const General = () => {
+const EditSubmittedEvaluationProfile = () => {
   const [activeTab, setActiveTab] = useState('1');
 
   const [getCount, setGetCount] = useState(1)
@@ -93,15 +93,15 @@ const General = () => {
             <Row>
               <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-3 mr-0'> </Col>
               <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
-                <EvaluationInfo profileManage={"education"} />
+                <EditSubmittedEvaluationInfo profileManage={"education"} />
               </Col>
-            </Row>
+            </Row> 
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-3 mr-0'> </Col>
               <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
-                <EvaluationInfo profileManage={"additional"} />
+                <EditSubmittedEvaluationInfo profileManage={"additional"} />
               </Col>
             </Row>
           </TabPane>
@@ -109,7 +109,7 @@ const General = () => {
             <Row>
               <Col sm="0" xs="0" md="2" lg="2" xl="2" className='mt-3 mr-0'> </Col>
               <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
-                <EvaluationInfo profileManage={"other"} />
+                <EditSubmittedEvaluationInfo profileManage={"other"} />
               </Col>
             </Row>
           </TabPane>
@@ -118,4 +118,4 @@ const General = () => {
   );
 };
 
-export default General;
+export default EditSubmittedEvaluationProfile;
