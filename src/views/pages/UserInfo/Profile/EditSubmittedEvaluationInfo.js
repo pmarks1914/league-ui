@@ -114,7 +114,7 @@ const EditSubmittedEvaluationInfo = (props) => {
     const [certificateList, setCertificateList] = useState([]);
     const [certificate, setCertificate] = useState([]);
     // profile Certificate loading
-    
+
     useEffect(() => {
         //   getSessionTimeout();
         passConfiguration("get", "get", "address", 419)
@@ -607,10 +607,9 @@ const EditSubmittedEvaluationInfo = (props) => {
                             <CAccordionItem itemKey={1}>
                                 <CAccordionHeader>Certificate Information</CAccordionHeader>
                                 <CAccordionBody>
-
                                     <div className='mui-control-form' >
-
                                         <Label for="certname" className="label-dc"> </Label>
+                                        {console.log("evaluationData ", evaluationData)}
                                         <Select
                                             placeholder={"Type of Certificate "}
                                             defaultInputValue={getFormData?.certificate_name}
@@ -626,23 +625,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             autoComplete="on"
                                         >
                                             <Row className='ml-4 mt-4 mb-5'>
-                                                {/* <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'> */}
-                                                {/* <InputLabel shrink htmlFor="certname"> </InputLabel> */}
-                                                {/* <TextField
-                                                        error={getFormDataError?.certificate_name}
-                                                        value={getFormData?.certificate_name}
-                                                        id="certname"
-                                                        name="certname"
-                                                        placeholder="Certificate name"
-                                                        variant="outlined"
-                                                        margin="normal"
-                                                        type="text"
-                                                        fullWidth
-                                                        required
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
-                                                    /> */}
 
-                                                {/* </Col> */}
                                                 <Col sm="2" xs="2" md="2" lg="2" xl="2" className=''></Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
@@ -664,7 +647,6 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     />
                                                     <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -678,7 +660,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
                                     {
-                                        certificate?.filter((post_type) => { return (post_type?.type) === "Certificate" })?.length === 0 ?
+                                        evaluationData?.evaluation_info?.transcript ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
@@ -690,27 +672,23 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 {uploading ? 'Uploading' : 'Submit Photo'}
 
                                             </Button>
-                                            : ""
+
                                     }
 
 
                                     <p className='mt-3 mb-1'>
 
-                                        <strong >Your educational nnnn document(s)</strong>
+                                        <strong >Your educational document </strong>
                                         {
-                                            certificate?.filter((post_type) => { return (post_type?.type) === "Certificate" })?.map((post, id) => {
-                                                return (
-                                                    <Row key={post.id} >
-                                                        <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
+                                            evaluationData?.evaluation_info?.transcript ?
+                                                <Row>
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.transcript} target='_blank' rel="noreferrer" > File </a> </Col>
 
-                                                        <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
-                                                            {/* <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge>  */}
-                                                            <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
-                                                        </Col>
-                                                    </Row>
-                                                )
-
-                                            })
+                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                        <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", "file") }} >Delete</Badge>
+                                                    </Col>
+                                                </Row>
+                                                : ''
                                         }
                                     </p>
                                 </CAccordionBody>
@@ -737,21 +715,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             autoComplete="on"
                                         >
                                             <Row className='ml-4 mt-4 mb-5'>
-                                                <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'>
-                                                    {/* <InputLabel shrink htmlFor="certname"> </InputLabel>
-                                                    <TextField
-                                                        error={getFormDataError?.transcript_name}
-                                                        value={getFormData?.transcript_name}
-                                                        id="certname"
-                                                        name="certname"
-                                                        placeholder="transcript name"
-                                                        variant="outlined"
-                                                        margin="normal"
-                                                        type="text"
-                                                        fullWidth
-                                                        required
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "transcript_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "transcript_name": false } }))}
-                                                    /> */}
+                                                <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'>                                                   
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
@@ -864,7 +828,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         fullWidth
                                                         required
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "major_study": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "major_study": false } }))}
-                                                    /> 
+                                                    />
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
                                                     <InputLabel shrink htmlFor="gpa"> </InputLabel>
@@ -900,7 +864,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         variant="outlined"
                                                         // className='mb-5 '
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "school_year_from": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "school_year_from": false } }))}
-                                                    /> 
+                                                    />
                                                     <InputLabel shrink htmlFor="school_year_from"> Date from </InputLabel>
                                                 </Col>
 
@@ -1293,7 +1257,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         type="submit"
                                         fullWidth
                                         variant="contained"
-                                        sx={{ mt: 3, mb: 2 }} 
+                                        sx={{ mt: 3, mb: 2 }}
                                         onClick={(e) => passConfiguration("add", "patch", "recipient_institution_detail", 419)}
                                     >
                                         Save
