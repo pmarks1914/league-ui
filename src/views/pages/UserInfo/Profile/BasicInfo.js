@@ -989,7 +989,7 @@ const BasicInfo = (props) => {
                                             onClick={() => handlePhotoUpload(0)}
                                             disabled={uploading}
                                         >
-                                            {uploading ? 'Uploading' : 'Submit Photo'}
+                                            {uploading ? 'Uploading' : 'Submit'}
 
                                         </Button>
                                         : ""
@@ -1318,7 +1318,7 @@ const BasicInfo = (props) => {
                                                 onClick={() => handleCertificateUpload(1)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
+                                                {uploading ? 'Uploading' : 'Submit'}
 
                                             </Button>
                                             : ""
@@ -1428,7 +1428,7 @@ const BasicInfo = (props) => {
                                                 onClick={() => handleCertificateUpload(1)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
+                                                {uploading ? 'Uploading' : 'Submit'}
 
                                             </Button>
                                             : ""
@@ -1652,7 +1652,7 @@ const BasicInfo = (props) => {
                                                 onClick={() => handleCertificateUpload(3)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
+                                                {uploading ? 'Uploading' : 'Submit'}
 
                                             </Button>
                                             : ""
@@ -1737,7 +1737,7 @@ const BasicInfo = (props) => {
                                                 onClick={() => handleCertificateUpload(4)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
+                                                {uploading ? 'Uploading' : 'Submit'}
 
                                             </Button>
                                             : ""
@@ -1821,7 +1821,7 @@ const BasicInfo = (props) => {
                                                 onClick={() => handleCertificateUpload(5)}
                                                 disabled={uploading}
                                             >
-                                                {uploading ? 'Uploading' : 'Submit Photo'}
+                                                {uploading ? 'Uploading' : 'Submit'}
 
                                             </Button>
                                             : ""
