@@ -63,7 +63,7 @@ const ApplicationDetail = React.lazy(() => import('./views/pages/Application/App
 const EvaluationProfile = React.lazy(() => import('./views/pages/UserInfo/EvaluationProfile'))
 const Evaluation = React.lazy(() => import('./views/pages/Evaluation/Evaluation'))
 const EvaluationDetail = React.lazy(() => import('./views/pages/Evaluation/EvaluationDetail'))
-const EditSubmittedEvaluationProfile = React.lazy(() => import('./views/pages/UserInfo/EditSubmittedEvaluationProfile'))
+const EditSubmittedEvaluationProfile = React.lazy(() => import('./views/pages/UserInfo/EditSubmitEvaluationProfile'))
 
 
 const routes = [

@@ -95,7 +95,7 @@ const EditSubmittedEvaluationProfile = () => {
               <Col sm="12" xs="12" md="8" lg="8" xl="8" id="tab-type2" className='ml-0'>
                 <EditSubmittedEvaluationInfo profileManage={"education"} />
               </Col>
-            </Row>
+            </Row> 
           </TabPane>
           <TabPane tabId="2">
             <Row>
