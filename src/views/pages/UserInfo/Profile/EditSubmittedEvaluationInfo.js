@@ -909,7 +909,6 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                     <div className='mui-control-form' >
 
-                                        <Label for="certname" className="label-dc"> </Label>
                                         <Select
                                             placeholder={"Type of Identification Documents "}
                                             defaultInputValue={getFormData?.certificate_name}
@@ -918,6 +917,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             className='other-input-select d-filters wp-cursor-pointer'
                                             onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
                                         />
+                                        <InputLabel shrink htmlFor="certname"> Type of Identification Documents </InputLabel>
 
                                         <Box
                                             component="form"
@@ -1151,7 +1151,6 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 noValidate
                                                 autoComplete="on"
                                             >
-                                                <InputLabel shrink htmlFor="institution_name"> </InputLabel>
                                                 <TextField
                                                     error={getFormDataError?.institution_name}
                                                     value={getFormData?.institution_name}
@@ -1165,8 +1164,8 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     required
                                                     onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_name": false } }))}
                                                 />
+                                                <InputLabel shrink htmlFor="institution_name"> Name of Institution </InputLabel>
 
-                                                <InputLabel shrink htmlFor="department_office"> </InputLabel>
                                                 <TextField
                                                     error={getFormDataError?.department_office}
                                                     value={getFormData?.department_office}
@@ -1181,7 +1180,8 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     className='mt-4 mb-0'
                                                     onChange={(e) => (setGetFormData({ ...getFormData, ...{ "department_office": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "department_office": false } }))}
                                                 />
-                                                <InputLabel shrink htmlFor="contact_person"> </InputLabel>
+                                                <InputLabel shrink htmlFor="department_office"> Department/Office (if applicable) </InputLabel>
+
                                                 <TextField
                                                     error={getFormDataError?.contact_person}
                                                     value={getFormData?.contact_person}
@@ -1196,6 +1196,8 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     className='mt-4 mb-0'
                                                     onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person": false } }))}
                                                 />
+                                                <InputLabel shrink htmlFor="contact_person"> Contact Person Name (if applicable) </InputLabel>
+
                                                 <InputLabel shrink htmlFor="contact_person_email"> </InputLabel>
                                                 <TextField
                                                     error={getFormDataError?.contact_person_email}
@@ -1211,6 +1213,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     className='mt-4 mb-0'
                                                     onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person_email": false } }))}
                                                 />
+                                                <InputLabel shrink htmlFor="contact_person_email"> Email oof Contact Person (if applicable) </InputLabel>
                                             </Box>
                                         </div>
                                     </CCol>
