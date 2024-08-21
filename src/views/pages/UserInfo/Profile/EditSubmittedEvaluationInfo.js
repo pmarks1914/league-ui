@@ -786,7 +786,6 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         >
                                             <Row className='ml-4 mt-4 mb-5'>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
-                                                    <InputLabel shrink htmlFor="degree_obtained"> </InputLabel>
                                                     <TextField
                                                         error={getFormDataError?.degree_obtained}
                                                         value={getFormData?.degree_obtained}
@@ -800,9 +799,9 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         required
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "degree_obtained": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "degree_obtained": false } }))}
                                                     />
+                                                    <InputLabel shrink htmlFor="degree_obtained"> Degree Obtained </InputLabel>
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
-                                                    <InputLabel shrink htmlFor="major_study"> </InputLabel>
                                                     <TextField
                                                         error={getFormDataError?.major_study}
                                                         value={getFormData?.major_study}
@@ -816,9 +815,9 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         required
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "major_study": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "major_study": false } }))}
                                                     />
+                                                    <InputLabel shrink htmlFor="major_study"> Major Study </InputLabel>
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
-                                                    <InputLabel shrink htmlFor="gpa"> </InputLabel>
                                                     <TextField
                                                         error={getFormDataError?.gpa}
                                                         value={getFormData?.gpa}
@@ -833,6 +832,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         required
                                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "gpa": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "gpa": false } }))}
                                                     />
+                                                    <InputLabel shrink htmlFor="gpa"> GPA </InputLabel>
                                                 </Col>
 
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='mb-5'>
