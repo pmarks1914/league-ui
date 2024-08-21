@@ -1242,7 +1242,6 @@ const EditSubmittedEvaluationInfo = (props) => {
                             <CAccordionBody>
 
                                 <div className='mui-control-form' >
-                                    <Label for="purpose_evaluation" className="label-dc"> </Label>
                                     <Select
                                         placeholder={"Purpose of Evaluation "}
                                         defaultInputValue={getFormData?.purpose_evaluation}
@@ -1251,6 +1250,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         className='other-input-select d-filters wp-cursor-pointer mb-3'
                                         onChange={(e) => (setGetFormData({ ...getFormData, ...{ "purpose_evaluation": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "purpose_evaluation": false } }))}
                                     />
+                                    <InputLabel shrink htmlFor="purpose_evaluation"> Purpose of Evaluation </InputLabel>
                                 </div>
 
                                 <Button
@@ -1277,7 +1277,6 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             noValidate
                                             autoComplete="on"
                                         >
-                                            <InputLabel shrink htmlFor="user_preference_email"> </InputLabel>
                                             <TextField
                                                 error={getFormDataError?.user_preference_email}
                                                 value={getFormData?.user_preference_email || getFormData?.email}
@@ -1291,7 +1290,8 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 required
                                                 onChange={(e) => (setGetFormData({ ...getFormData, ...{ "user_preference_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "user_preference_email": false } }))}
                                             />
-                                            <InputLabel shrink htmlFor="user_preference_phone"> </InputLabel>
+                                            <InputLabel shrink htmlFor="user_preference_email"> Preference Contact Email </InputLabel>
+
                                             <TextField
                                                 error={getFormDataError?.user_preference_phone}
                                                 value={getFormData?.user_preference_phone || getFormData?.phone}
@@ -1306,6 +1306,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 className='mt-3 mb-0'
                                                 onChange={(e) => (setGetFormData({ ...getFormData, ...{ "user_preference_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "user_preference_phone": false } }))}
                                             />
+                                            <InputLabel shrink htmlFor="user_preference_phone"> Preference Contact Phone Number </InputLabel>
                                         </Box>
                                     </div>
                                 </CCol>
