@@ -1286,7 +1286,7 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                             <TextField
                                                 error={getFormDataError?.institution_contact_phone}
-                                                value={evaluationData?.evaluation_info?.institution_contact_phone}
+                                                value={evaluationData?.evaluation_info?.institution_contact_phone || evaluationData?.evaluation_info?.contact_person }
                                                 margin="normal"
                                                 required
                                                 fullWidth
@@ -1303,7 +1303,7 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                             <TextField
                                                 error={getFormDataError?.institution_contact_person_email}
-                                                value={evaluationData?.evaluation_info?.institution_contact_person_email}
+                                                value={evaluationData?.evaluation_info?.institution_contact_person_email || evaluationData?.evaluation_info?.contact_person_email }
                                                 margin="normal"
                                                 required
                                                 fullWidth

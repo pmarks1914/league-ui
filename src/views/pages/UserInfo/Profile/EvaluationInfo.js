@@ -1380,35 +1380,35 @@ const EvaluationInfo = (props) => {
                                                 className='mt-4 mb-0'
                                                 onChange={(e) => (setGetFormData({ ...getFormData, ...{ "department_office": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "department_office": false } }))}
                                             />
-                                            <InputLabel shrink htmlFor="contact_person"> </InputLabel>
+                                            <InputLabel shrink htmlFor="institution_contact_phone"> </InputLabel>
                                             <TextField
-                                                error={getFormDataError?.contact_person}
-                                                value={getFormData?.contact_person}
+                                                error={getFormDataError?.institution_contact_phone}
+                                                value={getFormData?.contact_person || getFormData?.institution_contact_phone}
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 type="text"
                                                 placeholder="Contact Person (if applicable)"
-                                                name="contact_person"
+                                                name="institution_contact_phone"
                                                 autoFocus
                                                 variant="outlined"
                                                 className='mt-4 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person": false } }))}
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_contact_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person": false } }))}
                                             />
-                                            <InputLabel shrink htmlFor="contact_person_email"> </InputLabel>
+                                            <InputLabel shrink htmlFor="institution_contact_person_email"> </InputLabel>
                                             <TextField
-                                                error={getFormDataError?.contact_person_email}
-                                                value={getFormData?.contact_person_email}
+                                                error={getFormDataError?.institution_contact_person_email}
+                                                value={getFormData?.contact_person_email || getFormData?.institution_contact_person_email}
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 type="text"
                                                 placeholder="Contact Person (if applicable)"
-                                                name="contact_person_email"
+                                                name="institution_contact_person_email"
                                                 autoFocus
                                                 variant="outlined"
                                                 className='mt-4 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person_email": false } }))}
+                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_contact_person_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person_email": false } }))}
                                             />
                                         </Box>
                                     </div>
