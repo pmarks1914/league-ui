@@ -608,7 +608,6 @@ const EditSubmittedEvaluationInfo = (props) => {
                                 <CAccordionHeader>Certificate Information</CAccordionHeader>
                                 <CAccordionBody>
                                     <div className='mui-control-form' >
-                                        <Label for="certname" className="label-dc"> </Label>
                                         {console.log("evaluationData ", evaluationData)}
                                         <Select
                                             placeholder={"Type of Certificate "}
@@ -617,14 +616,15 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer'
                                             onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
-                                        />
+                                        />                                        
+                                        <InputLabel shrink htmlFor="certname"> Type of Certificate </InputLabel>
 
                                         <Box
                                             component="form"
                                             noValidate
                                             autoComplete="on"
                                         >
-                                            <Row className='ml-4 mt-4 mb-5'>
+                                            <Row className='ml-4 mt-0 mb-5'>
 
                                                 <Col sm="2" xs="2" md="2" lg="2" xl="2" className=''></Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
@@ -703,6 +703,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             className='other-input-select d-filters wp-cursor-pointer'
                                             onChange={(e) => (setGetFormData({ ...getFormData, ...{ "transcript_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "transcript_name": false } }))}
                                         />
+                                        <InputLabel shrink htmlFor="certname"> Type of Transcript </InputLabel>
 
                                         <Box
                                             component="form"
