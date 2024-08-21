@@ -609,9 +609,10 @@ const EditSubmittedEvaluationInfo = (props) => {
                                 <CAccordionBody>
                                     <div className='mui-control-form' >
                                         {console.log("evaluationData ", evaluationData)}
+
                                         <Select
                                             placeholder={"Type of Certificate "}
-                                            defaultInputValue={getFormData?.certificate_name}
+                                            defaultInputValue={evaluationData?.evaluation_info?.certificate_name}
                                             options={optionsStateDoc}
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer mt-4'
@@ -631,13 +632,13 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                                     <TextField
                                                         error={getFormDataError?.certificateDate}
-                                                        // value={moment(getFormData?.dob).format("LLLL")}
+                                                        // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="certificateDate"
                                                         autoFocus
@@ -694,16 +695,15 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                     <div className='mui-control-form' >
 
-                                        <Label for="transcriptname" className="label-dc"> </Label>
                                         <Select
                                             placeholder={"Type of Transcript "}
-                                            defaultInputValue={getFormData?.transcript_name}
+                                            defaultInputValue={evaluationData?.evaluation_info?.transcript_name}
                                             options={optionsStateDoc}
                                             id="transcriptname"
                                             className='other-input-select d-filters wp-cursor-pointer mt-0 mb-0'
                                             onChange={(e) => (setGetFormData({ ...getFormData, ...{ "transcript_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "transcript_name": false } }))}
                                         />
-                                        <InputLabel shrink htmlFor="certname"> Type of Transcript </InputLabel>
+                                        <InputLabel shrink htmlFor="transcriptname"> Type of Transcript </InputLabel>
 
                                         <Box
                                             component="form"
@@ -717,13 +717,13 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                                     <TextField
                                                         error={getFormDataError?.certificateDate}
-                                                        // value={moment(getFormData?.dob).format("LLLL")}
+                                                        // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="certificateDate"
                                                         autoFocus
@@ -733,7 +733,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     />
                                                     <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.certificateDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -788,7 +788,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
                                                     <TextField
                                                         error={getFormDataError?.degree_obtained}
-                                                        value={getFormData?.degree_obtained}
+                                                        value={evaluationData?.evaluation_info?.degree_obtained}
                                                         id="degree_obtained"
                                                         name="degree_obtained"
                                                         placeholder="Degree(s) Obtained"
@@ -802,10 +802,11 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     />
                                                     <InputLabel shrink htmlFor="degree_obtained"> Degree Obtained </InputLabel>
                                                 </Col>
+
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
                                                     <TextField
                                                         error={getFormDataError?.major_study}
-                                                        value={getFormData?.major_study}
+                                                        value={evaluationData?.evaluation_info?.major_study}
                                                         id="major_study"
                                                         name="major_study"
                                                         placeholder="Major/Field of Study"
@@ -822,7 +823,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='float-left mb-5 mr-2 ml-5'>
                                                     <TextField
                                                         error={getFormDataError?.gpa}
-                                                        value={getFormData?.gpa}
+                                                        value={evaluationData?.evaluation_info?.gpa}
                                                         id="gpa"
                                                         name="gpa"
                                                         placeholder="GPA"
@@ -841,13 +842,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='mb-5'>
                                                     <TextField
                                                         error={getFormDataError?.school_year_from}
-                                                        // value={moment(getFormData?.school_year_from).format("LLLL")}
+                                                        // value={moment(evaluationData?.evaluation_info?.school_year_from).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.school_year_from).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.school_year_from).format("YYYY-MM-DD")}
                                                         placeholder="Date from"
                                                         name="school_year_from"
                                                         autoFocus
@@ -862,13 +863,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
                                                     <TextField
                                                         error={getFormDataError?.school_year_to}
-                                                        // value={moment(getFormData?.school_year_to).format("LLLL")}
+                                                        // value={moment(evaluationData?.evaluation_info?.school_year_to).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.school_year_to).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.school_year_to).format("YYYY-MM-DD")}
                                                         placeholder="Date to"
                                                         name="school_year_to"
                                                         autoFocus
@@ -915,7 +916,7 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                         <Select
                                             placeholder={"Type of Identification Documents "}
-                                            defaultInputValue={getFormData?.certificate_name}
+                                            defaultInputValue={evaluationData?.evaluation_info?.certificate_name}
                                             options={optionsIdDoc}
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer mt-4 mb-0'
@@ -934,13 +935,13 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                                     <TextField
                                                         error={getFormDataError?.certificateDate}
-                                                        // value={moment(getFormData?.dob).format("LLLL")}
+                                                        // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="certificateDate"
                                                         autoFocus
@@ -1010,13 +1011,13 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                                     <TextField
                                                         error={getFormDataError?.certificateDate}
-                                                        // value={moment(getFormData?.dob).format("LLLL")}
+                                                        // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="certificateDate"
                                                         autoFocus
@@ -1026,7 +1027,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     />
                                                     <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.certificateDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -1086,13 +1087,13 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                                     <TextField
                                                         error={getFormDataError?.certificateDate}
-                                                        // value={moment(getFormData?.dob).format("LLLL")}
+                                                        // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="certificateDate"
                                                         autoFocus
@@ -1102,7 +1103,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                     />
                                                     <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.certificateDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -1144,96 +1145,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     </p>
                                 </CAccordionBody>
                             </CAccordionItem>
-                            <CAccordionItem itemKey={4}>
-                                <CAccordionHeader> Consent </CAccordionHeader>
-                                <CAccordionBody>
-
-                                    <CCol xs="12" sm="12" md={12} lg={12} className="mt-1" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <TextField
-                                                    error={getFormDataError?.institution_name}
-                                                    value={getFormData?.institution_name}
-                                                    id="institution_name"
-                                                    name="institution_name"
-                                                    placeholder="Name of Institution"
-                                                    variant="outlined"
-                                                    className='mt-4 mb-0'
-                                                    margin="normal"
-                                                    type="text"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_name": false } }))}
-                                                />
-                                                <InputLabel shrink htmlFor="institution_name"> Name of Institution </InputLabel>
-
-                                                <TextField
-                                                    error={getFormDataError?.department_office}
-                                                    value={getFormData?.department_office}
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    type="text"
-                                                    placeholder="Department/Office (if applicable)"
-                                                    name="department_office"
-                                                    autoFocus
-                                                    variant="outlined"
-                                                    className='mt-4 mb-0'
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "department_office": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "department_office": false } }))}
-                                                />
-                                                <InputLabel shrink htmlFor="department_office"> Department/Office (if applicable) </InputLabel>
-
-                                                <TextField
-                                                    error={getFormDataError?.contact_person}
-                                                    value={getFormData?.contact_person}
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    type="text"
-                                                    placeholder="Contact Person (if applicable)"
-                                                    name="contact_person"
-                                                    autoFocus
-                                                    variant="outlined"
-                                                    className='mt-4 mb-0'
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person": false } }))}
-                                                />
-                                                <InputLabel shrink htmlFor="contact_person"> Contact Person Name (if applicable) </InputLabel>
-
-                                                <InputLabel shrink htmlFor="contact_person_email"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.contact_person_email}
-                                                    value={getFormData?.contact_person_email}
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    type="text"
-                                                    placeholder="Contact Person (if applicable)"
-                                                    name="contact_person_email"
-                                                    autoFocus
-                                                    variant="outlined"
-                                                    className='mt-4 mb-0'
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person_email": false } }))}
-                                                />
-                                                <InputLabel shrink htmlFor="contact_person_email"> Email of Contact Person (if applicable) </InputLabel>
-                                            </Box>
-                                        </div>
-                                    </CCol>
-
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }}
-                                        onClick={(e) => passConfiguration("add", "patch", "recipient_institution_detail", 419)}
-                                    >
-                                        Save
-                                    </Button>
-                                </CAccordionBody>
-                            </CAccordionItem>
+                            
                         </CAccordion>
                     </p>
                     : ""
@@ -1248,8 +1160,8 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                 <div className='mui-control-form' >
                                     <Select
-                                        placeholder={"Purpose of Evaluation "}
-                                        defaultInputValue={getFormData?.purpose_evaluation}
+                                        placeholder={evaluationData?.evaluation_info?.purpose_evaluation}
+                                        defaultInputValue={evaluationData?.evaluation_info?.purpose_evaluation}
                                         options={purposeEvaluation}
                                         id="purpose_evaluation"
                                         className='other-input-select d-filters wp-cursor-pointer mb-0'
@@ -1284,7 +1196,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         >
                                             <TextField
                                                 error={getFormDataError?.user_preference_email}
-                                                value={getFormData?.user_preference_email || getFormData?.email}
+                                                value={evaluationData?.evaluation_info?.user_preference_email || evaluationData?.evaluation_info?.email}
                                                 id="user_preference_email"
                                                 name="user_preference_email"
                                                 placeholder="Your email"
@@ -1300,7 +1212,7 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                             <TextField
                                                 error={getFormDataError?.user_preference_phone}
-                                                value={getFormData?.user_preference_phone || getFormData?.phone}
+                                                value={evaluationData?.evaluation_info?.user_preference_phone || evaluationData?.evaluation_info?.phone}
                                                 margin="normal"
                                                 required
                                                 fullWidth
@@ -1341,7 +1253,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         >
                                             <TextField
                                                 error={getFormDataError?.institution_name}
-                                                value={getFormData?.institution_name}
+                                                value={evaluationData?.evaluation_info?.institution_name}
                                                 id="institution_name"
                                                 name="institution_name"
                                                 placeholder="Name of Institution"
@@ -1358,7 +1270,7 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                             <TextField
                                                 error={getFormDataError?.department_office}
-                                                value={getFormData?.department_office}
+                                                value={evaluationData?.evaluation_info?.department_office}
                                                 margin="normal"
                                                 required
                                                 fullWidth
@@ -1374,12 +1286,12 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                             <TextField
                                                 error={getFormDataError?.institution_contact_phone}
-                                                value={getFormData?.institution_contact_phone}
+                                                value={evaluationData?.evaluation_info?.institution_contact_phone}
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 type="text"
-                                                placeholder="Contact Person (if applicable)"
+                                                placeholder="Phone number (if applicable)"
                                                 name="institution_contact_phone"
                                                 autoFocus
                                                 variant="outlined"
@@ -1391,12 +1303,12 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                             <TextField
                                                 error={getFormDataError?.institution_contact_person_email}
-                                                value={getFormData?.institution_contact_person_email}
+                                                value={evaluationData?.evaluation_info?.institution_contact_person_email}
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 type="text"
-                                                placeholder="Contact Person (if applicable)"
+                                                placeholder="Email (if applicable)"
                                                 name="institution_contact_person_email"
                                                 autoFocus
                                                 variant="outlined"
@@ -1425,8 +1337,8 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                 <div className='mui-control-form' >
                                     <Select
-                                        placeholder={"Payment Method"}
-                                        defaultInputValue={getFormData?.payment_method}
+                                        placeholder={evaluationData?.evaluation_info?.payment_method}
+                                        defaultInputValue={evaluationData?.evaluation_info?.payment_method}
                                         options={optionsPaymentMethod}
                                         id="payment_method"
                                         className='other-input-select d-filters wp-cursor-pointer mb-0'
@@ -1443,7 +1355,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     >
                                         <TextField
                                             error={getFormDataError?.billing_address}
-                                            value={getFormData?.billing_address}
+                                            value={evaluationData?.evaluation_info?.billing_address}
                                             id="billing_address"
                                             name="billing_address"
                                             placeholder="Your billing address"
@@ -1479,8 +1391,8 @@ const EditSubmittedEvaluationInfo = (props) => {
                                 <div className='mui-control-form' >
                                     <Label for="verification_status" className="label-dc"> </Label>
                                     <Select
-                                        placeholder={"Select consent"}
-                                        defaultInputValue={getFormData?.verification_status}
+                                        placeholder={evaluationData?.evaluation_info?.verification_status}
+                                        defaultInputValue={evaluationData?.evaluation_info?.verification_status}
                                         options={optionsVerificationState}
                                         id="verification_status"
                                         className='other-input-select d-filters wp-cursor-pointer mb-0 '
@@ -1497,7 +1409,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     >
                                         <TextField
                                             error={getFormDataError?.reference_email}
-                                            value={getFormData?.reference_email}
+                                            value={evaluationData?.evaluation_info?.reference_email}
                                             id="reference_email"
                                             name="reference_email"
                                             placeholder="Your reference email"
@@ -1513,7 +1425,7 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                         <TextField
                                             error={getFormDataError?.reference_phone}
-                                            value={getFormData?.reference_phone}
+                                            value={evaluationData?.evaluation_info?.reference_phone}
                                             id="reference_phone"
                                             name="reference_phone"
                                             placeholder="Your reference phone number"
