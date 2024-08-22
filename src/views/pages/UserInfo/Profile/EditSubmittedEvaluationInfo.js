@@ -50,6 +50,7 @@ import moment from 'moment';
 
 let date = new Date();
 
+let evaluation_id = window.location.pathname.split('/')[2];
 let countState = 1
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
@@ -69,42 +70,9 @@ const EditSubmittedEvaluationInfo = (props) => {
         "certificate_name": false,
         "transcript_name": false
     })
-    const [evaluationData, setEvaluationData] = useState([]);
+    const [evaluationData, setEvaluationData] = useState({});
 
-    const [getFormData, setGetFormData] = React.useState({
-        "first_name": evaluationData?.user?.first_name,
-        "last_name": evaluationData?.user?.last_name,
-        "other_name": evaluationData?.user?.other_name,
-        "email": evaluationData?.user?.email,
-        "phone": evaluationData?.user?.phone,
-        "photo": evaluationData?.user?.photo,
-        "lon": evaluationData?.user?.lon,
-        "lat": evaluationData?.user?.lat,
-        "country": evaluationData?.user?.country,
-        "town": evaluationData?.user?.town,
-        "city": evaluationData?.user?.city,
-        "address": evaluationData?.user?.address,
-        "dateOfBirth": evaluationData?.user?.dob,
-        "certificate_name": evaluationData?.user?.other_info?.certificate_name,
-        "transcript_name": evaluationData?.user?.other_info?.transcript_name,
-        "certificateDate": evaluationData?.user?.other_info?.certificateDate,
-        "purpose_evaluation": evaluationData?.user?.other_info?.purpose_evaluation,
-        "user_preference_email": evaluationData?.user?.other_info?.user_preference_email,
-        "contact_person_email": evaluationData?.user?.other_info?.contact_person_email,
-        "institution_name": evaluationData?.user?.other_info?.institution_name,
-        "department_office": evaluationData?.user?.other_info?.department_office,
-        "contact_person": evaluationData?.user?.other_info?.contact_person,
-        "payment_method": evaluationData?.user?.other_info?.payment_method,
-        "billing_address": evaluationData?.user?.other_info?.billing_address,
-        "verification_status": evaluationData?.user?.other_info?.verification_status,
-        "reference_phone": evaluationData?.user?.other_info?.reference_phone,
-        "reference_email": evaluationData?.user?.other_info?.reference_email,
-        "school_year_to": evaluationData?.user?.other_info?.school_year_to,
-        "school_year_from": evaluationData?.user?.other_info?.school_year_from,
-        "gpa": evaluationData?.user?.other_info?.gpa,
-        "major_study": evaluationData?.user?.other_info?.major_study,
-        "degree_obtained": evaluationData?.user?.other_info?.degree_obtained
-    })
+    const [getFormData, setGetFormData] = React.useState({})
     // profile photo loading
     const [uploading, setUploading] = useState(false);
     // console.log(props?.profileManage)
@@ -137,7 +105,7 @@ const EditSubmittedEvaluationInfo = (props) => {
         // 
         let config = {
             method: 'get',
-            url: process.env.REACT_APP_BASE_API + "/evaluation/" + window.location.pathname.split('/')[2],
+            url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + userData?.token
@@ -328,7 +296,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                 }
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -339,13 +307,10 @@ const EditSubmittedEvaluationInfo = (props) => {
         }
         else if (section === "contact") {
             if (method === "patch") {
-                data = {
-                    "phone": getFormData?.phone,
-                    "email": getFormData?.email
-                }
+                data = {"evaluation_info": getFormData }  
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -357,18 +322,10 @@ const EditSubmittedEvaluationInfo = (props) => {
         else if (section === "address") {
             // console.log(getFormData)
             if (method === "patch") {
-                data = {
-                    "address": getFormData?.address,
-                    // "street_name": getFormData?.street_name,
-                    "town": getFormData?.town,
-                    "city": getFormData?.city,
-                    "country": getFormData?.country,
-                    "lon": getFormData?.lon,
-                    "lat": getFormData?.lat
-                }
+                data = {"evaluation_info": getFormData }  
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -417,10 +374,10 @@ const EditSubmittedEvaluationInfo = (props) => {
         else if (section === "purpose_evaluation") {
             // console.log(getFormData)
             if (method === "patch") {
-                data = { "purpose_evaluation": getFormData?.purpose_evaluation }
+                data = {"evaluation_info": getFormData }  
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -432,13 +389,10 @@ const EditSubmittedEvaluationInfo = (props) => {
         else if (section === "user_preference") {
             // console.log(getFormData)
             if (method === "patch") {
-                data = {
-                    "user_preference_email": getFormData?.user_preference_email,
-                    "user_preference_phone": getFormData?.user_preference_phone
-                }
+                data = {"evaluation_info": getFormData }  
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -451,16 +405,11 @@ const EditSubmittedEvaluationInfo = (props) => {
         else if (section === "education_background") {
             // console.log(getFormData)
             if (method === "patch") {
-                data = {
-                    "school_year_to": getFormData?.school_year_from,
-                    "school_year_from": getFormData?.school_year_to,
-                    "gpa": getFormData?.gpa,
-                    "major_study": getFormData?.major_study,
-                    "degree_obtained": getFormData?.degree_obtained
-                }
+                data = {"evaluation_info": getFormData }  
+
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -471,16 +420,11 @@ const EditSubmittedEvaluationInfo = (props) => {
         }
         else if (section === "recipient_institution_detail") {
             // console.log(getFormData)   
-            if (method === "patch") {
-                data = {
-                    "institution_name": getFormData?.institution_name,
-                    "department_office": getFormData?.department_office,
-                    "contact_person": getFormData?.contact_person,
-                    "contact_person_email": getFormData?.contact_person_email
-                }
+            if (method === "patch") { 
+                data = {"evaluation_info": getFormData }  
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -491,14 +435,11 @@ const EditSubmittedEvaluationInfo = (props) => {
         }
         else if (section === "payment_method") {
             // console.log(getFormData)   
-            if (method === "patch") {
-                data = {
-                    "payment_method": getFormData?.payment_method,
-                    "billing_address": getFormData?.billing_address
-                }
+            if (method === "patch") { 
+                data = {"evaluation_info": getFormData }  
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -508,16 +449,12 @@ const EditSubmittedEvaluationInfo = (props) => {
             }
         }
         else if (section === "verification_reference") {
-            // console.log(getFormData)               
+            // console.log("evaluationData", getFormData)   
+            data = {"evaluation_info": getFormData }            
             if (method === "patch") {
-                data = {
-                    "verification_status": getFormData?.verification_status,
-                    "reference_phone": getFormData?.reference_phone,
-                    "reference_email": getFormData?.reference_email
-                }
                 config = {
                     method: method,
-                    url: process.env.REACT_APP_BASE_API + "/user/any",
+                    url: process.env.REACT_APP_BASE_API + "/evaluation/" + evaluation_id,
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + userData?.token
@@ -543,20 +480,21 @@ const EditSubmittedEvaluationInfo = (props) => {
         axios(config).then(response => {
             // console.log(response.data);
             if (response.status === 200) {
+                setGetFormData({})
                 // setFamilyData(response?.data?.family)
-                setGetFormData({
-                    "first_name": response?.data?.user?.first_name,
-                    "last_name": response?.data?.user?.last_name,
-                    "other_name": response?.data?.user?.other_name,
-                    "country": response?.data?.user?.country,
-                    "email": response?.data?.user?.email,
-                    "phone": response?.data?.user?.phone,
-                    "photo": response?.data?.photo,
-                    "dateOfBirth": response?.data?.dob,
-                    "certificate_name": "",
-                    "transcript_name": "",
-                    "certificateDate": ""
-                })
+                // setGetFormData({
+                //     "first_name": response?.data?.user?.first_name,
+                //     "last_name": response?.data?.user?.last_name,
+                //     "other_name": response?.data?.user?.other_name,
+                //     "country": response?.data?.user?.country,
+                //     "email": response?.data?.user?.email,
+                //     "phone": response?.data?.user?.phone,
+                //     "photo": response?.data?.photo,
+                //     "dateOfBirth": response?.data?.dob,
+                //     "certificate_name": "",
+                //     "transcript_name": "",
+                //     "certificateDate": ""
+                // })
 
                 let user_new = { ...userData, ...response.data }
                 setCertificate(user_new?.user?.file)
@@ -616,7 +554,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             options={optionsStateDoc}
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer mt-4'
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                            onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "certificate_name": e.value } }); setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } })}}
                                         />                                        
                                         <InputLabel shrink htmlFor="certname"> Type of Certificate </InputLabel>
 
@@ -644,7 +582,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-1 mb-0'
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "certificateDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
@@ -701,7 +639,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             options={optionsStateDoc}
                                             id="transcriptname"
                                             className='other-input-select d-filters wp-cursor-pointer mt-0 mb-0'
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "transcript_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "transcript_name": false } }))}
+                                            onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "transcript_name": e.value } }); setGetFormData({ ...getFormData, ...{ "transcript_name": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "transcript_name": false } })}}
                                         />
                                         <InputLabel shrink htmlFor="transcriptname"> Type of Transcript </InputLabel>
 
@@ -716,24 +654,24 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
                                                     <TextField
-                                                        error={getFormDataError?.certificateDate}
+                                                        error={getFormDataError?.transcriptDate}
                                                         // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.transcriptDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
-                                                        name="certificateDate"
+                                                        name="transcriptDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-0 mb-0'
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "transcriptDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "transcriptDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "transcriptDate": false } })}}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="transcriptDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.certificateDate} </Col> */}
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.transcriptDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -798,7 +736,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         type="text"
                                                         fullWidth
                                                         required
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "degree_obtained": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "degree_obtained": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "degree_obtained": e.target.value } }); setGetFormData({ ...getFormData, ...{ "degree_obtained": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "degree_obtained": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="degree_obtained"> Degree Obtained </InputLabel>
                                                 </Col>
@@ -816,7 +754,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         type="text"
                                                         fullWidth
                                                         required
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "major_study": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "major_study": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "major_study": e.target.value } }); setGetFormData({ ...getFormData, ...{ "major_study": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "major_study": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="major_study"> Major Study </InputLabel>
                                                 </Col>
@@ -834,7 +772,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         inputProps={{ min: 0, max: 5 }}
                                                         fullWidth
                                                         required
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "gpa": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "gpa": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "gpa": e.target.value } }); setGetFormData({ ...getFormData, ...{ "gpa": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "gpa": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="gpa"> GPA </InputLabel>
                                                 </Col>
@@ -855,7 +793,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         variant="outlined"
                                                         className='mt-1 mb-0'
                                                         // className='mb-5 '
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "school_year_from": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "school_year_from": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "school_year_from": e.target.value } }); setGetFormData({ ...getFormData, ...{ "school_year_from": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "school_year_from": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="school_year_from"> Date from </InputLabel>
                                                 </Col>
@@ -875,7 +813,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-1 mb-0'
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "school_year_to": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "school_year_to": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "school_year_to": e.target.value } }); setGetFormData({ ...getFormData, ...{ "school_year_to": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "school_year_to": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="school_year_to"> Date to </InputLabel>
                                                 </Col>
@@ -920,7 +858,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             options={optionsIdDoc}
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer mt-4 mb-0'
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                            onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "certificate_name": e.value } }); setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } })}}
                                         />
                                         <InputLabel shrink htmlFor="certname"> Type of Identification Documents </InputLabel>
 
@@ -934,22 +872,22 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
                                                     <TextField
-                                                        error={getFormDataError?.certificateDate}
+                                                        error={getFormDataError?.identificationDate}
                                                         // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.identificationDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
-                                                        name="certificateDate"
+                                                        name="identificationDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-0 mb-0'
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "identificationDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "identificationDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "identificationDate": false } })}}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="identificationDate"> Date issued </InputLabel>
                                                 </Col>
                                             </Row>
                                         </Box>
@@ -1010,24 +948,24 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='mt-0 '>
 
                                                     <TextField
-                                                        error={getFormDataError?.certificateDate}
+                                                        error={getFormDataError?.reportDate}
                                                         // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.reportDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
-                                                        name="certificateDate"
+                                                        name="reportDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-1 mb-0'
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "reportDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "reportDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "reportDate": false } })}}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="reportDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.certificateDate} </Col> */}
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.reportDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -1079,31 +1017,31 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             component="form"
                                             noValidate
                                             autoComplete="on"
-                                        >
+                                        >                                        
                                             <Row className='ml-4 mt-0 mb-5'>
                                                 <Col sm="4" xs="4" md="4" lg="4" xl="4" className='float-left mr-2 ml-5'>
                                                 </Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
                                                     <TextField
-                                                        error={getFormDataError?.certificateDate}
+                                                        error={getFormDataError?.letterRecommendationDate}
                                                         // value={moment(evaluationData?.evaluation_info?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(evaluationData?.evaluation_info?.letterRecommendationDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
-                                                        name="certificateDate"
+                                                        name="letterRecommendationDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-1 mb-0'
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "letterRecommendationDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "letterRecommendationDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "letterRecommendationDate": false } })}}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="letterRecommendationDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.certificateDate} </Col> */}
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {evaluationData?.evaluation_info?.letterRecommendationDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -1165,7 +1103,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         options={purposeEvaluation}
                                         id="purpose_evaluation"
                                         className='other-input-select d-filters wp-cursor-pointer mb-0'
-                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "purpose_evaluation": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "purpose_evaluation": false } }))}
+                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "purpose_evaluation": e.value } }); setGetFormData({ ...getFormData, ...{ "purpose_evaluation": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "purpose_evaluation": false } })}}
                                     />
                                     <InputLabel shrink htmlFor="purpose_evaluation"> Purpose of Evaluation </InputLabel>
                                 </div>
@@ -1206,7 +1144,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 type="email"
                                                 fullWidth
                                                 required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "user_preference_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "user_preference_email": false } }))}
+                                                onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "user_preference_email": e.target.value } }); setGetFormData({ ...getFormData, ...{ "user_preference_email": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "user_preference_email": false } })}}
                                             />
                                             <InputLabel shrink htmlFor="user_preference_email"> Preference Contact Email </InputLabel>
 
@@ -1222,7 +1160,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 autoFocus
                                                 variant="outlined"
                                                 className='mt-3 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "user_preference_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "user_preference_phone": false } }))}
+                                                onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "user_preference_phone": e.target.value } });  setGetFormData({ ...getFormData, ...{ "user_preference_phone": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "user_preference_phone": false } })}}
                                             />
                                             <InputLabel shrink htmlFor="user_preference_phone"> Preference Contact Phone Number </InputLabel>
                                         </Box>
@@ -1263,7 +1201,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 type="text"
                                                 fullWidth
                                                 required
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_name": false } }))}
+                                                onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "institution_name": e.target.value } }); setGetFormData({ ...getFormData, ...{ "institution_name": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "institution_name": false } })}}
                                             />
                                             <InputLabel shrink htmlFor="institution_name"> Name of Institution </InputLabel>
 
@@ -1280,13 +1218,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 autoFocus
                                                 variant="outlined"
                                                 className='mt-4 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "department_office": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "department_office": false } }))}
+                                                onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "department_office": e.target.value } }); setGetFormData({ ...getFormData, ...{ "department_office": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "department_office": false } })}}
                                             />
                                             <InputLabel shrink htmlFor="department_office"> Department/Office (if applicable) </InputLabel>
 
                                             <TextField
                                                 error={getFormDataError?.institution_contact_phone}
-                                                value={evaluationData?.evaluation_info?.institution_contact_phone}
+                                                value={evaluationData?.evaluation_info?.institution_contact_phone || evaluationData?.evaluation_info?.contact_person }
                                                 margin="normal"
                                                 required
                                                 fullWidth
@@ -1296,14 +1234,14 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 autoFocus
                                                 variant="outlined"
                                                 className='mt-4 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_contact_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_contact_phone": false } }))}
+                                                onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "institution_contact_phone": e.target.value } }); setGetFormData({ ...getFormData, ...{ "institution_contact_phone": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "institution_contact_phone": false } })}}
                                             />
                                             <InputLabel shrink htmlFor="institution_contact_phone"> Contact Phone (if applicable) </InputLabel>
 
 
                                             <TextField
                                                 error={getFormDataError?.institution_contact_person_email}
-                                                value={evaluationData?.evaluation_info?.institution_contact_person_email}
+                                                value={evaluationData?.evaluation_info?.institution_contact_person_email || evaluationData?.evaluation_info?.contact_person_email }
                                                 margin="normal"
                                                 required
                                                 fullWidth
@@ -1313,7 +1251,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                 autoFocus
                                                 variant="outlined"
                                                 className='mt-4 mb-0'
-                                                onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_contact_person_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_contact_person_email": false } }))}
+                                                onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "institution_contact_person_email": e.target.value } }); setGetFormData({ ...getFormData, ...{ "institution_contact_person_email": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "institution_contact_person_email": false } })}}
                                             />
                                             <InputLabel shrink htmlFor="institution_contact_person_email"> Contact Email (if applicable) </InputLabel>
                                         </Box>
@@ -1342,7 +1280,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         options={optionsPaymentMethod}
                                         id="payment_method"
                                         className='other-input-select d-filters wp-cursor-pointer mb-0'
-                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "payment_method": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "payment_method": false } }))}
+                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "payment_method": e.value } }); setGetFormData({ ...getFormData, ...{ "payment_method": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "payment_method": false } })}}
                                     />
                                     <InputLabel shrink htmlFor="payment_method"> Payment Method </InputLabel>
                                 </div>
@@ -1365,7 +1303,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             type="billing_address"
                                             fullWidth
                                             required
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "billing_address": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "billing_address": false } }))}
+                                            onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "billing_address": e.target.value } }); setGetFormData({ ...getFormData, ...{ "billing_address": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "billing_address": false } })}}
                                         />
                                         <InputLabel shrink htmlFor="billing_address"> Billing address </InputLabel>
                                     </Box>
@@ -1396,7 +1334,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         options={optionsVerificationState}
                                         id="verification_status"
                                         className='other-input-select d-filters wp-cursor-pointer mb-0 '
-                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } }))}
+                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "verification_status": e.value } }); setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } })}}
                                     />
                                     <InputLabel shrink htmlFor="verification_status"> Give consent </InputLabel>
                                 </div>
@@ -1419,7 +1357,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             className='mt-4 mb-0'
                                             fullWidth
                                             required
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reference_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reference_email": false } }))}
+                                            onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "reference_email": e.target.value } }); setGetFormData({ ...getFormData, ...{ "reference_email": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "reference_email": false } })}}
                                         />
                                         <InputLabel shrink htmlFor="reference_email"> Reference Email </InputLabel>
 
@@ -1435,7 +1373,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             fullWidth
                                             required
                                             className='mt-4 mb-0'
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reference_phone": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reference_phone": false } }))}
+                                            onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "reference_phone": e.target.value } }); setGetFormData({ ...getFormData, ...{ "reference_phone": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "reference_phone": false } })}}
                                         />
                                         <InputLabel shrink htmlFor="reference_phone"> Reference Phone </InputLabel>
 
