@@ -46,14 +46,8 @@ const Dtable = (props) => {
   useEffect(() => {
     // console.log("props ", userGetInfo?.length)
     // reset user
-    if (dateRange?.length > 0 && monitorState === 1) {
-      setMonitorState(2)
-      performFilter("filterByDate", "none")
-      setTransactionStatus("")
-
-      setLoader('<a></a>')
-    }
-    else if (userGetInfo?.length === 0) {
+   
+    if (userGetInfo?.length === 0) {
       let xxx = null;
       xxx = setInterval(function () {
         //   userGetInfo = userGetInfo
@@ -75,16 +69,11 @@ const Dtable = (props) => {
         1000)
 
     }
-    else if (userGetInfo?.length > 0 && monitorState === 1) {
+    else if (userGetInfo?.length > 0 ) {
       // setMonitorState(2)
       datatablaScript(userGetInfo);
 
       setLoader('<a></a>')
-    }
-    else if (dateRange && monitorState === 2) {
-      performFilter("filterByDate", "none")
-      setTransactionStatus("")
-      // setMonitorState(3)
     }
     else {
       setLoader('<a></a>')

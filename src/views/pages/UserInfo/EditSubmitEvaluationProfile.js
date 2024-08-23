@@ -16,6 +16,7 @@ import classnames from 'classnames';
 // import './gen.css';
 import $ from 'jquery';
 import Select, { components } from 'react-select';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 import { getSessionTimeout } from '../../../Utils/Utils';
@@ -63,6 +64,7 @@ const EditSubmittedEvaluationProfile = () => {
   }
   return (
     <div className="App">
+      <ToastContainer />
       <Nav tabs className="v-flow">
         <NavItem>
           <NavLink

@@ -33,7 +33,7 @@ import CIcon from '@coreui/icons-react'; import {
     cilWarning,
     cilFilter, cilCheckCircle, cilSettings, cilCalendar, cilSearch,
 } from '@coreui/icons'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Swal from 'sweetalert2';
@@ -551,7 +551,6 @@ const EditSubmittedEvaluationInfo = (props) => {
     }
     return (
         <div className="" onClick={() => trackActivity()}>
-            <ToastContainer />
             {
                 props?.profileManage === "education" ?
                     <p>
@@ -719,7 +718,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                             evaluationData?.evaluation_info?.transcript ?
                                                 <Row>
                                                     <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.transcript} target='_blank' rel="noreferrer" > View File </a> </Col>
-                                                    {/* <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                    {/* <Col xs="4" sm="4" md={4} lg={4} className="mt-2" > 
                                                         <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "transcript", "file") }} >Delete</Badge>
                                                     </Col> */}
                                                 </Row>

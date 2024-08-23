@@ -20,6 +20,7 @@ userGetInfoData?.list?.then(value => { (userGetInfo = value) });
 console.log("outside compo userGetInfo", userGetInfoData)
 
 const Dtable = () => {
+  
     const [loader, setLoader] = useState('<div class="spinner-border dashboard-loader" style="color: #e0922f;"></div>')
     const [tableData, setTableData] = useState([]);
     const [noData, setNoData] = useState("")

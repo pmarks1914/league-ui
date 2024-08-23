@@ -16,6 +16,7 @@ import classnames from 'classnames';
 // import './gen.css';
 import $ from 'jquery';
 import Select, { components } from 'react-select';
+import { ToastContainer } from 'react-toastify';
 
 
 import { getSessionTimeout } from '../../../Utils/Utils';
@@ -62,6 +63,7 @@ const General = () => {
   }
   return (
     <div className="App">
+      <ToastContainer />
       <Nav tabs className="v-flow">
         <NavItem>
           <NavLink
