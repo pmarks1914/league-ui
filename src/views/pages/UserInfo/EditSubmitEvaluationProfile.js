@@ -21,6 +21,7 @@ import Select, { components } from 'react-select';
 import { getSessionTimeout } from '../../../Utils/Utils';
 import EditSubmittedEvaluationInfo from './Profile/EditSubmittedEvaluationInfo';
 import College from './College.js/College';
+import PaginatedCardList from './PaginatedCardList';
 
 
 const EditSubmittedEvaluationProfile = () => {
@@ -114,6 +115,8 @@ const EditSubmittedEvaluationProfile = () => {
             </Row>
           </TabPane>
       </TabContent>
+
+      {/* <PaginatedCardList /> */}
     </div>
   );
 };
