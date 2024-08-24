@@ -16,12 +16,18 @@ import PropTypes, { func } from "prop-types";
 
 
 const userData = JSON.parse(localStorage.getItem("userDataStore"));
-let userGetInfoData = getEvaluation();
-let userGetInfo = []
-userGetInfoData?.list?.then(value => { (userGetInfo = value) });
+// let userGetInfoData = getEvaluation();
+// let userGetInfo = []
+// userGetInfoData?.list?.then(value => { (userGetInfo = value) });
 // console.log("outside compo userGetInfo", userGetInfoData)
 
 const Dtable = (props) => {
+  // console.log("outside compo props", props)
+
+  const [manageTableData, setManageTableData] = useState(1)
+
+  console.log(" manageTableData", manageTableData)
+
   const [loader, setLoader] = useState('<div class="spinner-border dashboard-loader" style="color: #e0922f;"></div>')
   const [tableData, setTableData] = useState([]);
   const [noData, setNoData] = useState("")
@@ -44,16 +50,21 @@ const Dtable = (props) => {
   const toggle = () => setOpenDateRange(!openDateRange);
 
   useEffect(() => {
-    // console.log("props ", userGetInfo?.length)
+    let userGetInfoData = getEvaluation();
+    let userGetInfo = []
+    userGetInfoData?.list?.then(value => { (userGetInfo = value) });
+
+    // console.log("userGetInfo  ", userGetInfo)
     // reset user
-   
-    if (userGetInfo?.length === 0) {
+   if (userGetInfo?.length === 0) { 
+     console.log("userGetInfo  1", userGetInfo)
       let xxx = null;
       xxx = setInterval(function () {
-        //   userGetInfo = userGetInfo
+        console.log("userGetInfo 2", userGetInfo)
+          userGetInfo = userGetInfo
         if (userGetInfo?.length > 0) {
-          // console.log("inside timer userGetInfo", userGetInfo)
-          // datatablaScript(userGetInfo)
+          console.log("inside timer userGetInfo", userGetInfo)
+          datatablaScript(userGetInfo)
           setLoader('<a></a>')
           clearInterval(xxx)
         }
@@ -61,6 +72,7 @@ const Dtable = (props) => {
           setTimeout(() => {
             setLoader('<a></a>')
             if (userGetInfo?.length < 1) {
+              datatablaScript([]);
               setNoData('No Data')
             }
           }, 7000)
@@ -69,32 +81,29 @@ const Dtable = (props) => {
         1000)
 
     }
-    else if (userGetInfo?.length > 0 ) {
+    else if (userGetInfo?.length > 0 && monitorState === 1) {
       // setMonitorState(2)
       datatablaScript(userGetInfo);
-
       setLoader('<a></a>')
+    }
+    else if (dateRange && monitorState === 2) {
+      setTransactionStatus("")
+      // setMonitorState(3)
     }
     else {
       setLoader('<a></a>')
       setTimeout(() => {
         setNoData("No data")
+        datatablaScript([]);
       }, 2000)
     }
-
-    // if(transactionStatus && monitorState === 2){
-    //   performFilter("filterByStatus")
-    // }
-
-
     // console.log("props ", props, "userGetInfo, transactionStatus, monitorState")
 
-  }, [dateRange, noData, userGetInfo])
+  }, [dateRange, noData, manageTableData])
 
   useEffect(() => {
     if (props.pushData) {
       window.location.reload()
-      // performFilter("filterByDate", "none")      
     }
   }, [props])
   // perform filter 
@@ -214,74 +223,6 @@ const Dtable = (props) => {
       );
     }, 0);
 
-  }
-
-  function performFilter(type, status) {
-
-    // // console.log("by status ", transactionStatus, "type", type )
-    // perform filter by date range
-    if (type === "filterByDate") {
-      // 
-      // let dataFilter = userGetInfo?.filter((post, id) => {return ( moment(new Date(post?.created_at)).format('DD/MM/YYYY') >= moment(dateRange[0]).format('DD/MM/YYYY') && moment(new Date(post?.created_at)).format('DD/MM/YYYY') <= moment(dateRange[1]).format('DD/MM/YYYY') ) });
-
-      let dataFilter = userGetInfo?.filter((post, id) => { return ((new Date(post?.created_at).getTime()) >= (dateRange[0])?.getTime() && (new Date(post?.created_at).getTime()) <= (dateRange[1])?.getTime()) });
-
-      // console.log( "data filtered ", dataFilter )
-
-      datatablaScript(dataFilter);
-
-      setDateFilterData(dataFilter);
-    }
-    else if (type === "filterByStatus") {
-      // 
-      // console.log("by status ", status, monitorState )
-      if (status === "All Transaction" && monitorState === 1) {
-        datatablaScript(userGetInfo);
-      }
-      else if ((status === "Successful" || status === "Pending" || status === "Failed") && monitorState === 1) {
-        datatablaScript(userGetInfo?.filter((post, id) => { return (post?.status_code === status.toUpperCase()) }));
-      }
-      else if ((status === "Successful" || status === "Pending" || status === "Failed") && monitorState === 2) {
-        datatablaScript(dateFilterData?.filter((post, id) => { return (post?.status_code === status.toUpperCase()) }));
-
-      }
-    }
-    else if (type === "filterByOptions") {
-      // 
-      let dataFilter = [];
-      if (amountEqual !== 0 || amountGreat !== 0 || amountLess !== 0) {
-        // 
-        if (amountGreat != 0 && amountLess != 0) {
-          dataFilter = userGetInfo?.filter((post, id) => {
-            return ((post?.amount <= amountLess && post?.amount >= amountGreat) && (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase())))
-          });
-        }
-        else if (amountGreat != 0) {
-          dataFilter = userGetInfo?.filter((post, id) => {
-            return (((post?.amount >= amountGreat) || (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) || post?.id?.toLowerCase().includes(transactionId.toLowerCase()))
-              &&
-              (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase()))))
-          });
-        }
-        else if (amountLess != 0) {
-          dataFilter = userGetInfo?.filter((post, id) => {
-            return (((post?.amount <= amountLess) || (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) || post?.id?.toLowerCase().includes(transactionId.toLowerCase())))
-              && (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase())))
-          });
-        }
-        else if (amountEqual != 0) {
-          dataFilter = userGetInfo?.filter((post, id) => {
-            return (((post?.amount === amountEqual) || (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) || post?.id?.toLowerCase().includes(transactionId.toLowerCase()))) && (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase())))
-          });
-        }
-      }
-      else {
-        // console.log("hhhh")
-        dataFilter = userGetInfo?.filter((post, id) => { return (post?.reference_id?.toLowerCase().includes(referanceId.toLowerCase()) && post?.id?.toLowerCase().includes(transactionId.toLowerCase())) });
-      }
-      datatablaScript(dataFilter);
-      // 98ca3328-2e84-4b52-8942-e04ac1b2df71
-    }
   }
   // Close the dropdown if the user clicks outside of it
   window.onclick = function (event) {
