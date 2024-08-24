@@ -67,7 +67,6 @@ const Dtable = (props) => {
       // setMonitorState(2)
       // console.log("info ", userGetInfo )
       datatablaScript(userGetInfo);
-
       setLoader('<a></a>')
     }
     else {
@@ -238,6 +237,14 @@ const Dtable = (props) => {
 
   }
 
+  function funEvaluationEdit(rowIndexData) {
+    // setTimeout(()=>{
+    window.location.href = '/evaluation-edit/' + rowIndexData?.applicant_program_id + "/"
+    // }, 1000)
+
+
+  }
+
   function trackActivity() {
     // e.preventDefault();
     // getSessionTimeout();
@@ -294,7 +301,10 @@ const Dtable = (props) => {
                     </div>
                   </td>
                   <td>{post?.applicant_program_end_date} </td>
-                  <td onClick={() => funE(post)}> <Badge color='primary' className='pointer'> View </Badge></td>
+                  <td> 
+                  <Badge color='primary' className='pointer m-2' onClick={() => funE(post)} > View </Badge>
+                  <Badge color='secondary' className='pointer m-2' onClick={() => funEvaluationEdit(post)} > Edit </Badge>
+                  </td>
                 </tr>
               )
               : []

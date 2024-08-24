@@ -69,4 +69,6 @@ body, .dash-info-des-0{
     border: 1px solid #000;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
-  
+  .wp-cursor-pointer{
+    cursor: pointer;
+  }
