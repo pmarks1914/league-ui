@@ -7,11 +7,16 @@ import Swal from 'sweetalert2'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CCol, CRow } from '@coreui/react';
+// import { getEvaluation } from 'src/views/dashboard/DashboardData';
 
 
+const userData = JSON.parse(localStorage.getItem("userDataStore"));
 
 const Evaluation = () => {
-    const userData = JSON.parse(localStorage.getItem("userDataStore"));
+    // let userGetInfo = []
+    // let userGetInfoData = getEvaluation();
+    // userGetInfoData?.list?.then(value => { userGetInfo=value });
+
     const [pushData, setPushData] = useState(false)
     //   console.log("userData ", userData)
 
@@ -92,7 +97,7 @@ const Evaluation = () => {
     }
 
     return (
-        <div className='m-0'>      
+        <>      
          <ToastContainer />
         {
             userData?.type === 'Student =====' ?
@@ -102,7 +107,7 @@ const Evaluation = () => {
 
 
             <Dtable pushData={pushData} />
-        </div>
+        </>
     );
 };
 

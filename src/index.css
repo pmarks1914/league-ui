@@ -48,3 +48,27 @@ body, .dash-info-des-0{
 .right-gap {
   margin-right: auto;
 }
+
+.custom-pagination {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+  }  
+  .custom-pagination-link {
+    color: #191919;
+    transition: all 0.3s ease;
+  }
+  .custom-pagination-link:hover {
+    color: #000;
+    background-color: #e9ecef;
+    border-radius: 5px;
+  }
+  .custom-pagination .page-item.active .page-link {
+    background-color: #000;
+    color: white;
+    border: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  .wp-cursor-pointer{
+    cursor: pointer;
+  }

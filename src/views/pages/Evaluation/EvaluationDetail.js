@@ -273,7 +273,7 @@ const EvaluationDetail = () => {
                                 <Col sm="4" xm="4" md="4" lg="4" xl="4"> </Col>
                                 <Col sm="4"></Col>
                                 <Col sm="4">
-                                    {/* <a href={`/evaluation-edit/${evaluationData?.id}`} > Edit </a> <br /> */}
+                                    <a href={`/evaluation-edit/${evaluationData?.id}`} > Edit </a> <br />
                                 </Col>
                             </Row>
                         </CListGroupItem>
