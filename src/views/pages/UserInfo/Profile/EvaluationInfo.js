@@ -1175,7 +1175,7 @@ const EvaluationInfo = (props) => {
                             <CAccordionBody>
 
                                 <div className='mui-control-form' >
-                                    <Label for="purpose_evaluation" className="label-dc"> </Label>
+                                    <Label for="purpose_evaluation" className="label-dc"> Purpose of Evaluation </Label>
                                     <Select
                                         placeholder={"Purpose of Evaluation "}
                                         defaultInputValue={getFormData?.purpose_evaluation}
