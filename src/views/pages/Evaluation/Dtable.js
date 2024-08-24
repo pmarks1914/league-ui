@@ -26,7 +26,7 @@ const Dtable = (props) => {
 
   const [manageTableData, setManageTableData] = useState(1)
 
-  console.log(" manageTableData", manageTableData)
+  // console.log(" manageTableData", manageTableData)
 
   const [loader, setLoader] = useState('<div class="spinner-border dashboard-loader" style="color: #e0922f;"></div>')
   const [tableData, setTableData] = useState([]);
@@ -57,13 +57,13 @@ const Dtable = (props) => {
     // console.log("userGetInfo  ", userGetInfo)
     // reset user
    if (userGetInfo?.length === 0) { 
-     console.log("userGetInfo  1", userGetInfo)
+    // console.log("userGetInfo  1", userGetInfo)
       let xxx = null;
       xxx = setInterval(function () {
-        console.log("userGetInfo 2", userGetInfo)
+        // console.log("userGetInfo 2", userGetInfo)
           userGetInfo = userGetInfo
         if (userGetInfo?.length > 0) {
-          console.log("inside timer userGetInfo", userGetInfo)
+          // console.log("inside timer userGetInfo", userGetInfo)
           datatablaScript(userGetInfo)
           setLoader('<a></a>')
           clearInterval(xxx)
@@ -108,120 +108,120 @@ const Dtable = (props) => {
   }, [props])
   // perform filter 
   function datatablaScript(tdata) {
-    let printCounter = 0;
-
     setTableData(tdata);
     //   $('#myTable').DataTable().destroy();
-    setTimeout(() => {
-
-      $('#myTable').DataTable(
-        {
-          serverSide: true, // Enable server-side processing
-          processing: true,
-          deferLoading: true,
-          ajax: function (data, callback, settings) {
-            // Custom function to handle server-side data fetching
-            $.ajax({
-              url: process.env.REACT_APP_BASE_API + "/evaluation-by-student/" + userData?.user?.student_id,  // Replace with your server-side URL
-              type: 'GET',                       // POST or GET depending on your server setup
-              data: {
-                // Pass the necessary parameters to the server
-                // draw: data.draw,
-                // start: data.start,
-                // length: data.length,
-                // order: data.order,
-                // search: data.search.value,
-                // Add any additional parameters needed by your server-side code
-              },
-              success: function (response) {
-                // Pass the received data to the DataTable
-                callback({
-                  draw: response.draw,
-                  recordsTotal: response.recordsTotal,
-                  recordsFiltered: response.recordsFiltered,
-                  data: response.data
-                });
-              },
-              error: function (xhr, error, thrown) {
-                // Handle error
-                console.error("Error fetching data from server:", error);
-              }
-            });
-          },
-          columnDefs: [
-            { "width": "10%", "targets": 2 }
-          ],
-          keys: true,
-          // dom: 'Blfrtip',
-          dom: '<"top"Bfrt>rt<"bottom"lip>',
-          page: true,
-          // dom: '<"top">rt<"bottom"ilp><"clear">',
-          buttons: [
-            {
-              extend: 'copy',
-              messageTop: null,
-              // text: 'Copy Current Page',
-              exportOptions: {
-                modifier: {
-                  page: 'current'
-                }
-              }
-            },
-            {
-              extend: 'pdfHtml5',
-              messageTop: null,
-              // text: 'Export to PDF Current Page',
-              exportOptions: {
-                modifier: {
-                  page: 'current'
-                }
-              }
-            },
-            {
-              extend: 'excel',
-              messageTop: null,
-              // text: 'Export Current Page',
-              exportOptions: {
-                modifier: {
-                  page: 'current'
+    try {
+      setTimeout(() => {
+        $('#myTable').DataTable(
+          {
+            processing: true,
+            deferLoading: true,
+            // serverSide: true, // Enable server-side processing
+            // ajax: function (data, callback, settings) {
+            //   // Custom function to handle server-side data fetching
+            //   $.ajax({
+            //     url: process.env.REACT_APP_BASE_API + "/evaluation-by-student/" + userData?.user?.student_id,  // Replace with your server-side URL
+            //     type: 'GET',                       // POST or GET depending on your server setup
+            //     data: {
+            //       // Pass the necessary parameters to the server
+            //       // draw: data.draw,
+            //       // start: data.start,
+            //       // length: data.length,
+            //       // order: data.order,
+            //       // search: data.search.value,
+            //       // Add any additional parameters needed by your server-side code
+            //     },
+            //     success: function (response) {
+            //       // Pass the received data to the DataTable
+            //       callback({
+            //         draw: response.draw,
+            //         recordsTotal: response.recordsTotal,
+            //         recordsFiltered: response.recordsFiltered,
+            //         data: response.data
+            //       });
+            //     },
+            //     error: function (xhr, error, thrown) {
+            //       // Handle error
+            //       console.error("Error fetching data from server:", error);
+            //     }
+            //   });
+            // },
+            columnDefs: [
+              { "width": "10%", "targets": 2 }
+            ],
+            keys: true,
+            // dom: 'Blfrtip',
+            dom: '<"top"Bfrt>rt<"bottom"lip>',
+            page: true,
+            // dom: '<"top">rt<"bottom"ilp><"clear">',
+            buttons: [
+              {
+                extend: 'copy',
+                messageTop: null,
+                // text: 'Copy Current Page',
+                exportOptions: {
+                  modifier: {
+                    page: 'current'
+                  }
                 }
               },
-              customize: function (anytype) {
-                let sheet = anytype.xl.worksheets['tofiledata.xml'];
-                $('row:first c', sheet).attr('s', '7');
-              }
-            },
-            {
-              extend: 'csv',
-              messageBottom: null,
-              exportOptions: {
-                modifier: {
-                  page: 'current'
+              {
+                extend: 'pdfHtml5',
+                messageTop: null,
+                // text: 'Export to PDF Current Page',
+                exportOptions: {
+                  modifier: {
+                    page: 'current'
+                  }
                 }
               },
-            },
-            {
-              extend: 'print',
-              messageBottom: null,
-              exportOptions: {
-                modifier: {
-                  page: 'current'
+              {
+                extend: 'excel',
+                messageTop: null,
+                // text: 'Export Current Page',
+                exportOptions: {
+                  modifier: {
+                    page: 'current'
+                  }
+                },
+                customize: function (anytype) {
+                  let sheet = anytype.xl.worksheets['tofiledata.xml'];
+                  $('row:first c', sheet).attr('s', '7');
                 }
               },
-              customize: function (anytype) {
-                let sheet = anytype.xl.worksheets['tofiledata.pdf'];
-                $('row:first c', sheet).attr('s', '7');
-              }
-            },
-          ],
-          // scrollY: 600,
-          deferRender: false,
-          // scroller: false,
-          // lengthChange: false
-
-        }
-      );
-    }, 0);
+              {
+                extend: 'csv',
+                messageBottom: null,
+                exportOptions: {
+                  modifier: {
+                    page: 'current'
+                  }
+                },
+              },
+              {
+                extend: 'print',
+                messageBottom: null,
+                exportOptions: {
+                  modifier: {
+                    page: 'current'
+                  }
+                },
+                customize: function (anytype) {
+                  let sheet = anytype.xl.worksheets['tofiledata.pdf'];
+                  $('row:first c', sheet).attr('s', '7');
+                }
+              },
+            ],
+            // scrollY: 600,
+            deferRender: false,
+            // scroller: false,
+            // lengthChange: false
+          }
+        );
+      }, 0);
+    } catch (error) {
+      console.log("catch error", error)      
+    }
 
   }
   // Close the dropdown if the user clicks outside of it
@@ -251,6 +251,11 @@ const Dtable = (props) => {
 
     // setTimeout(()=>{
     window.location.href = '/evaluation-detail/' + rowIndexData?.applicant_program_id + "/"
+    // }, 1000)
+  }
+  function funEvaluationEdit(rowIndexData) {
+    // setTimeout(()=>{
+    window.location.href = '/evaluation-edit/' + rowIndexData?.applicant_program_id + "/"
     // }, 1000)
 
 
@@ -312,7 +317,10 @@ const Dtable = (props) => {
                     </div>
                   </td>
                   <td>{post?.applicant_program_end_date} </td>
-                  <td onClick={() => funE(post)}> <Badge color='primary' className='pointer'> View </Badge></td>
+                  <td> 
+                  <Badge color='primary' className='wp-cursor-pointer m-2'  onClick={() => funE(post)}> View </Badge>
+                  <Badge color='secondary' className='wp-cursor-pointer m-2' onClick={() => funEvaluationEdit(post)} > Edit </Badge>
+                  </td>
                 </tr>
               )
               : []
