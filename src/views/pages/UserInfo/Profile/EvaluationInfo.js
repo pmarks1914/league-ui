@@ -1162,92 +1162,6 @@ const EvaluationInfo = (props) => {
                                     </p>
                                 </CAccordionBody>
                             </CAccordionItem>
-                            <CAccordionItem itemKey={4}>
-                                <CAccordionHeader> Consent </CAccordionHeader>
-                                <CAccordionBody>
-
-                                    <CCol xs="12" sm="12" md={12} lg={12} className="mt-1" >
-                                        <div className='mui-control-form' >
-                                            <Box
-                                                component="form"
-                                                noValidate
-                                                autoComplete="on"
-                                            >
-                                                <InputLabel shrink htmlFor="institution_name"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.institution_name}
-                                                    value={getFormData?.institution_name}
-                                                    id="institution_name"
-                                                    name="institution_name"
-                                                    placeholder="Name of Institution"
-                                                    variant="outlined"
-                                                    margin="normal"
-                                                    type="text"
-                                                    fullWidth
-                                                    required
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "institution_name": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "institution_name": false } }))}
-                                                />
-
-                                                <InputLabel shrink htmlFor="department_office"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.department_office}
-                                                    value={getFormData?.department_office}
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    type="text"
-                                                    placeholder="Department/Office (if applicable)"
-                                                    name="department_office"
-                                                    autoFocus
-                                                    variant="outlined"
-                                                    className='mt-4 mb-0'
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "department_office": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "department_office": false } }))}
-                                                />
-                                                <InputLabel shrink htmlFor="contact_person"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.contact_person}
-                                                    value={getFormData?.contact_person}
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    type="text"
-                                                    placeholder="Contact Person (if applicable)"
-                                                    name="contact_person"
-                                                    autoFocus
-                                                    variant="outlined"
-                                                    className='mt-4 mb-0'
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person": false } }))}
-                                                />
-                                                <InputLabel shrink htmlFor="contact_person_email"> </InputLabel>
-                                                <TextField
-                                                    error={getFormDataError?.contact_person_email}
-                                                    value={getFormData?.contact_person_email}
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                    type="text"
-                                                    placeholder="Contact Person (if applicable)"
-                                                    name="contact_person_email"
-                                                    autoFocus
-                                                    variant="outlined"
-                                                    className='mt-4 mb-0'
-                                                    onChange={(e) => (setGetFormData({ ...getFormData, ...{ "contact_person_email": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "contact_person_email": false } }))}
-                                                />
-                                            </Box>
-                                        </div>
-                                    </CCol>
-
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ mt: 3, mb: 2 }} 
-                                        onClick={(e) => passConfiguration("add", "patch", "recipient_institution_detail", 419)}
-                                    >
-                                        Save
-                                    </Button>
-                                </CAccordionBody>
-                            </CAccordionItem>
                         </CAccordion>
                     </p>
                     : ""
@@ -1482,18 +1396,6 @@ const EvaluationInfo = (props) => {
                             <CAccordionBody>
 
                                 <div className='mui-control-form' >
-                                    <Label for="verification_status" className="label-dc"> </Label>
-                                    <Select
-                                        placeholder={"Select consent"}
-                                        defaultInputValue={getFormData?.verification_status}
-                                        options={optionsVerificationState}
-                                        id="verification_status"
-                                        className='other-input-select d-filters wp-cursor-pointer mb-3'
-                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } }))}
-                                    />
-                                </div>
-
-                                <div className='mui-control-form' >
                                     <Box
                                         component="form"
                                         noValidate
@@ -1530,6 +1432,35 @@ const EvaluationInfo = (props) => {
                                         />
 
                                     </Box>
+                                </div>
+
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    // style={{ color: "#fff" }}
+                                    // className="bg-text-com-wp"
+                                    onClick={(e) => passConfiguration("add", "patch", "verification_reference", 419)}
+                                >
+                                    Save
+                                </Button>
+                            </CAccordionBody>
+                        </CAccordionItem>
+                        <CAccordionItem itemKey={6}>
+                            <CAccordionHeader> Consent  </CAccordionHeader>
+                            <CAccordionBody>
+
+                                <div className='mui-control-form' >
+                                    <Label for="verification_status" className="label-dc"> </Label>
+                                    <Select
+                                        placeholder={"Select consent"}
+                                        defaultInputValue={getFormData?.verification_status}
+                                        options={optionsVerificationState}
+                                        id="verification_status"
+                                        className='other-input-select d-filters wp-cursor-pointer mb-3'
+                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } }))}
+                                    />
                                 </div>
 
                                 <Button

@@ -1340,20 +1340,6 @@ const EditSubmittedEvaluationInfo = (props) => {
                         <CAccordionItem itemKey={5}>
                             <CAccordionHeader> Reference - Verification Information  </CAccordionHeader>
                             <CAccordionBody>
-
-                                <div className='mui-control-form' >
-                                    <Label for="verification_status" className="label-dc"> </Label>
-                                    <Select
-                                        placeholder={evaluationData?.evaluation_info?.verification_status}
-                                        defaultInputValue={evaluationData?.evaluation_info?.verification_status}
-                                        options={optionsVerificationState}
-                                        id="verification_status"
-                                        className='other-input-select d-filters wp-cursor-pointer mb-0 '
-                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "verification_status": e.value } }); setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } })}}
-                                    />
-                                    <InputLabel shrink htmlFor="verification_status"> Give consent </InputLabel>
-                                </div>
-
                                 <div className='mui-control-form' >
                                     <Box
                                         component="form"
@@ -1393,6 +1379,36 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         <InputLabel shrink htmlFor="reference_phone"> Reference Phone </InputLabel>
 
                                     </Box>
+                                </div>
+
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                    // style={{ color: "#fff" }}
+                                    // className="bg-text-com-wp"
+                                    onClick={(e) => passConfiguration("add", "patch", "verification_reference", 419)}
+                                >
+                                    Save
+                                </Button>
+                            </CAccordionBody>
+                        </CAccordionItem>
+                        <CAccordionItem itemKey={5}>
+                            <CAccordionHeader> Consent  </CAccordionHeader>
+                            <CAccordionBody>
+
+                                <div className='mui-control-form' >
+                                    <Label for="verification_status" className="label-dc"> </Label>
+                                    <Select
+                                        placeholder={evaluationData?.evaluation_info?.verification_status}
+                                        defaultInputValue={evaluationData?.evaluation_info?.verification_status}
+                                        options={optionsVerificationState}
+                                        id="verification_status"
+                                        className='other-input-select d-filters wp-cursor-pointer mb-0 '
+                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "verification_status": e.value } }); setGetFormData({ ...getFormData, ...{ "verification_status": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "verification_status": false } })}}
+                                    />
+                                    <InputLabel shrink htmlFor="verification_status"> Give consent </InputLabel>
                                 </div>
 
                                 <Button
