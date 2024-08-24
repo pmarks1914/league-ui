@@ -33,7 +33,7 @@ import CIcon from '@coreui/icons-react'; import {
     cilWarning,
     cilFilter, cilCheckCircle, cilSettings, cilCalendar, cilSearch,
 } from '@coreui/icons'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Swal from 'sweetalert2';
@@ -170,72 +170,87 @@ const EditSubmittedEvaluationInfo = (props) => {
         // console.log("<>", getFormData)
         const formData2 = new FormData();
         formData2.append('type', fileType);
-        formData2.append('issued_date', moment(getFormData?.certificateDate || "2000-01-01").format('YYYY-MM-DD'));
-
+        for (const key in getFormData) {
+            if (getFormData.hasOwnProperty(key)) {
+                // console.log("<>", key, getFormData[key])
+              formData2.append(key, getFormData[key]);
+            }
+          }
         // formData2.append('slug', getFormData?.certificate_name);
 
-        if (fileType = 1) {
+        if (fileType === 1) {
             formData2.append('slug', getFormData?.certificate_name);
         }
-        if (fileType = 2) {
+        if (fileType === 2) {
             formData2.append('slug', getFormData?.transcript_name);
         }
+        if (fileType === 3) {
+            formData2.append('slug', getFormData?.identification_name);
+        }
+        console.log(" >>>>>>>", certificateList)
+        if(certificateList?.length > 0){
+            certificateList?.forEach((cert) => {
 
-        certificateList?.forEach((cert) => {
+                // console.log(cert)
+                formData2.append('cert', cert);
+                formData2.append('evaluation_id', evaluation_id);
+                // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", getFormData, formData2)
 
-            // console.log(cert)
-            formData2.append('cert', cert);
-            // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", getFormData, formData2)
+                let config = {
+                    method: 'PATCH',
+                    url: process.env.REACT_APP_BASE_API + '/upload',
+                    headers: {
+                        "Authorization": `Bearer ${userData?.token}`,
 
-            let config = {
-                method: 'POST',
-                url: process.env.REACT_APP_BASE_API + '/upload',
-                headers: {
-                    "Authorization": `Bearer ${userData?.token}`,
+                    },
+                    data: formData2
+                };
+                // console.log(cert.type)
+                if (cert.type === 'image/png' || cert.type === 'image/jpg' || cert.type === 'image/jpeg' || cert.type === 'application/pdf') {
+                    axios(config).then(function (response) {
 
-                },
-                data: formData2
-            };
-            // console.log(cert.type)
-            if (cert.type === 'image/png' || cert.type === 'image/jpg' || cert.type === 'image/jpeg' || cert.type === 'application/pdf') {
-                axios(config).then(function (response) {
+                        // console.log(response.status)
+                        if (response.data.code === 200) {
+                            toast.success(response?.data.message || "Successful", {
+                                position: toast?.POSITION?.TOP_CENTER
+                            });
+                            setUploading(false)
+                            getDataInfo()
 
-                    // console.log(response.status)
-                    if (response.data.code === 200) {
-                        toast.success(response?.data.message || "Successful", {
-                            position: toast?.POSITION?.TOP_CENTER
+                        }
+                        else {
+                            toast.error(response?.data.message || "Failed", {
+                                position: toast?.POSITION?.TOP_CENTER
+                            });
+                            setUploading(false)
+                        }
+
+                    })
+                        .catch(function (error) {
+
+                            toast.error(error?.response?.data.message, {
+                                position: toast?.POSITION?.TOP_CENTER
+                            });
+                            setUploading(false)
+
+                            // console.log(error);
                         });
-                        setUploading(false)
-                        getDataInfo()
-
-                    }
-                    else {
-                        toast.error(response?.data.message || "Failed", {
-                            position: toast?.POSITION?.TOP_CENTER
-                        });
-                        setUploading(false)
-                    }
-
-                })
-                    .catch(function (error) {
-
-                        toast.error(error?.response?.data.message, {
-                            position: toast?.POSITION?.TOP_CENTER
-                        });
-                        setUploading(false)
-
-                        // console.log(error);
+                }
+                else {
+                    //
+                    toast.error('Unsupported file type.', {
+                        position: toast?.POSITION?.TOP_CENTER
                     });
-            }
-            else {
-                //
-                toast.error('Unsupported file type for pdf.', {
-                    position: toast?.POSITION?.TOP_CENTER
-                });
-                setUploading(false)
-            }
-        });
-
+                    setUploading(false)
+                }
+            });
+        }
+        else{
+            toast.error('No file selected.', {
+                position: toast?.POSITION?.TOP_CENTER
+            });
+            setUploading(false)
+        }
     };
     // generic method
     function genericApiCall(config, section) {
@@ -536,7 +551,6 @@ const EditSubmittedEvaluationInfo = (props) => {
     }
     return (
         <div className="" onClick={() => trackActivity()}>
-            <ToastContainer />
             {
                 props?.profileManage === "education" ?
                     <p>
@@ -546,11 +560,12 @@ const EditSubmittedEvaluationInfo = (props) => {
                                 <CAccordionHeader>Certificate Information</CAccordionHeader>
                                 <CAccordionBody>
                                     <div className='mui-control-form' >
-                                        {console.log("evaluationData ", evaluationData)}
+                                        {console.log("evaluationData ????", evaluationData)}
+                                        { console.log("evaluationData?.evaluation_info?.certificate_type ", evaluationData?.evaluation_info?.certificate_type) }
 
                                         <Select
-                                            placeholder={"Type of Certificate "}
-                                            defaultInputValue={evaluationData?.evaluation_info?.certificate_name}
+                                            placeholder={ evaluationData?.evaluation_info?.certificate_type || "Type of Certificate "}
+                                            defaultInputValue={evaluationData?.evaluation_info?.certificate_type}
                                             options={optionsStateDoc}
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer mt-4'
@@ -576,13 +591,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
+                                                        value={moment(evaluationData?.evaluation_info?.certificateDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="certificateDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-1 mb-0'
-                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "certificateDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } })}}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "certificateDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormData({ ...getFormData, ...{ "certificateDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
@@ -599,7 +614,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
                                     {
-                                        evaluationData?.evaluation_info?.certificate ? "" :
+                                        evaluationData?.evaluation_info?.certificate < 0 ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
@@ -617,10 +632,10 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         {
                                             evaluationData?.evaluation_info?.certificate ?
                                                 <Row>
-                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.certificate} target='_blank' rel="noreferrer" > File </a> </Col>
-                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.certificate} target='_blank' rel="noreferrer" > View File </a> </Col>
+                                                    {/* <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
                                                         <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", "file") }} >Delete</Badge>
-                                                    </Col>
+                                                    </Col> */}
                                                 </Row>
                                                 : ''
                                         }
@@ -634,14 +649,14 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     <div className='mui-control-form' >
 
                                         <Select
-                                            placeholder={"Type of Transcript "}
+                                            placeholder={evaluationData?.evaluation_info?.transcript_type || "Type of Transcript "}
                                             defaultInputValue={evaluationData?.evaluation_info?.transcript_name}
                                             options={optionsStateDoc}
-                                            id="transcriptname"
+                                            id="transcript_name"
                                             className='other-input-select d-filters wp-cursor-pointer mt-0 mb-0'
                                             onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "transcript_name": e.value } }); setGetFormData({ ...getFormData, ...{ "transcript_name": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "transcript_name": false } })}}
                                         />
-                                        <InputLabel shrink htmlFor="transcriptname"> Type of Transcript </InputLabel>
+                                        <InputLabel shrink htmlFor="transcript_name"> Type of Transcript </InputLabel>
 
                                         <Box
                                             component="form"
@@ -661,13 +676,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.transcriptDate).format("YYYY-MM-DD")}
+                                                        value={moment(evaluationData?.evaluation_info?.transcriptDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="transcriptDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-0 mb-0'
-                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "transcriptDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "transcriptDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "transcriptDate": false } })}}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "transcriptDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormData({ ...getFormData, ...{ "transcriptDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormDataError({ ...getFormDataError, ...{ "transcriptDate": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="transcriptDate"> Date issued </InputLabel>
                                                 </Col>
@@ -685,13 +700,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         </ButtonGroup>
                                     </Upload>
                                     {
-                                        evaluationData?.evaluation_info?.transcript ? "" :
+                                        evaluationData?.evaluation_info?.transcript < 0 ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(1)}
+                                                onClick={() => handleCertificateUpload(2)}
                                                 disabled={uploading}
                                             >
                                                 {uploading ? 'Uploading' : 'Submit'}
@@ -702,10 +717,10 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         {
                                             evaluationData?.evaluation_info?.transcript ?
                                                 <Row>
-                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.transcript} target='_blank' rel="noreferrer" > File </a> </Col>
-                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.transcript} target='_blank' rel="noreferrer" > View File </a> </Col>
+                                                    {/* <Col xs="4" sm="4" md={4} lg={4} className="mt-2" > 
                                                         <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "transcript", "file") }} >Delete</Badge>
-                                                    </Col>
+                                                    </Col> */}
                                                 </Row>
                                                 : ''
                                         }
@@ -853,14 +868,14 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     <div className='mui-control-form' >
 
                                         <Select
-                                            placeholder={"Type of Identification Documents "}
-                                            defaultInputValue={evaluationData?.evaluation_info?.certificate_name}
+                                            placeholder={evaluationData?.evaluation_info?.identification_type || "Type of Identification Documents "}
+                                            defaultInputValue={evaluationData?.evaluation_info?.identification_name}
                                             options={optionsIdDoc}
-                                            id="certname"
+                                            id="identification_name"
                                             className='other-input-select d-filters wp-cursor-pointer mt-4 mb-0'
-                                            onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "certificate_name": e.value } }); setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } })}}
+                                            onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "identification_name": e.value } }); setGetFormData({ ...getFormData, ...{ "identification_name": e.value } }); setGetFormDataError({ ...getFormDataError, ...{ "identification_name": false } })}}
                                         />
-                                        <InputLabel shrink htmlFor="certname"> Type of Identification Documents </InputLabel>
+                                        <InputLabel shrink htmlFor="identification_name"> Type of Identification Documents </InputLabel>
 
                                         <Box
                                             component="form"
@@ -879,13 +894,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.identificationDate).format("YYYY-MM-DD")}
+                                                        value={moment(evaluationData?.evaluation_info?.identificationDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="identificationDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-0 mb-0'
-                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "identificationDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "identificationDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "identificationDate": false } })}}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "identificationDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormData({ ...getFormData, ...{ "identificationDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormDataError({ ...getFormDataError, ...{ "identificationDate": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="identificationDate"> Date issued </InputLabel>
                                                 </Col>
@@ -905,13 +920,13 @@ const EditSubmittedEvaluationInfo = (props) => {
 
                                     
                                     {
-                                        evaluationData?.evaluation_info?.identification ? "" :
+                                        evaluationData?.evaluation_info?.identification < 0 ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(1)}
+                                                onClick={() => handleCertificateUpload(3)}
                                                 disabled={uploading}
                                             >
                                                 {uploading ? 'Uploading' : 'Submit'}
@@ -922,10 +937,10 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         {
                                             evaluationData?.evaluation_info?.identification ?
                                                 <Row>
-                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.identification} target='_blank' rel="noreferrer" > File </a> </Col>
-                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.identification} target='_blank' rel="noreferrer" > View File </a> </Col>
+                                                    {/* <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
                                                         <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "identification", "file") }} >Delete</Badge>
-                                                    </Col>
+                                                    </Col> */}
                                                 </Row>
                                                 : ''
                                         }
@@ -955,13 +970,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.reportDate).format("YYYY-MM-DD")}
+                                                        value={moment(evaluationData?.evaluation_info?.reportDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="reportDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-1 mb-0'
-                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "reportDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "reportDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "reportDate": false } })}}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "reportDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormData({ ...getFormData, ...{ "reportDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormDataError({ ...getFormDataError, ...{ "reportDate": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="reportDate"> Date issued </InputLabel>
                                                 </Col>
@@ -981,13 +996,13 @@ const EditSubmittedEvaluationInfo = (props) => {
 
 
                                     
-                                    { evaluationData?.evaluation_info?.report ? "" :
+                                    { evaluationData?.evaluation_info?.report < 0 ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(1)}
+                                                onClick={() => handleCertificateUpload(4)}
                                                 disabled={uploading}
                                             >
                                                 {uploading ? 'Uploading' : 'Submit'}
@@ -998,10 +1013,10 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         {
                                             evaluationData?.evaluation_info?.report ?
                                                 <Row>
-                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.report} target='_blank' rel="noreferrer" > File </a> </Col>
-                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.report} target='_blank' rel="noreferrer" > View File </a> </Col>
+                                                    {/* <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
                                                         <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "report", "file") }} >Delete</Badge>
-                                                    </Col>
+                                                    </Col> */}
                                                 </Row>
                                                 : ''
                                         }
@@ -1031,13 +1046,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(evaluationData?.evaluation_info?.letterRecommendationDate).format("YYYY-MM-DD")}
+                                                        value={moment(evaluationData?.evaluation_info?.letterRecommendationDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
                                                         name="letterRecommendationDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mt-1 mb-0'
-                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "letterRecommendationDate": e.target.value } }); setGetFormData({ ...getFormData, ...{ "letterRecommendationDate": e.target.value } }); setGetFormDataError({ ...getFormDataError, ...{ "letterRecommendationDate": false } })}}
+                                                        onChange={(e) => { setEvaluationData({ ...evaluationData, evaluation_info:{...evaluationData.evaluation_info, "letterRecommendationDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormData({ ...getFormData, ...{ "letterRecommendationDate": moment( e.target.value ).format('YYYY-MM-DD') } }); setGetFormDataError({ ...getFormDataError, ...{ "letterRecommendationDate": false } })}}
                                                     />
                                                     <InputLabel shrink htmlFor="letterRecommendationDate"> Date issued </InputLabel>
                                                 </Col>
@@ -1056,13 +1071,13 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     </Upload>
 
                                     { 
-                                        evaluationData?.evaluation_info?.recommendation ? "" :
+                                        evaluationData?.evaluation_info?.recommendation < 0 ? "" :
                                             <Button
                                                 type="submit"
                                                 fullWidth
                                                 variant="contained"
                                                 sx={{ mt: 3, mb: 2 }}
-                                                onClick={() => handleCertificateUpload(1)}
+                                                onClick={() => handleCertificateUpload(5)}
                                                 disabled={uploading}
                                             >
                                                 {uploading ? 'Uploading' : 'Submit'}
@@ -1073,10 +1088,10 @@ const EditSubmittedEvaluationInfo = (props) => {
                                         {
                                             evaluationData?.evaluation_info?.recommendation ?
                                                 <Row>
-                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.recommendation} target='_blank' rel="noreferrer" > File </a> </Col>
-                                                    <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
+                                                    <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={evaluationData?.evaluation_info?.recommendation} target='_blank' rel="noreferrer" > View File </a> </Col>
+                                                    {/* <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
                                                         <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "recommendation", "file") }} >Delete</Badge>
-                                                    </Col>
+                                                    </Col> */}
                                                 </Row>
                                                 : ''
                                         }

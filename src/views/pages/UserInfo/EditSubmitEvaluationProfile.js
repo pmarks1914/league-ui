@@ -16,11 +16,13 @@ import classnames from 'classnames';
 // import './gen.css';
 import $ from 'jquery';
 import Select, { components } from 'react-select';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 import { getSessionTimeout } from '../../../Utils/Utils';
 import EditSubmittedEvaluationInfo from './Profile/EditSubmittedEvaluationInfo';
 import College from './College.js/College';
+import PaginatedCardList from './PaginatedCardList';
 
 
 const EditSubmittedEvaluationProfile = () => {
@@ -62,6 +64,7 @@ const EditSubmittedEvaluationProfile = () => {
   }
   return (
     <div className="App">
+      <ToastContainer />
       <Nav tabs className="v-flow">
         <NavItem>
           <NavLink
@@ -114,6 +117,8 @@ const EditSubmittedEvaluationProfile = () => {
             </Row>
           </TabPane>
       </TabContent>
+
+      {/* <PaginatedCardList /> */}
     </div>
   );
 };
