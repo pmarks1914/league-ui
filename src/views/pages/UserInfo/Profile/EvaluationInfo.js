@@ -1190,8 +1190,6 @@ const EvaluationInfo = (props) => {
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
-                                    // style={{ color: "#fff" }}
-                                    // className="bg-text-com-wp"
                                     onClick={(e) => passConfiguration("add", "patch", "purpose_evaluation", 419)}
                                 >
                                     Save
