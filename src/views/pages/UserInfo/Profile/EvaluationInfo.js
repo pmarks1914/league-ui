@@ -1068,7 +1068,6 @@ const EvaluationInfo = (props) => {
                                                         <Col xs="6" sm="6" md={6} lg={6} className="mt-2" > <a href={post?.url} target='_blank' rel="noreferrer" > {post?.name} </a> </Col>
 
                                                         <Col xs="4" sm="4" md={4} lg={4} className="mt-2" >
-                                                            {/* <Badge color='secondary' onClick={()=> setGetFormData({...getFormData, ...{"primary": "Patch", "theId": post?.id, "primary_first_name": post?.first_name, "primary_other_name": post?.other_name, "primary_last_name": post?.last_name }}) } style={{"marginRight": "4px"}}>Edit</Badge>  */}
                                                             <Badge color='primary' className='wp-cursor-pointer' onClick={(e) => { passConfiguration(e, "delete", "certificate", post?.id) }} >Delete</Badge>
                                                         </Col>
                                                     </Row>
