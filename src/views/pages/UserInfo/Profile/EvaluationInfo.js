@@ -1096,7 +1096,6 @@ const EvaluationInfo = (props) => {
 
                                                     <TextField
                                                         error={getFormDataError?.certificateDate}
-                                                        // value={moment(getFormData?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
