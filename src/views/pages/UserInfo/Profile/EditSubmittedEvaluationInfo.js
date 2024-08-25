@@ -92,7 +92,7 @@ const EditSubmittedEvaluationInfo = (props) => {
     useEffect(() => {
         countState += 1;
         if (countState < 4) {
-            getDataInfo()
+            // getDataInfo()
         }
         // console.log("familyData", countState)
     }, [])
@@ -215,7 +215,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                 position: toast?.POSITION?.TOP_CENTER
                             });
                             setUploading(false)
-                            getDataInfo()
+                            getFuncEvaluation()
 
                         }
                         else {
@@ -267,7 +267,7 @@ const EditSubmittedEvaluationInfo = (props) => {
             // }
 
             // }
-            getDataInfo()
+            getFuncEvaluation()
 
         }).catch(function (error) {
 
