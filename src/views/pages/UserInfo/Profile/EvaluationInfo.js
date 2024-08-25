@@ -1112,7 +1112,6 @@ const EvaluationInfo = (props) => {
                                                     />
                                                     <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
                                             </Row>
                                         </Box>
 
