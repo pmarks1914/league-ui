@@ -85,9 +85,9 @@ const EvaluationInfo = (props) => {
         "dateOfBirth": userData?.user?.dob,
 
         
-        "certificate_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Certificate" } )[0]?.type,
-        "transcript_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Transcript" } )[0]?.type,
-        "identification_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Identification Document" } )[0]?.type,
+        "certificate_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Certificate" } )[0]?.slug,
+        "transcript_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Transcript" } )[0]?.slug,
+        "identification_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Identification Document" } )[0]?.slug,
         "report_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Evaluation Report" } )[0]?.type,
         "letterRecommendation_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Letter of Recommendation" } )[0]?.type,
         

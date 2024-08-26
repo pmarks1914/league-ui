@@ -550,7 +550,10 @@ const EditSubmittedEvaluationInfo = (props) => {
         }
     }
     return (
-        <div className="" onClick={() => trackActivity()}>
+        <div className="App" onClick={() => trackActivity()}>
+            <CRow className='mt-0 mb-0'>
+                <CCol lg={12} style={{ textAlign: 'right' }} className='mt-3 mb-0'> <h5>{evaluationData?.name}</h5> </CCol>
+            </CRow>
             {
                 props?.profileManage === "education" ?
                     <p>
@@ -560,12 +563,10 @@ const EditSubmittedEvaluationInfo = (props) => {
                                 <CAccordionHeader>Certificate Information</CAccordionHeader>
                                 <CAccordionBody>
                                     <div className='mui-control-form' >
-                                        {console.log("evaluationData ????", evaluationData)}
-                                        { console.log("evaluationData?.evaluation_info?.certificate_type ", evaluationData?.evaluation_info?.certificate_type) }
 
                                         <Select
-                                            placeholder={ evaluationData?.evaluation_info?.certificate_type || "Type of Certificate "}
-                                            defaultInputValue={evaluationData?.evaluation_info?.certificate_type}
+                                            placeholder={ evaluationData?.evaluation_info?.certificate_name || "Type of Certificate "}
+                                            defaultInputValue={evaluationData?.evaluation_info?.certificate_name}
                                             options={optionsStateDoc}
                                             id="certname"
                                             className='other-input-select d-filters wp-cursor-pointer mt-4'
@@ -649,7 +650,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     <div className='mui-control-form' >
 
                                         <Select
-                                            placeholder={evaluationData?.evaluation_info?.transcript_type || "Type of Transcript "}
+                                            placeholder={evaluationData?.evaluation_info?.transcript_name || "Type of Transcript "}
                                             defaultInputValue={evaluationData?.evaluation_info?.transcript_name}
                                             options={optionsStateDoc}
                                             id="transcript_name"
@@ -868,7 +869,7 @@ const EditSubmittedEvaluationInfo = (props) => {
                                     <div className='mui-control-form' >
 
                                         <Select
-                                            placeholder={evaluationData?.evaluation_info?.identification_type || "Type of Identification Documents "}
+                                            placeholder={evaluationData?.evaluation_info?.identification_name || "Type of Identification Documents "}
                                             defaultInputValue={evaluationData?.evaluation_info?.identification_name}
                                             options={optionsIdDoc}
                                             id="identification_name"
