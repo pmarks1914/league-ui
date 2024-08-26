@@ -53,7 +53,7 @@ let date = new Date();
 let countState = 1
 const userData = JSON.parse(localStorage.getItem('userDataStore'));
 
-// console.log(userData)
+// console.log("userData >>>>")
 const EvaluationInfo = (props) => {
 
     const [getFormDataError, setGetFormDataError] = React.useState({
@@ -83,9 +83,21 @@ const EvaluationInfo = (props) => {
         "city": userData?.user?.city,
         "address": userData?.user?.address,
         "dateOfBirth": userData?.user?.dob,
-        "certificate_name": userData?.user?.other_info?.certificate_name,
-        "transcript_name": userData?.user?.other_info?.transcript_name,
-        "certificateDate": userData?.user?.other_info?.certificateDate,
+
+        
+        "certificate_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Certificate" } )[0]?.slug,
+        "transcript_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Transcript" } )[0]?.slug,
+        "identification_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Identification Document" } )[0]?.slug,
+        "report_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Evaluation Report" } )[0]?.type,
+        "letterRecommendation_name": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Letter of Recommendation" } )[0]?.type,
+        
+        "certificateDate": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Certificate" } )[0]?.issued_date,
+        "transcriptDate": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Transcript" } )[0]?.issued_date,
+        "identificationDate": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Identification Document" } )[0]?.issued_date,
+        "reportDate": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Evaluation Report" } )[0]?.issued_date,
+        "letterRecommendationDate": userData?.user?.file?.filter((post_type) => { return (post_type?.type) === "Letter of Recommendation" } )[0]?.issued_date,
+
+
         "purpose_evaluation": userData?.user?.other_info?.purpose_evaluation,
         "user_preference_email": userData?.user?.other_info?.user_preference_email,
         "contact_person_email": userData?.user?.other_info?.contact_person_email,
@@ -147,25 +159,42 @@ const EvaluationInfo = (props) => {
     const handleCertificateUpload = (fileType) => {
         setUploading(true)
         // console.log(userData,getFormData, moment(getFormData?.certificateIssuedDate).format('YYYY-MM-DD'))
-        // console.log("<>", getFormData)
+        // console.log(fileType, "<>", getFormData)
         const formData2 = new FormData();
         formData2.append('type', fileType);
-        formData2.append('issued_date', moment(getFormData?.certificateDate || "2000-01-01").format('YYYY-MM-DD'));
 
         // formData2.append('slug', getFormData?.certificate_name);
 
-        if (fileType = 1) {
-            formData2.append('slug', getFormData?.certificate_name);
+        if (fileType === 1) {
+            formData2.append('slug', getFormData?.certificate_name);        
+            formData2.append('issued_date', moment(getFormData?.certificateDate).format('YYYY-MM-DD'));
+
         }
-        if (fileType = 2) {
+        if (fileType === 2) {
             formData2.append('slug', getFormData?.transcript_name);
+            formData2.append('issued_date', moment(getFormData?.transcriptDate).format('YYYY-MM-DD'));
+        }
+        if (fileType === 3) {
+            formData2.append('slug', getFormData?.identification_name);
+            formData2.append('issued_date', moment(getFormData?.identificationDate).format('YYYY-MM-DD'));
+
+        }
+        if (fileType === 4) {
+            formData2.append('slug', 'Report');
+            formData2.append('issued_date', moment(getFormData?.reportDate).format('YYYY-MM-DD'));
+
+        }
+        if (fileType === 5) {
+            formData2.append('slug', "Recommendation");
+            formData2.append('issued_date', moment(getFormData?.letterRecommendationDate).format('YYYY-MM-DD'));
+
         }
 
         certificateList?.forEach((cert) => {
 
             // console.log(cert)
             formData2.append('cert', cert);
-            // console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", getFormData, formData2)
+            console.log("rtghrghhrthrhrthrthrthrtrtrtgrt", getFormData, formData2)
 
             let config = {
                 method: 'POST',
@@ -644,7 +673,7 @@ const EvaluationInfo = (props) => {
 
                                     <p className='mt-3 mb-1'>
 
-                                        <strong >Your educational nnnn document(s)</strong>
+                                        <strong >Your educational document(s)</strong>
                                         {
                                             certificate?.filter((post_type) => { return (post_type?.type) === "Certificate" })?.map((post, id) => {
                                                 return (
@@ -704,24 +733,24 @@ const EvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
                                                     <TextField
-                                                        error={getFormDataError?.certificateDate}
+                                                        error={getFormDataError?.transcriptDate}
                                                         // value={moment(getFormData?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(getFormData?.transcriptDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
-                                                        name="certificateDate"
+                                                        name="transcriptDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mb-1 '
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "transcriptDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "transcriptDate": false } }))}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="transcriptDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.transcriptDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -906,14 +935,14 @@ const EvaluationInfo = (props) => {
 
                                     <div className='mui-control-form' >
 
-                                        <Label for="certname" className="label-dc"> </Label>
+                                        <Label for="identification_name" className="label-dc"> </Label>
                                         <Select
-                                            placeholder={"Type of Identification Documents "}
-                                            defaultInputValue={getFormData?.certificate_name}
+                                            placeholder={"Type of Identification Documents "} 
+                                            defaultInputValue={getFormData?.identification_name}
                                             options={optionsIdDoc}
-                                            id="certname"
+                                            id="identification_name"
                                             className='other-input-select d-filters wp-cursor-pointer'
-                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificate_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificate_name": false } }))}
+                                            onChange={(e) => (setGetFormData({ ...getFormData, ...{ "identification_name": e.value } }), setGetFormDataError({ ...getFormDataError, ...{ "identification_name": false } }))}
                                         />
 
                                         <Box
@@ -924,24 +953,26 @@ const EvaluationInfo = (props) => {
                                             <Row className='ml-4 mt-4 mb-5'>
                                                 <Col sm="2" xs="2" md="2" lg="2" xl="2" className=''></Col>
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
-
+                                                    {
+                                                        console.log("getFormData ", getFormData)
+                                                    }
                                                     <TextField
-                                                        error={getFormDataError?.certificateDate}
+                                                        error={getFormDataError?.identificationDate}
                                                         // value={moment(getFormData?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(getFormData?.identificationDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
-                                                        name="certificateDate"
+                                                        name="identificationDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mb-1 '
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "identificationDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "identificationDate": false } }))}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="identificationDate"> Date issued </InputLabel>
                                                 </Col>
                                             </Row>
                                         </Box>
@@ -1010,24 +1041,24 @@ const EvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className='mt-0 '>
 
                                                     <TextField
-                                                        error={getFormDataError?.certificateDate}
+                                                        error={getFormDataError?.reportDate}
                                                         // value={moment(getFormData?.dob).format("LLLL")}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(getFormData?.reportDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
-                                                        name="certificateDate"
+                                                        name="reportDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mb-1 '
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "reportDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "reportDate": false } }))}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="reportDate"> Date issued </InputLabel>
                                                 </Col>
-                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.certificateDate} </Col> */}
+                                                {/* <Col sm="2" xs="2" md="2" lg="2" xl="2" className='float-left ml-2'> {getFormData?.reportDate} </Col> */}
                                             </Row>
                                         </Box>
 
@@ -1094,21 +1125,21 @@ const EvaluationInfo = (props) => {
                                                 <Col sm="12" xs="12" md="12" lg="12" xl="12" className=''>
 
                                                     <TextField
-                                                        error={getFormDataError?.certificateDate}
+                                                        error={getFormDataError?.letterRecommendationDate}
                                                         margin="normal"
                                                         required
                                                         fullWidth
                                                         type="date"
                                                         max={"2000-01-01"}
-                                                        defaultValue={moment(getFormData?.certificateDate).format("YYYY-MM-DD")}
+                                                        defaultValue={moment(getFormData?.letterRecommendationDate).format("YYYY-MM-DD")}
                                                         placeholder="Date issued"
-                                                        name="certificateDate"
+                                                        name="letterRecommendationDate"
                                                         autoFocus
                                                         variant="outlined"
                                                         className='mb-1 '
-                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "certificateDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "certificateDate": false } }))}
+                                                        onChange={(e) => (setGetFormData({ ...getFormData, ...{ "letterRecommendationDate": e.target.value } }), setGetFormDataError({ ...getFormDataError, ...{ "letterRecommendationDate": false } }))}
                                                     />
-                                                    <InputLabel shrink htmlFor="certificateDate"> Date issued </InputLabel>
+                                                    <InputLabel shrink htmlFor="letterRecommendationDate"> Date issued </InputLabel>
                                                 </Col>
                                             </Row>
                                         </Box>
