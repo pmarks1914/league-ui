@@ -552,7 +552,13 @@ const EditSubmittedEvaluationInfo = (props) => {
     return (
         <div className="App" onClick={() => trackActivity()}>
             <CRow className='mt-0 mb-0'>
-                <CCol lg={12} style={{ textAlign: 'right' }} className='mt-3 mb-0'> <h5>{evaluationData?.name}</h5> </CCol>
+                <CCol lg={12} style={{ textAlign: 'right' }} className='mt-3 mb-0'> 
+                    <h5 className='mt-0 mb-0'> {evaluationData?.name} </h5> 
+                    <p className='mt-0 mb-0'> 
+                        {/* {evaluationData?.description?.length > 2 ? `${(evaluationData?.description)?.splice(0, 2)}...` : evaluationData?.description}  */}
+                        {evaluationData?.description?.length}
+                    </p>
+                </CCol>
             </CRow>
             {
                 props?.profileManage === "education" ?
