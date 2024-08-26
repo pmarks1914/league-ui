@@ -555,15 +555,14 @@ const EditSubmittedEvaluationInfo = (props) => {
                 <CCol lg={12} style={{ textAlign: 'right' }} className='mt-3 mb-0'> 
                     <h5 className='mt-0 mb-0'> {evaluationData?.name} </h5> 
                     <p className='mt-0 mb-0'> 
-                        {/* {evaluationData?.description?.length > 2 ? `${(evaluationData?.description)?.splice(0, 2)}...` : evaluationData?.description}  */}
-                        {evaluationData?.description?.length}
+                        {evaluationData?.description?.length > 15 ? `${(evaluationData?.description)?.slice(0, 15)}...` : evaluationData?.description} 
                     </p>
                 </CCol>
             </CRow>
             {
                 props?.profileManage === "education" ?
                     <p>
-                        <CAccordion activeItemKey={1} className="mt-3">
+                        <CAccordion activeItemKey={1} className="mt-0">
                             <h6>Educational Information</h6>
                             <CAccordionItem itemKey={1}>
                                 <CAccordionHeader>Certificate Information</CAccordionHeader>
@@ -866,7 +865,7 @@ const EditSubmittedEvaluationInfo = (props) => {
             {
                 props?.profileManage === "additional" ?
                     <p>
-                        <CAccordion activeItemKey={1} className="mt-3">
+                        <CAccordion activeItemKey={1} className="mt-0">
                             <h6>Additional Documents</h6>
                             <CAccordionItem itemKey={1}>
                                 <CAccordionHeader>Identification Documents (Passport, ID Card) </CAccordionHeader>
@@ -1112,7 +1111,7 @@ const EditSubmittedEvaluationInfo = (props) => {
             }
             {
                 props?.profileManage === "other" ?
-                    <CAccordion activeItemKey={1} className="mt-3">
+                    <CAccordion activeItemKey={1} className="mt-0">
                         <h6>Other Information</h6>
                         <CAccordionItem itemKey={1}>
                             <CAccordionHeader> Purpose of Evaluation </CAccordionHeader>
