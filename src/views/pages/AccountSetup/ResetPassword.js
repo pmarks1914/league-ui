@@ -22,7 +22,7 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import avatar9 from '../../../assets/brand/logo.svg'
+import avatar9 from '../../../assets/brand/logo.png'
 import {
   CButton,
   CCard,
@@ -227,10 +227,10 @@ export default function SignUp() {
                     <CRow>
                       <CCol xs="0" sm="0" md={0} lg="1" xl="1" ></CCol>
                       <CCol xs="12" sm="12" md={12} lg="10" xl="10" className='trade-name' >
-                        <span><img src={avatar9} className='mb-0' style={{ width: "30px" }} alt="college league" /> COLLEGE LEAGUE
+                        <span><img src={avatar9} className='mb-0' width="100%" alt="college league" />
                         </span>
 
-                        <p className='mt-3 text-center fs-6'>
+                        <p className='m-0 text-center fs-6'>
                             Reset Password
                         </p>
                         <CCol xs="12" sm="12" md={12} lg={12} className="mt-1" >

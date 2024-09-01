@@ -21,7 +21,7 @@ import Button from '@mui/material/Button';
 import { Col, Row } from 'reactstrap'
 import Box from '@mui/material/Box';
 
-import avatar9 from '../../../assets/brand/logo.svg'
+import avatar9 from '../../../assets/brand/logo.png'
 import { FormControl } from '@mui/base'
 // import swal from 'sweetalert2'
 
@@ -168,10 +168,12 @@ const Login = () => {
                 <CRow>
                   <CCol xs="0" sm="0" md={0} lg="1" xl="1" ></CCol>
                   <CCol xs="12" sm="12" md={12} lg="10" xl="10" className='trade-name' >
-                    <span><img src={avatar9} className='mb-0' style={{ width: "30px" }} alt="college league" /> COLLEGE LEAGUE
-                    </span>
+                    <span><img src={avatar9} className='mb-0' width="100%" alt="college league" /> </span>
 
 
+                    <p className='m-0 text-center fs-6'>
+                        Login
+                    </p>
                     <Col xs="12" sm="12" md={12} lg={12} className="mt-3" >
                       <div className='mui-control-form' >
                         <Box

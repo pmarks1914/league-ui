@@ -22,7 +22,7 @@ import {
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import $ from 'jquery'
-import avatar9 from './../../assets/brand/logo.svg' 
+import avatar9 from './../../assets/brand/logo.png' 
 
 const AppHeaderDropdown = (userData) => {
   // console.log(userData?.user?.file_photo)
@@ -37,7 +37,7 @@ const AppHeaderDropdown = (userData) => {
   return (
     <CDropdown variant="nav">
       <CDropdownToggle placement="bottom-end" className="p-0 profile-img" caret={false}>
-        <CAvatar src={ userData?.userData?.user?.file_photo ? (userData?.userData?.user?.file_photo) : avatar9 } size="md" alt="user image"/>
+        <CAvatar src={ userData?.userData?.user?.file_photo ? (userData?.userData?.user?.file_photo) : avatar9 } width="50%" className='m-0' alt="user image"/>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">User Profile</CDropdownHeader>
