@@ -26,7 +26,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Swal from 'sweetalert2'
 // import swal from 'sweetalert2'
 
-import avatar9 from '../../../assets/brand/logo.svg'
+import avatar9 from '../../../assets/brand/logo.png'
 const swal = require("sweetalert2");
 
 const JoinTeam = () => {
@@ -308,7 +308,7 @@ const JoinTeam = () => {
                         marginBottom: '10px'
                     }}
                 >
-                    <img src={avatar9} className='mb-3' style={{ width: "160px"}}/>
+                    <img src={avatar9} className='mb-3' width="100%" />
 
                 </Box>
         <CRow className="justify-content-center">
