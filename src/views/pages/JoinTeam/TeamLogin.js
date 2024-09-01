@@ -21,47 +21,11 @@ import Button from '@mui/material/Button';
 import { Col, Row } from 'reactstrap'
 import Box from '@mui/material/Box';
 
-import avatar9 from '../../../assets/brand/logo.svg'
+import avatar9 from '../../../assets/brand/logo.png'
 // import "../login/generic.css"
 
 const inviteData = JSON.parse(localStorage.getItem("inviteData"));
-let permList = [
-  "can_view_business_performance_metrics",
-  "can_view_transactions",
-  "can_export_transactions",
-  "can_manage_refunds_&_disputes",
-  "can_view_customers",
-  "can_create_new_customers",
-  "can_manage_&_update_customers",
-  "can_view_customer_insights",
-  "can_view_payouts",
-  "can_export_payouts",
-  "can_view_transfers",
-  "can_export_transfers",
-  "can_create_and_manage_transfers",
-  "can_view_balance_history",
-  "can_export_balance_history",
-  "can_view_payment_pages",
-  "can_create_and_manage_payment_pages",
-  "can_view_products",
-  "can_create_and_manage_products",
-  "can_view_invoices",
-  "can_create_and_manage_invoices",
-  "can_view_subaccounts_&_splits",
-  "can_create_and_manage_subaccounts_&_splits",
-  "can_view_plans_&_subscriptions",
-  "can_create_and_manage_plans_&_subscriptions",
-  "can_view_business_settings_&_preferences",
-  "can_edit_business_settings_&_preferences",
-  "can_view_api_keys_&_webhooks",
-  "can_manage_api_keys_&_webhooks",
-  "can_view_users",
-  "can_manage_and_invite_users",
-  "can_view_bank_accounts_settings",
-  "can_manage_bank_accounts_settings",
-  "can_create_and_manage_charges",
-  "can_pay_with_transfer_for_failed_refund"
-];
+
 const Login = () => {
 
   const [usernameVar, setUsernameVar] = useState("")
