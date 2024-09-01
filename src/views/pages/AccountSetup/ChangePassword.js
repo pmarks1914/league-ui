@@ -22,7 +22,7 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import avatar9 from '../../../assets/brand/logo.svg'
+import avatar9 from '../../../assets/brand/logo.png'
 import {
   CButton,
   CCard,

@@ -24,7 +24,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import avatar9 from '../../../assets/brand/logo.svg'
+import avatar9 from '../../../assets/brand/logo.png'
 import {
   CButton,
   CCard,
