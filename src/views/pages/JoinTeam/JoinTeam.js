@@ -308,7 +308,7 @@ const JoinTeam = () => {
                         marginBottom: '10px'
                     }}
                 >
-                    <img src={avatar9} className='mb-3' style={{ width: "160px"}}/>
+                    <img src={avatar9} className='mb-3' width="100%" />
 
                 </Box>
         <CRow className="justify-content-center">
