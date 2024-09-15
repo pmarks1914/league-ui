@@ -380,6 +380,13 @@ function evaluationApply(description) {
     // event.preventDefault()
     trackActivity()
   }
+  window.addEventListener('scroll', () => {
+    if (window.scrollY === 0) {
+      // User has scrolled to the top
+      // Trigger reload or refresh
+      getEvaluationStats();
+    }
+  });
 
   function funE(rowIndexData) {
     // console.log("rowIndexData ", rowIndexData)
