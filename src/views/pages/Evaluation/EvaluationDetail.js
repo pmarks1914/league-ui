@@ -112,177 +112,182 @@ const EvaluationDetail = () => {
             {/* <Counter /> */}
             <Box style={{ width: '70%', margin: '0px 0px' }} >
                 {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}> */}
-                <CCard className='mt-5'>
-                    <p className='d-flex justify-content-center mt-2 mb-2 '> <h4>Details: {applicantData?.applicant_full_name} </h4> </p>
-                    <CListGroup flush>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Evaluation progress  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a >
-                                        {applicantData?.progress || 0}{"%"}
-                                    </a>
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Files submitted  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    { (evaluationData?.evaluation_info?.transcript)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.transcript } target='_blank' rel="noreferrer" key={1}> transcript </a>, <br key={2}/>] : '' }
-                                    { (evaluationData?.evaluation_info?.certificate)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.certificate } target='_blank' rel="noreferrer" key={1}> certificate </a>, <br key={2}/>] : '' }
-                                    { (evaluationData?.evaluation_info?.identification)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.identification } target='_blank' rel="noreferrer" key={1}> identification </a>, <br key={2}/>] : '' }
-                                    { (evaluationData?.evaluation_info?.report)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.report } target='_blank' rel="noreferrer" key={1}> Report </a>, <br key={2}/>] : '' } 
-                                    { (evaluationData?.evaluation_info?.recommendation)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.recommendation } target='_blank' rel="noreferrer" key={1}> recommendation </a>, <br key={2}/>] : '' } 
-                                    { (evaluationData?.evaluation_info?.photo)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.photo } target='_blank' rel="noreferrer" key={1}> photo </a>, <br key={2}/>] : '' } 
 
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Basic info  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a > {evaluationData?.evaluation_info?.first_name} {evaluationData?.evaluation_info?.other_name} {evaluationData?.evaluation_info?.last_name}  </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.email} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.phone} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.email} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.email} </a>
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Address  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a > {evaluationData?.evaluation_info?.country}  </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.town} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.city} </a> <br />
-                                    <a > ({evaluationData?.evaluation_info?.lat || 0}, {evaluationData?.evaluation_info?.lon || 0} ) </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.address} </a>
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Educational info  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a > {evaluationData?.evaluation_info?.degree_obtained} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.major_study} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.institution_name} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.department_office} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.gpa} </a>
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Purpose evaluation </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a > {evaluationData?.evaluation_info?.purpose_evaluation} </a> <br />
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic">  Payment method  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a > {evaluationData?.evaluation_info?.payment_method} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.billing_address} </a> <br />
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic">  Reference  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a > {evaluationData?.evaluation_info?.reference_email} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.reference_phone} </a> <br />
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic">  Contact person  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a > {evaluationData?.evaluation_info?.contact_person} </a> <br />
-                                    <a > {evaluationData?.evaluation_info?.contact_person_email} </a> <br />
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic">  Verification consent  </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a > {evaluationData?.evaluation_info?.verification_status} </a> <br />
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-                        <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4"> </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a href={`/evaluation-edit/${evaluationData?.id}`} > Edit </a> <br />
-                                </Col>
-                            </Row>
-                        </CListGroupItem>
-
-
-
-
-                    </CListGroup>
-                </CCard>
+                {
+                    evaluationData?.evaluation_info ?
+                    <CCard className='mt-5'>
+                        <p className='d-flex justify-content-center mt-2 mb-2 '> <h4>Details: {applicantData?.applicant_full_name} </h4> </p>
+                        <CListGroup flush>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic"> Evaluation progress  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a >
+                                            {applicantData?.progress || 0}{"%"}
+                                        </a>
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic"> Files submitted  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        { (evaluationData?.evaluation_info?.transcript)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.transcript } target='_blank' rel="noreferrer" key={1}> transcript </a>, <br key={2}/>] : '' }
+                                        { (evaluationData?.evaluation_info?.certificate)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.certificate } target='_blank' rel="noreferrer" key={1}> certificate </a>, <br key={2}/>] : '' }
+                                        { (evaluationData?.evaluation_info?.identification)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.identification } target='_blank' rel="noreferrer" key={1}> identification </a>, <br key={2}/>] : '' }
+                                        { (evaluationData?.evaluation_info?.report)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.report } target='_blank' rel="noreferrer" key={1}> Report </a>, <br key={2}/>] : '' } 
+                                        { (evaluationData?.evaluation_info?.recommendation)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.recommendation } target='_blank' rel="noreferrer" key={1}> recommendation </a>, <br key={2}/>] : '' } 
+                                        { (evaluationData?.evaluation_info?.photo)?.length > 0 ? [<a href={evaluationData?.evaluation_info?.photo } target='_blank' rel="noreferrer" key={1}> photo </a>, <br key={2}/>] : '' } 
+    
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic"> Basic info  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a > {evaluationData?.evaluation_info?.first_name} {evaluationData?.evaluation_info?.other_name} {evaluationData?.evaluation_info?.last_name}  </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.email} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.phone} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.email} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.email} </a>
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic"> Address  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a > {evaluationData?.evaluation_info?.country}  </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.town} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.city} </a> <br />
+                                        <a > ({evaluationData?.evaluation_info?.lat || 0}, {evaluationData?.evaluation_info?.lon || 0} ) </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.address} </a>
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic"> Educational info  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a > {evaluationData?.evaluation_info?.degree_obtained} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.major_study} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.institution_name} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.department_office} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.gpa} </a>
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic"> Purpose evaluation </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a > {evaluationData?.evaluation_info?.purpose_evaluation} </a> <br />
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic">  Payment method  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a > {evaluationData?.evaluation_info?.payment_method} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.billing_address} </a> <br />
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic">  Reference  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a > {evaluationData?.evaluation_info?.reference_email} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.reference_phone} </a> <br />
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic">  Contact person  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a > {evaluationData?.evaluation_info?.contact_person} </a> <br />
+                                        <a > {evaluationData?.evaluation_info?.contact_person_email} </a> <br />
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4">
+                                        <a >
+                                            <p className="fs-6 fst-italic">  Verification consent  </p>
+                                        </a>
+                                    </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a > {evaluationData?.evaluation_info?.verification_status} </a> <br />
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+                            <CListGroupItem>
+                                <Row className='mb-0 d-flex'>
+                                    <Col sm="4" xm="4" md="4" lg="4" xl="4"> </Col>
+                                    <Col sm="4"></Col>
+                                    <Col sm="4">
+                                        <a href={`/evaluation-edit/${evaluationData?.id}`} > Edit </a> <br />
+                                    </Col>
+                                </Row>
+                            </CListGroupItem>
+    
+    
+    
+    
+                        </CListGroup>
+                    </CCard>
+           
+                : "" }
 
 
             </Box>
