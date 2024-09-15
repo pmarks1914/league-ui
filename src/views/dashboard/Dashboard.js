@@ -82,12 +82,16 @@ const Dashboard = () => {
   useEffect(() => {
 
 
-    let stuData = getDashEvaluation();
-    stuData?.list?.then(value => { setEvaDetails(value) });
-
     trackActivity();
+    getEvaluationStats();
 
   }, [applicationAction])
+
+  function getEvaluationStats(){
+    // 
+    let stuData = getDashEvaluation();
+    stuData?.list?.then(value => { setEvaDetails(value) });
+  }
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
