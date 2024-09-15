@@ -80,10 +80,7 @@ const Dashboard = () => {
   const [applicationAction, setApplicationAction] = useState(1)
 
   useEffect(() => {
-    // 
 
-    // let schData = getSchData();
-    // schData?.list?.then(value => { setSchDetails(value) });
 
     let stuData = getDashEvaluation();
     stuData?.list?.then(value => { setEvaDetails(value) });
@@ -91,7 +88,6 @@ const Dashboard = () => {
     trackActivity();
 
   }, [applicationAction])
-  // console.log("summarry products", evaDetails)
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
