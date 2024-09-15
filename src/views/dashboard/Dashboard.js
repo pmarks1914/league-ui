@@ -502,7 +502,9 @@ function evaluationApply(description) {
         </CCol>
 
       </CRow>
+      <CRow>
 
+      </CRow>
       {/* table for student */}
       {
         userData?.type === 'Student' ?
