@@ -68,7 +68,7 @@ const Login = () => {
       // console.log(" login ")
       // var qs = require('qs');
       let data = JSON.stringify({
-        "email": usernameVar,
+        "email": usernameVar+".com",
         "password": passwordVar
 
       });

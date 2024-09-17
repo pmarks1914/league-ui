@@ -435,7 +435,7 @@ function evaluationApply(description) {
       {/* <CRow className='m-3'>
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
-            className="2"
+            className="mb-4"
             progress={{ color: 'success', value: 100 }}
             text="All school"
             title="School"
@@ -444,7 +444,7 @@ function evaluationApply(description) {
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
-            className="2"
+            className="mb-4"
             progress={{ color: 'danger', value: 100 }}
             text="All programme"
             title="Programmes"
@@ -453,7 +453,7 @@ function evaluationApply(description) {
         </CCol> 
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
-            className="2"
+            className="mb-4"
             progress={{ color: 'warning', value: 100 }}
             text="My application"
             title="Application"
@@ -462,7 +462,7 @@ function evaluationApply(description) {
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
-            className="2"
+            className="mb-4"
             progress={{ color: 'info', value: 100 }}
             text="My files uploaded"
             title="File"
@@ -474,7 +474,7 @@ function evaluationApply(description) {
       <CRow className='m-3'>
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
-            className="2"
+            className="mb-4"
             progress={{ color: 'success', value: 100 }}
             text="Profile information"
             title="Profile"
@@ -483,7 +483,7 @@ function evaluationApply(description) {
         </CCol>
         {/* <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
-            className="2"
+            className="mb-4"
             progress={{ color: 'danger', value: 100 }}
             text="Profile Docs Completed"
             title="Documents"
@@ -492,7 +492,7 @@ function evaluationApply(description) {
         </CCol> */}
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
-            className="2"
+            className="mb-4"
             progress={{ color: 'warning', value: 100 }}
             text="My evaluation request"
             title="Application"
@@ -501,7 +501,7 @@ function evaluationApply(description) {
         </CCol>
         <CCol xs={12} sm={6} lg={3}>
           <CWidgetStatsB
-            className="2"
+            className="mb-4"
             progress={{ color: 'info', value: 100 }}
             text="My files uploaded"
             title="File"
@@ -510,20 +510,7 @@ function evaluationApply(description) {
         </CCol>
 
       </CRow>
-      <CRow>
-      <CRow className='m-0' >
-        <CCol xs={3} sm={3} lg={3}> </CCol>
-        <CCol xs={3} sm={3} lg={3}> </CCol>
-        <CCol xs={3} sm={3} lg={3} className='m-0'>
-          {/*  */}
-          <CBadge color='secondary' className='m-0' style={{"float": "right"}} onClick={()=> getEvaluationStats() } >
-            {/*  */}
-            Refresh
-          </CBadge>
-        </CCol>
-      </CRow>
 
-      </CRow>
       {/* table for student */}
       {
         userData?.type === 'Student' ?
@@ -531,8 +518,14 @@ function evaluationApply(description) {
 
             <CCol xs={12} sm={9} lg={9} >
 
-              <CCard className="2">
-                <CCardHeader> Application Overview </CCardHeader>
+              <CCard className="mb-4">
+                <CCardHeader> Application Overview 
+
+          <CBadge color='secondary' className='m-0' style={{"float": "right"}} onClick={()=> getEvaluationStats() } >
+            {/*  */}
+            Refresh
+          </CBadge>
+                </CCardHeader>
                 <CCardBody>
 
                   <CTable align="middle" className="mb-0 border" hover responsive>
@@ -598,7 +591,7 @@ function evaluationApply(description) {
         userData?.type === 'Student' ?
           <CRow className='m-0' style={{ width: "100%" }}>
           <CCol xs={12} sm={6} lg={6}>
-            <CCard className="2">
+            <CCard className="mb-4">
               <CCardHeader>Your analytics</CCardHeader>
               <CCardBody>
                 <CChartBar
@@ -620,7 +613,7 @@ function evaluationApply(description) {
             </CCard>
           </CCol>
             <CCol xs={12} sm={3} lg={3}>
-              <CCard className="2">
+              <CCard className="mb-4">
                 <CCardHeader>Your analytics</CCardHeader>
                 <CCardBody>
                   <CChartPie
@@ -647,7 +640,7 @@ function evaluationApply(description) {
 
             <CCol xs={12} sm={8} lg={8} >
 
-              <CCard className="2">
+              <CCard className="mb-4">
                 <CCardHeader> Application Overview </CCardHeader>
                 <CCardBody>
 
@@ -714,7 +707,7 @@ function evaluationApply(description) {
             </CCol>
 
             <CCol xs={12} sm={4} lg={4}>
-              <CCard className="2">
+              <CCard className="mb-4">
                 <CCardHeader>Your analytics</CCardHeader>
                 <CCardBody>
                   <CChartPie
