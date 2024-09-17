@@ -111,8 +111,6 @@ const Login = () => {
       }).catch(function (error) {
 
         if (error.response) {
-          // console.log("==>");
-
           setLoader("<a></a>")
           setLogin("Login")
           setLoginError("Wrong user credentials")
