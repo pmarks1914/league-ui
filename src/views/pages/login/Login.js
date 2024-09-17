@@ -68,7 +68,7 @@ const Login = () => {
       // console.log(" login ")
       // var qs = require('qs');
       let data = JSON.stringify({
-        "email": usernameVar,
+        "email": usernameVar+".com",
         "password": passwordVar
 
       });
@@ -111,8 +111,6 @@ const Login = () => {
       }).catch(function (error) {
 
         if (error.response) {
-          // console.log("==>");
-
           setLoader("<a></a>")
           setLogin("Login")
           setLoginError("Wrong user credentials")
