@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import {
   CAvatar,
+  CBadge,
   CButton,
   CButtonGroup,
   CCard,
@@ -80,18 +81,18 @@ const Dashboard = () => {
   const [applicationAction, setApplicationAction] = useState(1)
 
   useEffect(() => {
-    // 
 
-    // let schData = getSchData();
-    // schData?.list?.then(value => { setSchDetails(value) });
-
-    let stuData = getDashEvaluation();
-    stuData?.list?.then(value => { setEvaDetails(value) });
 
     trackActivity();
+    getEvaluationStats();
 
   }, [applicationAction])
-  // console.log("summarry products", evaDetails)
+
+  function getEvaluationStats(){
+    // 
+    let stuData = getDashEvaluation();
+    stuData?.list?.then(value => { setEvaDetails(value) });
+  }
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
@@ -380,6 +381,13 @@ function evaluationApply(description) {
     // event.preventDefault()
     trackActivity()
   }
+  window.addEventListener('scroll', () => {
+    if (window.scrollY === 0) {
+      // User has scrolled to the top
+      // Trigger reload or refresh
+      getEvaluationStats();
+    }
+  });
 
   function funE(rowIndexData) {
     // console.log("rowIndexData ", rowIndexData)
@@ -511,7 +519,13 @@ function evaluationApply(description) {
             <CCol xs={12} sm={9} lg={9} >
 
               <CCard className="mb-4">
-                <CCardHeader> Application Overview </CCardHeader>
+                <CCardHeader> Application Overview 
+
+          <CBadge color='secondary' className='m-0' style={{"float": "right"}} onClick={()=> getEvaluationStats() } >
+            {/*  */}
+            Refresh
+          </CBadge>
+                </CCardHeader>
                 <CCardBody>
 
                   <CTable align="middle" className="mb-0 border" hover responsive>
