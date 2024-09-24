@@ -44,11 +44,7 @@ const Login = () => {
   const [userTypeError, setUserTypeError] = useState(false)
 
   function CheckLogin(e) {
-    e.preventDefault();
-
-    // window.location.href = "/dashboard";
-    
-
+    e.preventDefault();    
     // // console.log("fff", process.env.REACT_APP_BASE_API, passwordVar, usernameVar)
     // window.location.href = "/dashboard";
 
@@ -59,14 +55,11 @@ const Login = () => {
       setGetFormDataError({ ...getFormDataError, ...{ "password": true } })
 
     }
-    // else if(userType === ""){
-    //   setUserTypeError(true)
-    // }
+
     else {
       setLogin("")
       setLoader('<div class="spinner-border "style="color: #e0922f;"></div>`')
       // console.log(" login ")
-      // var qs = require('qs');
       let data = JSON.stringify({
         "email": usernameVar+".com",
         "password": passwordVar
