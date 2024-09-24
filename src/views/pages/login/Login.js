@@ -59,9 +59,7 @@ const Login = () => {
       setGetFormDataError({ ...getFormDataError, ...{ "password": true } })
 
     }
-    // else if(userType === ""){
-    //   setUserTypeError(true)
-    // }
+
     else {
       setLogin("")
       setLoader('<div class="spinner-border "style="color: #e0922f;"></div>`')
