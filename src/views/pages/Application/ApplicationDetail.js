@@ -99,11 +99,6 @@ const ApplicationDetail = () => {
                             </Row>
 
                         </CListGroupItem>
-                        {/* <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                            
-                            </Row>
-                        </CListGroupItem> */}
                         
 
                         <CListGroupItem>
