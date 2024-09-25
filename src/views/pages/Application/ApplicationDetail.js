@@ -101,21 +101,7 @@ const ApplicationDetail = () => {
                         </CListGroupItem>
                         {/* <CListGroupItem>
                             <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Application open period </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a >
-                                        {applicantData?.applicant_program_start_date || "N/A"}
-                                        <br />
-                                        {"To"}
-                                        <br />
-                                        {applicantData?.applicant_program_end_date || "N/A"}
-                                    </a>
-                                </Col>
+                            
                             </Row>
                         </CListGroupItem> */}
                         
