@@ -30,20 +30,8 @@ console.log(applicantData, userData)
 const ApplicationDetail = () => {
     return (
         <div className='d-flex justify-content-center' style={{ margin: '0px 0px 0px 0px' }}  >
-            {/* <Counter /> */}
-
-            {/* <CCard>
-                <CCardHeader></CCardHeader>
-                <CCardBody>
-                  <CCardTitle></CCardTitle>
-                  <CCardText>
-                  </CCardText>
-                  
-                </CCardBody>
-              </CCard> */}
 
             <Box style={{ width: '70%', margin: '0px 0px' }} >
-                {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}> */}
                 <CCard className='mt-5'>
                     <p className='d-flex justify-content-center mt-4 mb-2 '> <h4>Details: {applicantData?.applicant_full_name} </h4> </p>
                     <CListGroup flush>
@@ -111,25 +99,6 @@ const ApplicationDetail = () => {
                             </Row>
 
                         </CListGroupItem>
-                        {/* <CListGroupItem>
-                            <Row className='mb-0 d-flex'>
-                                <Col sm="4" xm="4" md="4" lg="4" xl="4">
-                                    <a >
-                                        <p className="fs-6 fst-italic"> Application open period </p>
-                                    </a>
-                                </Col>
-                                <Col sm="4"></Col>
-                                <Col sm="4">
-                                    <a >
-                                        {applicantData?.applicant_program_start_date || "N/A"}
-                                        <br />
-                                        {"To"}
-                                        <br />
-                                        {applicantData?.applicant_program_end_date || "N/A"}
-                                    </a>
-                                </Col>
-                            </Row>
-                        </CListGroupItem> */}
                         
 
                         <CListGroupItem>
