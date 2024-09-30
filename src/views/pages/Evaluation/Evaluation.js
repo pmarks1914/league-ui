@@ -14,8 +14,6 @@ const userData = JSON.parse(localStorage.getItem("userDataStore"));
 
 const Evaluation = () => {
     // let userGetInfo = []
-    // let userGetInfoData = getEvaluation();
-    // userGetInfoData?.list?.then(value => { userGetInfo=value });
 
     const [pushData, setPushData] = useState(false)
     //   console.log("userData ", userData)
