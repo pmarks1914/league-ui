@@ -99,7 +99,6 @@ const EvaluationDetail = () => {
     }
 
     function trackActivity() {
-        // e.preventDefault();
         // getSessionTimeout();
         const currentUser_new = JSON.parse(localStorage.getItem("userDataStore"));
         if (currentUser_new) {
