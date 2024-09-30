@@ -109,9 +109,7 @@ const EvaluationDetail = () => {
     }
     return (
         <div className='d-flex justify-content-center' style={{ margin: '0px 0px 0px 0px' }}  >
-            {/* <Counter /> */}
             <Box style={{ width: '70%', margin: '0px 0px' }} >
-                {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}> */}
 
                 {
                     evaluationData?.evaluation_info ?
