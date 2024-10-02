@@ -61,7 +61,7 @@ const Login = () => {
       setLoader('<div class="spinner-border "style="color: #e0922f;"></div>`')
       // console.log(" login ")
       let data = JSON.stringify({
-        "email": usernameVar+".com",
+        "email": usernameVar,
         "password": passwordVar
 
       });
