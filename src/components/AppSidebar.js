@@ -37,7 +37,7 @@ const AppSidebar = () => {
         <img src={logo} alt="collegeleague logo" width="50%" className='m-0' />
         {/* <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
       </CSidebarBrand>
-      <CSidebarBrand className="d-flex rounded-0 text-white bg-dark " to="/"> {("college league")?.toLocaleUpperCase()}
+      <CSidebarBrand className="d-flex rounded-0 text-white bg-dark " to="/"> {("venture innovo")?.toLocaleUpperCase()}
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>
