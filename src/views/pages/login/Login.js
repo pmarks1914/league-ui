@@ -159,7 +159,7 @@ const Login = () => {
                 <CRow>
                   <CCol xs="0" sm="0" md={0} lg="1" xl="1" ></CCol>
                   <CCol xs="12" sm="12" md={12} lg="10" xl="10" className='trade-name' >
-                    <span><img src={avatar9} className='mb-0' width="100%" alt="college league" /> </span>
+                    <span><img src={avatar9} className='mb-0' width="100%" alt="venture innovo" /> </span>
 
 
                     <p className='m-0 text-center fs-6'>
