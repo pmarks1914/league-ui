@@ -452,7 +452,7 @@ const JoinTeam = () => {
             >
               <p className='mt-10 text-center'> 
                 <br />
-                By clicking {'"'}{login}{'"'}, I agree to the Service Agreement, <a href='https://collegeleague.com/terms/'> Terms </a> of service and <a href='https://collegeleague.com/privacy/'>  Privacy </a> Policy. 
+                By clicking {'"'}{login}{'"'}, I agree to the Service Agreement, <a href='https://ventureinnovo.com/terms/'> Terms </a> of service and <a href='https://ventureinnovo.com/privacy/'>  Privacy </a> Policy. 
                 <br />
                 Already have an account? <a href='/login'> Sign in </a>
               </p>
