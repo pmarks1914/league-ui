@@ -79,7 +79,6 @@ const Login = () => {
               let counter = 600000; // 600000 = 10m
               let userData = response.data;
               userData = {...userData, ...{type: userType, counter: counter}}
-              // console.log((JSON.stringify(userData)));
               localStorage.setItem("userDataStore", JSON.stringify(userData));
               // Cookie
               // document.cookie = "cookieData" + "=" + JSON.stringify({ 
