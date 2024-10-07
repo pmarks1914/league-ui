@@ -105,7 +105,6 @@ export default function SignUp() {
       else if ( !(getFormData?.first_name) || Number(getFormData?.first_name) || getFormData?.first_name?.length < 2 ){
         setGetFormDataError({...getFormDataError, ...{"first_name": true}})
       }
-      // console.log(getFormData?.first_name?.length)
 
       else if ( !(getFormData?.last_name) || Number(getFormData?.last_name) || getFormData?.last_name?.length < 2){
         
