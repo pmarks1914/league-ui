@@ -208,7 +208,6 @@ export default function SignUp() {
   }
 
   function sendApiData(config){
-    // console.log(config)
     axios(config).then(function (response){
       
       if(response?.data?.code === 200){
