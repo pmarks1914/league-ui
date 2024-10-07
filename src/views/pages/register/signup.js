@@ -135,12 +135,9 @@ export default function SignUp() {
 
   function sendOTP(){
     
-
     const payload = JSON.stringify({
       "email": getFormData?.email
     })
-
-
     let config_otp = {
       method: 'post',
       url: process.env.REACT_APP_BASE_API + "/v1/otp/email",
