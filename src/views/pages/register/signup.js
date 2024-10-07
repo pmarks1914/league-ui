@@ -105,7 +105,6 @@ export default function SignUp() {
       else if ( !(getFormData?.first_name) || Number(getFormData?.first_name) || getFormData?.first_name?.length < 2 ){
         setGetFormDataError({...getFormDataError, ...{"first_name": true}})
       }
-      // console.log(getFormData?.first_name?.length)
 
       else if ( !(getFormData?.last_name) || Number(getFormData?.last_name) || getFormData?.last_name?.length < 2){
         
@@ -136,12 +135,9 @@ export default function SignUp() {
 
   function sendOTP(){
     
-
     const payload = JSON.stringify({
       "email": getFormData?.email
     })
-
-
     let config_otp = {
       method: 'post',
       url: process.env.REACT_APP_BASE_API + "/v1/otp/email",
@@ -209,7 +205,6 @@ export default function SignUp() {
   }
 
   function sendApiData(config){
-    // console.log(config)
     axios(config).then(function (response){
       
       if(response?.data?.code === 200){
