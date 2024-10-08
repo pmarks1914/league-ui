@@ -23,7 +23,7 @@ import { Col, Row } from 'reactstrap';
 
 const userData = JSON.parse(localStorage.getItem("userDataStore"));
 const applicantData = JSON.parse(localStorage.getItem("applicantData"));
-console.log(applicantData, userData)
+// console.log(applicantData, userData)
 
 
 

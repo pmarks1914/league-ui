@@ -55,7 +55,6 @@ export default function SignUp() {
         "newPassword": newPassword,
         "newPassword2": newPassword2,
       })
-      // console.log(payload);
 
       // console.log(payload)
         let config = {
