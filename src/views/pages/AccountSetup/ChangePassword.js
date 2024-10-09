@@ -105,9 +105,6 @@ export default function SignUp() {
                           Change Password
                         </p>
 
-                        {/* <Typography component="h6" variant="h6" className='mt-3 text-center fs-6'>
-                            Change Password
-                        </Typography> */}
                         <CCol xs="12" sm="12" md={12} lg={12} className="mt-1" >
                           <div className='mui-control-form' >
                             <Box
