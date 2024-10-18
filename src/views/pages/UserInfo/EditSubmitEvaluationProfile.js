@@ -119,7 +119,6 @@ const EditSubmittedEvaluationProfile = () => {
           </TabPane>
       </TabContent>
 
-      {/* <PaginatedCardList /> */}
     </div>
   );
 };
