@@ -22,7 +22,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import { getSessionTimeout } from '../../../Utils/Utils';
 import EditSubmittedEvaluationInfo from './Profile/EditSubmittedEvaluationInfo';
 import College from './College.js/College';
-import PaginatedCardList from './PaginatedCardList';
 
 
 const EditSubmittedEvaluationProfile = () => {
