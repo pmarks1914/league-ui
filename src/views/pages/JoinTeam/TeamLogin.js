@@ -120,9 +120,7 @@ const Login = () => {
 
       }).catch(function (error) {
 
-        if (error.response) {
-          // // console.log("==>");
-          
+        if (error.response) {          
           setLoader("<a></a>")
           setLogin("Login")
           setLoginError("Wrong user credentials")
