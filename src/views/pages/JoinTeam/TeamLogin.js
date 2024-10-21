@@ -37,8 +37,6 @@ const Login = () => {
   function CheckLogin(e) {
     e.preventDefault();
 
-    // // console.log("fff", process.env.REACT_APP_BASE_API, passwordVar, usernameVar)
-
     if (usernameVar === "") {
       // document.getElementById("usernameError").style.display = "block";
     }
@@ -122,9 +120,7 @@ const Login = () => {
 
       }).catch(function (error) {
 
-        if (error.response) {
-          // // console.log("==>");
-          
+        if (error.response) {          
           setLoader("<a></a>")
           setLogin("Login")
           setLoginError("Wrong user credentials")
