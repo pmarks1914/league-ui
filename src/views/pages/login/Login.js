@@ -74,7 +74,6 @@ const Login = () => {
         data: data
       };
       axios(config).then(response => {
-        // console.log(response.data, "auth ", response.data.token_type + " " + response.data.token);
         if(userType === "Student"){
               let counter = 600000; // 600000 = 10m
               let userData = response.data;
